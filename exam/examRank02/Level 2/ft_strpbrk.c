@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-char	*ft_strpbrk(const char *s1, const char *s2)
+char	*ft_strpbrk(const char *s1, const char *s2) //this func: returns the pointer of the first occurence of the chrac: from the searched string
 {
     int j = 0;
     int i = 0;
