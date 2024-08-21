@@ -5,40 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 17:53:14 by nsan              #+#    #+#             */
-/*   Updated: 2024/08/21 10:38:43 by marvin           ###   ########.fr       */
+/*   Created: 2024/08/21 10:07:01 by marvin            #+#    #+#             */
+/*   Updated: 2024/08/21 10:07:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-char	*ft_strdup(const char *src)
+char    *ft_strdup(char *src)
 {
-	char	*dest;
-	int		i;
+    char *strmalloc;
+    int i = 0;
 
-	i = 0;
-	while (src[i] != '\0')
-		i++;
-	dest = (char *)malloc(sizeof(char) * (i + 1));
-	if (dest == NULL)
-		return (NULL);
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+    while(src[i] != '\0')
+        i++;
+    strmalloc = (char *)malloc(sizeof(char) * (i + 1));
+    if(strmalloc == NULL)
+        return (NULL);
+    i = 0;
+    while(src[i] != '\0')
+    {
+        strmalloc[i] = src[i];
+        i++;
+    }
+    strmalloc[i] = '\0';
+    return (strmalloc);
 }
-
-// int	main(void)
+// int main(void)
 // {
-// 	char	*str;
-// 	char	*newstr;
-
-// 	str = "Hello world";
-// 	newstr = ft_strdup(str);
-// 	printf("%s", newstr);
+//     char *src = "hello";
+//     char *res= ft_strdup(src);
+//     printf("%s", res);
 // }
