@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 19:41:18 by nsan              #+#    #+#             */
-/*   Updated: 2024/08/24 14:23:09 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:24:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,3 +32,5 @@ void do_op_more(t_struct_node* stackA)
         head = head->next;
     }
 }
+//finish the condition on stackA elements
+//Then continue the stackB sorting
