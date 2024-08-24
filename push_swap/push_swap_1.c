@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:58 by nsan              #+#    #+#             */
-/*   Updated: 2024/08/24 13:39:28 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/24 13:43:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int main(int argc, char** argv)
         {
             int j = atoi(argv[argc-1]);
             push(&stackA, j);
-            //do_op_more();
+            //do_op_more(&stackA);
             argc--;
         }
     }
