@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:58 by nsan              #+#    #+#             */
-/*   Updated: 2024/08/16 19:25:08 by nsan             ###   ########.fr       */
+/*   Updated: 2024/08/24 13:39:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,22 @@ int main(int argc, char** argv)
     struct node* stackB = NULL;
     /* The constructed linked list is: 
      1->2->3->4->5 */
-    while(argc > 1)
+    
+    if (argc >= 5)
     {
-        int j = atoi(argv[argc-1]);
-        push(&stackA, j);
-        argc--;
+        while(argc > 1)
+        {
+            int j = atoi(argv[argc-1]);
+            push(&stackA, j);
+            //do_op_more();
+            argc--;
+        }
     }
+    else if(argc == 3 && argc ==4)
+        do_op();
+    else
+        printf("Require at least 2 arguments");
+
     show_lst(stackA, stackB); 
 
     //int midpoint = getMid(start);
