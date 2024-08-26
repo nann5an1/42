@@ -18,20 +18,19 @@ int     *ft_rrange(int start, int end)
     len = abs(start - end) + 1;
 
     int* range = malloc(sizeof(int) * len);
-    // if(range == NULL)
-    //     return (0);
+    int i = 0;
     if(end >= start)
     {
         while(end >= start)
         {
-            range[len--] = start++;
+            range[i++] = end--;
         }
     }
     else
     {
         while(start >= end)
         {
-            range[len--] = start--;
+            range[i++] = end++;
         }
     }
     return (range);
@@ -39,8 +38,8 @@ int     *ft_rrange(int start, int end)
 
 int main()
 {
-    int* range = ft_rrange(10,7);
-    for(int i = 0; i <= 7; i++)
+    int* range = ft_rrange(1, 5);
+    for(int i = 0; i <= 9; i++)
         printf("%d\n", range[i]);
     return (0);
 }
