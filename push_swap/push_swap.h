@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:40:35 by nsan              #+#    #+#             */
-/*   Updated: 2024/08/16 19:24:54 by nsan             ###   ########.fr       */
+/*   Updated: 2024/08/30 22:15:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ void r_rotate(t_struct_node** headref);
 void rotate(struct node** headref);
 int getMid(struct node* head);
 void check(t_struct_node* stackA, t_struct_node* stackB);
-//void check(t_struct_node** stackA, t_struct_node** stackB);
-void push(struct node** headref, int new_data);
+void add_list(struct node** headref, int new_data);
 void show_lst(t_struct_node* stackA, t_struct_node* stackB);
-void display(t_struct_node* stack);
+//void display(t_struct_node* stack);
 int getLength(struct node* head);
+void do_op(t_struct_node *head);
+void push(t_struct_node** dest, t_struct_node** src);
 
 #endif

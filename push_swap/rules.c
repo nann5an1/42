@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rules.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:31:51 by nsan              #+#    #+#             */
-/*   Updated: 2024/08/16 19:25:37 by nsan             ###   ########.fr       */
+/*   Updated: 2024/08/30 22:06:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,45 +60,47 @@ void rotate(struct node** headref)
     last->next = first;
 }
 
-int getLength(struct node* head){
-    int length = 0;
-    while (head)
-    {
-        length++;
-        head = head->next;
-    }
-    return (length);
-}
-
-int getMid(struct node* head) {
-    int length = getLength(head);
-    int mid_index = length/2;
-    while(mid_index--)
-        head = head->next;
-    return (head->data);
-}
-
-void check(t_struct_node* stackA, t_struct_node* stackB)
+void push(t_struct_node** dest, t_struct_node** src)
 {
-    // t_struct_node* stackB = NULL;
-    struct node* head = stackA;
-    t_struct_node* newstackA = NULL;
-    
-    int mid = getMid(head);
-    //printf("%d", mid);
-    while(head != NULL)
-    {
-        if(head->data < mid)
-            push(&stackB, head->data);
-        else
-            push(&newstackA, head->data);
-        head = head->next;
-    }
-    //show_lst(newstackA, stackB);
-    display(newstackA);
-    display(stackB);
-    //return (stackB);
+    t_struct_node* temp = *src;
+    temp->next = NULL;
+    if(*dest)
+        temp->next = *dest;
+    else
+        temp->next = NULL;
+    *dest = temp;
+    *src = (*src)->next;
 }
+
+// int getMid(struct node* head) {
+//     int length = getLength(head);
+//     int mid_index = length/2;
+//     while(mid_index--)
+//         head = head->next;
+//     return (head->data);
+// }
+
+// void check(t_struct_node* stackA, t_struct_node* stackB)
+// {
+//     // t_struct_node* stackB = NULL;
+//     struct node* head = stackA;
+//     t_struct_node* newstackA = NULL;
+    
+//     int mid = getMid(head);
+//     //printf("%d", mid);
+//     while(head != NULL)
+//     {
+//         if(head->data < mid)
+//             push(&stackB, head->data);
+//         else
+//             push(&newstackA, head->data);
+//         head = head->next;
+//     }
+//     //show_lst(newstackA, stackB);
+//     display(newstackA);
+//     display(stackB);
+//     //return (stackB);
+// }
 
 // void check(t_struct_node** stackA, t_struct_node** stackB)
 // {
