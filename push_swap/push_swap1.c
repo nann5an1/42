@@ -52,8 +52,10 @@ int getMed(t_struct_node *head) //
     int num = 0;
     int med;
    
-    t_struct_node* sorted = sort_ascend(head);
-     t_struct_node* temp = sorted;
+    t_struct_node *before_sort = head;
+    t_struct_node *sorted = sort_ascend(head);
+    t_struct_node *temp = sorted;
+    printf("Sorted out print in getMed:");
     while(temp)
     {
         printf("%d   ", temp->data);
@@ -68,12 +70,12 @@ int getMed(t_struct_node *head) //
     {
         while(i != ((node_count/2) - 1))
         {
-            sorted = sorted->next;
+            before_sort = before_sort->next;
             i++;
         }
-        num += sorted->data;
-        sorted = sorted->next;
-        num +=sorted->data;
+        num += before_sort->data;
+        before_sort = before_sort->next;
+        num +=before_sort->data;
         //printf("%d", num);
         med = num/2;
     }
@@ -81,10 +83,10 @@ int getMed(t_struct_node *head) //
     {
         while(i != node_count/2)
         {
-            sorted = sorted->next;
+            before_sort = before_sort->next;
             i++;
         }
-        med = sorted->data;
+        med = before_sort->data;
     }
     return (med);
 }
@@ -97,7 +99,6 @@ void add_list(struct node** headref, int new_data)
 }
 void show_lst(t_struct_node* stacka, t_struct_node* stackb) 
 {
-    t_struct_node* original_stackA = stacka;
     printf("\n\n");
     printf("Stack A\t\t");
     while (stacka != NULL)
@@ -112,18 +113,11 @@ void show_lst(t_struct_node* stacka, t_struct_node* stackb)
         stackb = stackb->next;
     }
     printf("\n\n");
-    t_struct_node* node = sort_ascend(original_stackA);
-    while(node)
-    {
-        printf("%d   ", node->data);
-        node = node->next;
-    }
-    printf("\n\n");
 }
-void push(t_struct_node** dest, t_struct_node** src)
+void push(t_struct_node** dest, t_struct_node* src)
 {
-    t_struct_node* temp = *src;
-    *src = (*src)->next;
+    t_struct_node *temp = src;
+    src = src->next;
     temp->next = *dest;
     *dest = temp;
 }
@@ -131,26 +125,35 @@ void do_op(t_struct_node *stackA) // t_struct_node points to the first head of t
 {
     t_struct_node *ref = stackA; //(*stackA is the head ref to its stack pointer)
     t_struct_node *stackB = NULL;
+    t_struct_node  *prev = NULL;
 
     int med = getMed(stackA);
     printf("Median: %d\n", med);
-    while(stackA)
+    show_lst(ref,stackB);
+    while(ref)
     {
-        if(stackA->data < med)
+        if(ref->data <= med)
         {
-            printf("%d", stackA->data);
-            push(&stackB, &stackA);
+            t_struct_node *next_node = ref->next;
+            if(prev)
+                prev->next = ref->next;
+            else
+                stackA = ref->next;
+            push(&stackB, ref);
+            ref = next_node;
         }
         else
-            stackA = stackA->next;
+        {
+            prev = ref;
+            ref = ref->next;
+        }
     }
-    stackA = ref;
     show_lst(stackA, stackB);
 }
 int main(int argc, char** argv) 
 {
     t_struct_node* stackA = NULL;
-    //t_struct_node* stackB = NULL;
+    t_struct_node* stackB = NULL;
     /* The constructed linked list is: 
      1->2->3->4->5 */
     while(--argc)
@@ -158,7 +161,8 @@ int main(int argc, char** argv)
     // t_struct_node* node = sort_ascend(stackA);
     // int res = getMed(stackA);
     // printf("Median: %d", res);
-
+    printf("Before sorting and median: ");
+    show_lst(stackA, stackB);
     do_op(stackA);
     return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:40:35 by nsan              #+#    #+#             */
-/*   Updated: 2024/09/02 11:19:59 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/02 15:29:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void add_list(struct node** headref, int new_data);
 //void show_lst(t_struct_node* stackA, t_struct_node* stackB);
 //void display(t_struct_node* stack);
 int getLength(struct node* head);
-void do_op(t_struct_node *head);
-void push(t_struct_node** dest, t_struct_node** src);
+void do_op(t_struct_node *stackA);
+void push(t_struct_node** dest, t_struct_node* src);
 t_struct_node* sort_ascend(t_struct_node* head);
 
 #endif
