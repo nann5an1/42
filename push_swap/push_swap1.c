@@ -33,6 +33,7 @@ t_struct_node* sort_ascend(t_struct_node* head)
         }
         ref = ref->next;
     }
+    // head = ref;
     return (head);
 }
 
@@ -52,7 +53,8 @@ int getMed(t_struct_node *head) //
     int num = 0;
     int med;
    
-    t_struct_node *before_sort = head;
+    //t_struct_node *before_sort = head;
+    //t_struct_node *temp_stack = NULL;  
     t_struct_node *sorted = sort_ascend(head);
     t_struct_node *temp = sorted;
     printf("Sorted out print in getMed:");
@@ -70,12 +72,12 @@ int getMed(t_struct_node *head) //
     {
         while(i != ((node_count/2) - 1))
         {
-            before_sort = before_sort->next;
+            head = head->next;
             i++;
         }
-        num += before_sort->data;
-        before_sort = before_sort->next;
-        num +=before_sort->data;
+        num += head->data;
+        head = head->next;
+        num +=head->data;
         //printf("%d", num);
         med = num/2;
     }
@@ -83,10 +85,10 @@ int getMed(t_struct_node *head) //
     {
         while(i != node_count/2)
         {
-            before_sort = before_sort->next;
+            head = head->next;
             i++;
         }
-        med = before_sort->data;
+        med = head->data;
     }
     return (med);
 }
@@ -121,15 +123,27 @@ void push(t_struct_node** dest, t_struct_node* src)
     temp->next = *dest;
     *dest = temp;
 }
+
+// t_struct_node *cloned(t_struct_node* head)
+// {
+//     t_struct_node *new_head = (t_struct_node*)malloc(sizeof(t_struct_node));
+//     new_head->data = head->data;
+//     new_head->next = cloned(head->next);
+//     return (new_head);
+// }
+
 void do_op(t_struct_node *stackA) // t_struct_node points to the first head of the linked list
 {
+    //t_struct_node *cloned_list = cloned(stackA);
     t_struct_node *ref = stackA; //(*stackA is the head ref to its stack pointer)
+    //t_struct_node *temp = stackA;
     t_struct_node *stackB = NULL;
     t_struct_node  *prev = NULL;
 
+    
     int med = getMed(stackA);
     printf("Median: %d\n", med);
-    show_lst(ref,stackB);
+    //show_lst(stackA,stackB);
     while(ref)
     {
         if(ref->data <= med)
