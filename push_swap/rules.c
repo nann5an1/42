@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:31:51 by nsan              #+#    #+#             */
-/*   Updated: 2024/08/30 22:06:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/31 14:32:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,15 @@ void rotate(struct node** headref)
 void push(t_struct_node** dest, t_struct_node** src)
 {
     t_struct_node* temp = *src;
-    temp->next = NULL;
+    if(*src == NULL)
+        return ;
     if(*dest)
         temp->next = *dest;
     else
         temp->next = NULL;
     *dest = temp;
     *src = (*src)->next;
+    
 }
 
 // int getMid(struct node* head) {
