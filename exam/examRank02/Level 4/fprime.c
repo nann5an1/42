@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_hex.c                                        :+:      :+:    :+:   */
+/*   fprime.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/26 22:47:21 by marvin            #+#    #+#             */
-/*   Updated: 2024/08/26 22:47:21 by marvin           ###   ########.fr       */
+/*   Created: 2024/09/03 17:40:21 by marvin            #+#    #+#             */
+/*   Updated: 2024/09/03 17:40:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
+#include <stdio.h>
 int ft_atoi(char *str)
 {
     int i = 0;
@@ -31,20 +30,27 @@ int ft_atoi(char *str)
     }
     return (res * sign);
 }
-
-void hexPrint(int num)
+int main(int ac, char** av)
 {
-    char hexDigits [] = "0123456789abcdef";
-    if(num >= 16)
-        hexPrint(num / 16);
-    write(1, &hexDigits[num % 16], 1);
-}
-int main(int argc, char** argv)
-{
-    if(argc == 2)
+    int i = 1;
+    int num;
+    if(ac == 2)
     {
-        int num = ft_atoi(argv[1]);
-        hexPrint(num);
+        num = ft_atoi(av[1]);
+        if(num == 1)
+            printf("1");
+        while(num >= ++i)
+        {
+            if(num % i == 0)
+            {
+                printf("%d", i);
+                if(num == i)
+                    break;
+                printf("*");
+                num /= i;
+                i = 1;
+            }
+        }
     }
-    write(1, "\n", 1);
+    printf("\n");
 }
