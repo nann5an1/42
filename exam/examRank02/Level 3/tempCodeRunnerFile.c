@@ -10,48 +10,57 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <unistd.h>
+#include <stdio.h>
 
+char toLower(char c)
+{
+	if(c >= 'A' && c <= 'Z')
+		return (c - ('a' - 'A'));
+	return (c);
+}
+int getDigit(char c, int base)
+{
+	int max_digit;
+
+	if(base <= 10)
+		max_digit = base - 1 + '0';
+	else
+		max_digit = base - 10 - 1 + 'a';
+
+	if(c >= '0' && c <= '9' && c <= max_digit)
+		return (c - '0');
+	else if(c >= 'a' && c <= 'z' && c <= max_digit)
+		return (10 + c - 'a');
+	else
+		return (-1);
+}
 int	ft_atoi_base(const char *str, int str_base)
 {
-	int	res;
-	int	sign;
-	int	i;
 
-	if (str_base < 2 || str_base > 16)
+	int sign = 1;
+	int result = 0;
+
+	if(str == NULL || str_base < 2 || str_base > 16)
 		return (0);
-	res = 0;
-	sign = 1;
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r' || str[i] == '\v' || str[i] == '\f')
-		i++;
-	if (str[i] == '-')
+	if(*str == '-')
 	{
 		sign = -1;
-		i++;
+		++str;
 	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9' && str[i] - '0' < str_base)
+	
+	while(*str)
 	{
-		res = res * str_base + (str[i] - '0');
-		i++;
+		int digit = getDigit(toLower((*str)), str_base);
+		if(digit = -1)
+			break;
+		result = result * str_base + digit;
+		++str;
 	}
-	while (str[i] >= 'A' && str[i] <= 'F' && str[i] - 'A' < str_base - 10)
-	{
-		res = res * str_base + (str[i] - 'A' + 10);
-		i++;
-	}
-	while (str[i] >= 'a' && str[i] <= 'f' && str[i] - 'a' < str_base - 10)
-	{
-		res = res * str_base + (str[i] - 'a' + 10);
-		i++;
-	}
-	return (res * sign);
+	return (sign * result);
 }
 int main()
 {
     char* str = "125";
-    printf("%d", ft_atoi_base(str, 5));
+    printf("%d", ft_atoi_base(str, 10));
 }

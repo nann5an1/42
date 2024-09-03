@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 
-
 t_struct_node* sort_ascend(t_struct_node* head)
 {
     int temp;
@@ -162,12 +161,14 @@ void do_op(t_struct_node *stackA) // t_struct_node points to the first head of t
             ref = ref->next;
         }
     }
+
     show_lst(stackA, stackB);
+
 }
 int main(int argc, char** argv) 
 {
     t_struct_node* stackA = NULL;
-    t_struct_node* stackB = NULL;
+    //t_struct_node* stackB = NULL;
     /* The constructed linked list is: 
      1->2->3->4->5 */
     while(--argc)
@@ -175,8 +176,8 @@ int main(int argc, char** argv)
     // t_struct_node* node = sort_ascend(stackA);
     // int res = getMed(stackA);
     // printf("Median: %d", res);
-    printf("Before sorting and median: ");
-    show_lst(stackA, stackB);
+    // printf("Before sorting and median: ");
+    // show_lst(stackA, stackB);
     do_op(stackA);
     return 0;
 }
