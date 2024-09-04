@@ -32,7 +32,7 @@ int* sort_int_tab(int *tab, unsigned int size)
 int main()
 {
     int i = 0;
-    int tab[] = {0, 6, -4};
+    int tab[] = {6, 0, -4};
     int *res = sort_int_tab(tab, 3);
     while(i < 3)
     {
