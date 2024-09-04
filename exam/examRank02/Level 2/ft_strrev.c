@@ -13,16 +13,17 @@
 #include <stdio.h>
 char    *ft_strrev(char *str) //reverse the string in place
 {
-    int i = -1;
+    int i = 0;
     int j = 0;
     char temp;
     while(str[j] != '\0')
         j++;
-    while(++i < j / 2)
+    while(i < j / 2)
     {
         temp = str[i];
         str[i] = str[j - i - 1];
         str[j - i - 1] = temp;
+        i++;
     }
     return (str);
 }

@@ -18,15 +18,16 @@ void ft_putchar(char c)
 }
 void rotone(char* str)
 {
-        while(*str)
+        int i = 0;
+        while(str[i])
         {
-            if(*str >= 'A' && *str<='Z' || *str >= 'a' && *str <= 'z')
-                ft_putchar(*str+1);
-            else if(*str == 'z' || *str == 'Z')
-                ft_putchar(*str-25);
+            if(str[i] >= 'A' && str[i]<='Y' || str[i] >= 'a' && str[i] <= 'y')
+                ft_putchar(str[i] + 1);
+            else if(str[i] == 'z' || str[i] == 'Z')
+                ft_putchar(str[i] - 25);
             else
-                ft_putchar(*str);
-            ++str;
+                ft_putchar(str[i]);
+            i++;
         }
 }
 int main(int argc, char** argv)

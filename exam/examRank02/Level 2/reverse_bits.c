@@ -23,10 +23,10 @@ unsigned char	reverse_bits(unsigned char octet)
     return (res);
 }
 
-// int main()
-// {
-//     int i = 8;
-//     unsigned char res = reverse_bits('2');
-//     while(i--)
-//         printf("%d", res >> i & 1);
-// }
+int main()
+{
+    int i = 8;
+    unsigned char res = reverse_bits('1');
+    while(i--)
+        printf("%d", res >> i & 1);
+}

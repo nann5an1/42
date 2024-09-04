@@ -11,23 +11,21 @@
 /* ************************************************************************** */
 
 #include "do_op.h"
-int main(int argc, char** argv)
+int main(int argc, char *argv[])
 {
-    int res;
-    if(argc == 4)
-    {
-    int num1 = atoi(argv[1]);
-    int num2 = atoi(argv[3]);
-    if(argv[2][0] == '*')
-       printf("%d", atoi(argv[1]) * atoi(argv[3]));
-    else if(argv[2][0] == '/')
-        res = num1 / num2;
-    else if(argv[2][0] == '+')
-        res = num1 + num2;
-    else if(argv[2][0] == '-')
-        res = num1 - num2;
-    else if(argv[2][0] == '%')
-        res = num1 % num2;
-    }
-    printf("%d", res);
+	if (argc == 4)
+	{
+		if (argv[2][0] == '+')
+			printf("%d", (atoi(argv[1]) + atoi(argv[3])));
+		if (argv[2][0] == '-')
+			printf("%d", (atoi(argv[1]) - atoi(argv[3])));
+		if (argv[2][0] == '*')
+			printf("%d", (atoi(argv[1]) * atoi(argv[3])));
+		if (argv[2][0] == '/')
+			printf("%d", (atoi(argv[1]) / atoi(argv[3])));
+		if (argv[2][0] == '%')
+			printf("%d", (atoi(argv[1]) % atoi(argv[3])));
+	}
+	printf("\n");
+	return (0);
 }

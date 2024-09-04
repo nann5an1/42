@@ -20,5 +20,5 @@ int	    is_power_of_2(unsigned int n)
 
 int main()
 {
-    printf("%d", is_power_of_2(25));
+    printf("%d", is_power_of_2(4));
 }
