@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:40:35 by nsan              #+#    #+#             */
-/*   Updated: 2024/09/02 15:29:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/04 20:08:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ int getLength(struct node* head);
 void do_op(t_struct_node *stackA);
 void push(t_struct_node** dest, t_struct_node* src);
 t_struct_node* sort_ascend(t_struct_node* head);
+t_struct_node *cloned(t_struct_node* head);
 
 #endif
