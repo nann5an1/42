@@ -1,1 +1,2 @@
-cloned_list
+if(*head == NULL || (*head)->next == NULL)
+    //         return ;

@@ -12,6 +12,55 @@
 
 #include "push_swap.h"
 
+////////////////////////////   rules  //////////////////////////////////
+void rotate(struct node** headref)
+{
+    if(headref == NULL || (*headref)->next == NULL)
+        return;
+    t_struct_node*  first;
+    t_struct_node*  last;
+
+    first = *headref;
+    last = *headref;
+
+    while(last->next != NULL)
+        last = last->next;
+    *headref = first->next;
+    first->next = NULL;
+    last->next = first;
+}
+
+void swap(t_struct_node** headRef) 
+{    
+    if(*headRef == NULL || (*headRef)-> next == NULL)
+        return;    
+        //Nodes to be swapped
+    t_struct_node* first = *headRef;
+    t_struct_node* second = (*headRef)->next;    //swapping nodes
+    first->next = second->next;
+    second->next = first;    *headRef = second;
+}
+
+void r_rotate(t_struct_node** headref)
+{
+    if(*headref == NULL || (*headref)-> next == NULL)
+        return;
+    
+    //initializing the nodes first
+    t_struct_node* secLast = NULL;
+    t_struct_node* last = *headref; 
+
+    //link the nodes 
+    while (last->next != NULL)
+    {
+        secLast = last;
+        last = last->next;
+    }
+    secLast->next = NULL;
+    last->next = *headref;
+    *headref = last;
+}
+/////////////////////////////////////////////////////////////////////
 t_struct_node* sort_ascend(t_struct_node* head)
 {
     int temp;
@@ -36,6 +85,7 @@ t_struct_node* sort_ascend(t_struct_node* head)
     return (head);
 }
 
+///////////////////// LENGTH & MEDIAN   //////////////////////////////////
 int getLength(t_struct_node *head)
 {
     int length = 0;
@@ -91,6 +141,8 @@ int getMed(t_struct_node *head) //
     }
     return (med);
 }
+
+/////////////////////////////////////////////////////////////////////
 void add_list(struct node** headref, int new_data)
 {
     struct node* new_node = malloc(sizeof(struct node));
@@ -115,6 +167,33 @@ void show_lst(t_struct_node* stacka, t_struct_node* stackb)
     }
     printf("\n\n");
 }
+
+t_struct_node *maxNode(t_struct_node *ref)
+{
+    t_struct_node* max_node = ref;
+    while(ref)
+    {
+        if(ref->data > max_node->data)
+            max_node = ref;
+        ref = ref->next;
+    }
+    return (max_node);
+}
+
+t_struct_node *do_sort(t_struct_node **head)
+{
+    t_struct_node *max = maxNode(*head);
+    if(max != (*head))
+    {
+        if((*head)->data < (*head)->next->data)
+            rotate(head);
+        else
+            swap(head);
+        do_sort(head);
+        r_rotate(head);
+    }
+    return (*head);
+}
 void push(t_struct_node** dest, t_struct_node* src)
 {
     t_struct_node *temp = src;
@@ -122,7 +201,6 @@ void push(t_struct_node** dest, t_struct_node* src)
     temp->next = *dest;
     *dest = temp;
 }
-
 
 t_struct_node *cloned(t_struct_node* head)
 {
@@ -141,6 +219,8 @@ void do_op(t_struct_node *stackA) // t_struct_node points to the first head of t
     // t_struct_node *temp = stackA;
     t_struct_node *stackB = NULL;
     t_struct_node  *prev = NULL;
+    t_struct_node *head;
+    int data;
     // int cdata;
     // while(cloned_list)
     // {
@@ -170,10 +250,18 @@ void do_op(t_struct_node *stackA) // t_struct_node points to the first head of t
             ref = ref->next;
         }
     }
-
+    printf("Stack A list before finding maxNode: " );
     show_lst(stackA, stackB);
-
+    head = do_sort(&stackA);
+    while(head)
+    {
+        data = head->data;
+        printf("sort data: %d\n", data);
+        head = head->next;
+    }
+    //printf("%d", maxNode(stackA));
 }
+
 int main(int argc, char** argv) 
 {
     t_struct_node* stackA = NULL;

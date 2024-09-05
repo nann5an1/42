@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:40:35 by nsan              #+#    #+#             */
-/*   Updated: 2024/09/04 20:08:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/05 18:36:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,14 @@ typedef struct node{
 void swap(t_struct_node** headRef);
 void r_rotate(t_struct_node** headref);
 void rotate(struct node** headref);
-//int getMid(struct node* head);
 void check(t_struct_node* stackA, t_struct_node* stackB);
 void add_list(struct node** headref, int new_data);
-//void show_lst(t_struct_node* stackA, t_struct_node* stackB);
-//void display(t_struct_node* stack);
 int getLength(struct node* head);
 void do_op(t_struct_node *stackA);
 void push(t_struct_node** dest, t_struct_node* src);
 t_struct_node* sort_ascend(t_struct_node* head);
 t_struct_node *cloned(t_struct_node* head);
+t_struct_node *maxNode(t_struct_node *ref);
+t_struct_node *do_sort(t_struct_node **head);
 
 #endif
