@@ -142,7 +142,7 @@ int getMed(t_struct_node *head) //
     return (med);
 }
 
-/////////////////////////////////////////////////////////////////////
+/////////////////// ADD AND SHOW LIST  /////////////////////////////
 void add_list(struct node** headref, int new_data)
 {
     struct node* new_node = malloc(sizeof(struct node));
@@ -168,8 +168,25 @@ void show_lst(t_struct_node* stacka, t_struct_node* stackb)
     printf("\n\n");
 }
 
+/////////////////   MAX NODE & DO SORT   /////////////////////////
+t_struct_node *minNode(t_struct_node *ref)
+{
+    if(ref == NULL)
+        return (NULL);
+    t_struct_node* min_node = ref;
+    while(ref)
+    {
+        if(ref->data < min_node->data)
+            min_node = ref;
+        ref = ref->next;
+    }
+    return (min_node);
+}
+
 t_struct_node *maxNode(t_struct_node *ref)
 {
+    if(ref == NULL)
+        return (NULL);
     t_struct_node* max_node = ref;
     while(ref)
     {
@@ -182,18 +199,27 @@ t_struct_node *maxNode(t_struct_node *ref)
 
 t_struct_node *do_sort(t_struct_node **head)
 {
+    t_struct_node *node = *head;
+    t_struct_node *min = minNode(*head);
     t_struct_node *max = maxNode(*head);
-    if(max != (*head))
+    if(min != (*head))
     {
-        if((*head)->data < (*head)->next->data)
+        if((*head)->data > min->data)
             rotate(head);
         else
             swap(head);
         do_sort(head);
-        r_rotate(head);
+        //r_rotate(head);
+    }
+    if(max == (*head)->next && min == (*head))
+    {
+        swap(head);
+        rotate(head);
     }
     return (*head);
 }
+
+/////////////////////////////////////////////////////////////////////
 void push(t_struct_node** dest, t_struct_node* src)
 {
     t_struct_node *temp = src;
