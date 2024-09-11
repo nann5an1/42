@@ -22,7 +22,7 @@ void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
         free(current);
         ft_list_remove_if(begin_list, data_ref, cmp);
     }
-    else //dun need to add this to pass the moulinette
+    else //must add the else to pass the Moulinette
     {
         current = *begin_list;
         ft_list_remove_if(&current->next, data_ref, cmp);

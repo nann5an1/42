@@ -11,23 +11,41 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-int* sort_int_tab(int *tab, unsigned int size)
+// int* sort_int_tab(int *tab, unsigned int size)
+// {
+//     int temp;
+//     int i = 0;
+//     while (i < (size - 1))
+//     {
+//         if(tab[i] > tab[i+1])
+//         {
+//             temp = tab[i];
+//             tab[i] = tab[i+1];
+//             tab[i+1] = temp;
+//             i = 0; //is set to '0' to loop once again and check if tab[i] > tab[i+1]
+//         }
+//         else
+//             i++;
+//     }
+//     return (tab);
+// }
+int *sort_int_tab(int *tab, unsigned int size)
 {
     int temp;
     int i = 0;
-    while (i < (size - 1))
+    //int largest = tab[0];
+    while(i < size - 1)
     {
         if(tab[i] > tab[i+1])
         {
-            temp = tab[i];
-            tab[i] = tab[i+1];
-            tab[i+1] = temp;
-            i = 0; //is set to '0' to loop once again and check if tab[i] > tab[i+1]
+           temp = tab[i];
+           tab[i] = tab[i+1];
+           tab[i+1] = temp;
+           i = 0;
         }
         else
-            i++;
+            i++;  
     }
-    return (tab);
 }
 int main()
 {
@@ -36,7 +54,8 @@ int main()
     int *res = sort_int_tab(tab, 3);
     while(i < 3)
     {
-        printf("%d", tab[i]);
+        printf("%d", tab[i]);   
         i++;
     }
 }
+

@@ -33,9 +33,34 @@ size_t	ft_strspn(const char *s, const char *accept) //this func: returns the byt
     }
     return (i);
 }
+
+// int ft_strchr(const char *accept, char c)
+// {
+//     int i = 0;
+//     while(accept[i] != '\0')
+//     {
+//         if(c == accept[i])
+//             return (1);
+//         i++;
+//     }
+//     return (0);
+// }
+
+// size_t	ft_strspn(const char *s, const char *accept)
+// {
+//     int i = 0;
+//     while(s[i] != '\0')
+//     {
+//         if(ft_strchr(accept, s[i]) == 0)
+//             break;
+//         i++;
+//     }
+//     return (i);
+// }
+
 int main()
 {
-    char *string = "cabbage";
+    char *string = "gae";
     char *source = "abc";
     int index;
  

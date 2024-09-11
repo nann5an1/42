@@ -28,6 +28,6 @@ int		max(int* tab, unsigned int len)
 }
 int main()
 {
-    int tab[] = {1,5,6,4,2,8};
+    int tab[] = {1,5,6,4,8, 0};
     printf("%d", max(tab, 6));
 }

@@ -11,18 +11,17 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-char	*ft_strpbrk(const char *s1, const char *s2) //this func: returns the pointer of the first occurence of any chrac: from the searched string
+
+char	*ft_strpbrk(const char *s1, const char *s2)
 {
-    int j = 0;
-    int i = 0;
     char *S1 = (char *)s1;
     char *S2 = (char *)s2;
-    if (S1 == NULL || S2 == NULL)
-        return (NULL);
-    while(S1[i] != '\0')
+    int i = 0;
+    int j;
+    while(S1[i])
     {
         j = 0;
-        while(S2[j] != '\0')
+        while(S2[j])
         {
             if(S1[i] == S2[j])
                 return (&S1[i]);
@@ -30,8 +29,24 @@ char	*ft_strpbrk(const char *s1, const char *s2) //this func: returns the pointe
         }
         i++;
     }
-    return (&S1[i]);
+    return (NULL);
 }
+
+
+// int main()
+// {
+//     char str1[] = "hello world";
+//     char str2[] = "ow";
+    
+//     char *res = ft_strpbrk(str1, str2);
+    
+//     if (res)
+//         printf("First matching character: %c\n", *res);
+//     else
+//         printf("No matching characters found.\n");
+
+//     return 0;
+// }
 
 int main()
 {

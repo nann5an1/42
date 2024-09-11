@@ -22,7 +22,7 @@ void put_nbr(int num)
 {
     if(num < 10)
         put_char(num);
-    else if(num >= 10)
+    else if(num > 10)
     {
         put_nbr(num / 10);
         put_nbr(num % 10);
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
     int digit = ft_atoi(argv[1]);
     if(argc == 2)
     {
-        while(times <= 9)
+        while(times <= 9 && digit < 238609183)
         {
             put_char(times);
             write(1, " x ", 3);
@@ -68,5 +68,5 @@ int main(int argc, char** argv)
             times++;
         }
     }
-    write(1, "\n", 1);
+    //write(1, "\n", 1);
 }
