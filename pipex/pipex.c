@@ -43,7 +43,7 @@ int main()
 
 
     //create child and parent process using fork for the second command
-    
+    //at the very end add waitpid(pid1) to wait for pid1 to finish
     
 
 }
