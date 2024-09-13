@@ -36,7 +36,7 @@ int main()
         printf("Child process created");
         //usage of dup()
         //close the un-necessary ends of pipes (even for the duplicated ones)
-        // execve(); //execute the 
+        // execve(); //execute the command for the child process
     }
     else
         printf("Parent process created");
