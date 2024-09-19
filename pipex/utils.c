@@ -23,8 +23,10 @@ char** retrievePaths(char** envp)
     int i = 0;
     while(envp[i] != '\0')
     {
-         if(ft_strncmp(envp[i], "PATH=", 5) == 0)
+        if(ft_strncmp(envp[i], "PATH=", 5) == 0)
             return (envp[i] + 5);
+        else
+            errorHandling("File not found");
         i++;
     }
     return (NULL);
@@ -44,7 +46,7 @@ void exec_command(char* cmd, char** envp)
         if(access(search_program, R_OK | X_OK) == 0)
             execve(search_program, av, envp);
         else
-            errorHandling("Path could not be executed");
+            errorHandling("File path not found");
         free(search_program);
     }
 }

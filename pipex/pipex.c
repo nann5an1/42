@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 21:59:18 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/19 11:22:49 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:30:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,27 @@
 void childProcess(int in_file, int out_file, int fd[2], char* argv[], char** envp)
 {
     int pid1 = fork();
-        if(pid1 == 0)
-        {
-            dup2(in_file, STDIN_FILENO);
-            dup2(fd[1], STDOUT_FILENO); //WR_END to STDOUT(1)
-            close(fd[0]);
-            close(fd[1]);
-            close(in_file);
-            exec_command(argv[2], envp); //argv[2] = "ls -l"
-        }
-        int pid2 = fork();
-        if(pid2 == 0)
-        {
-            dup2(fd[0], STDIN_FILENO); //READ_END to STDOUT(0)
-            dup2(out_file, STDOUT_FILENO); 
-            close(fd[0]);
-            close(fd[1]);
-            close(out_file);
-            exec_command(argv[3], envp);
-        }
-        waitpid(pid2, NULL, 0);
+    if(pid1 == 0)
+    {
+        dup2(in_file, STDIN_FILENO);
+        dup2(fd[1], STDOUT_FILENO); //WR_END to STDOUT(1)
+        close(fd[0]);
+        close(fd[1]);
+        close(in_file);
+        exec_command(argv[2], envp); //argv[2] = "ls -l"
+    }
+    waitpid(pid1, NULL, 0);
+    int pid2 = fork();
+    if(pid2 == 0)
+    {
+        dup2(fd[0], STDIN_FILENO); //READ_END to STDOUT(0)
+        dup2(out_file, STDOUT_FILENO); 
+        close(fd[0]);
+        close(fd[1]);
+        close(out_file);
+        exec_command(argv[3], envp);
+    }
+    waitpid(pid2, NULL, 0);
 }
 //user compilation --> ./pipex.exe "in_file" "ls -l" "grep hello" "out_file"
 int main(int argc, char* argv[], char **envp)
