@@ -11,30 +11,10 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
-void errorHandling(int options)
+void errorHandling(char* str)
 {
-    if(options == 0)
-        perror("Format Error");
-    else if(options == 1)
-    {
-        perror("Piping failed");
-        exit(EXIT_FAILURE);
-    }
-    else if(options == 2)
-    {
-        perror("File is not accessible");
-        exit(EXIT_FAILURE);
-    }
-    else if(options == 3)
-    {
-        perror("File is not readable");
-        exit(EXIT_FAILURE);
-    }
-    else if(options == 4)
-    {
-        perror("File cannot be opened");
-        exit(EXIT_FAILURE);
-    }
+    perror(str);
+    exit(EXIT_FAILURE);
 }
 
 char** retrievePaths(char** envp)

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 21:59:18 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/18 13:37:59 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:22:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ int main(int argc, char* argv[], char **envp)
     if(argc == 5)
     {            
         if(pipe(fd) < 0)
-            errorHandling(1);
+            errorHandling("Piping failed");
         if((access(argv[1], F_OK) < 0))
-            errorHandling(2);
+            errorHandling("File is not accessible");
         else if(access(argv[1], R_OK) < 0)
-            errorHandling(3);
+            errorHandling("File is not readable");
         
         in_file = open(argv[1], O_RDONLY);
         out_file = open(argv[4], O_WRONLY | O_TRUNC | O_CREAT, 0644);
         
         if(in_file < 0 || out_file < 0)
-            errorHandling(4);
+            errorHandling("File cannot be opened");
         
         // printf("%d", in_file);
         // printf("%d", out_file);
@@ -66,7 +66,7 @@ int main(int argc, char* argv[], char **envp)
         close(fd[1]);
     }
     else 
-        errorHandling(0);
+        errorHandling("Format Error");
 }
 
 
