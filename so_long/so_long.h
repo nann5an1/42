@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include <mlx.h>
+// # include <mlx.h>
 # include <sys/types.h>
 
 # define KEY_UP		13
@@ -29,3 +29,5 @@
 # define KEY_A		0
 # define KEY_S		1
 # define KEY_D		2
+
+#endif
