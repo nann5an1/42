@@ -30,4 +30,24 @@
 # define KEY_S		1
 # define KEY_D		2
 
+// typedef s_map
+// {
+//     char** map_array;
+//     int width;
+//     int height;
+//     int collect_count;
+//     int exit_count;
+//     int player_count
+// }t_map
+
+// typedef s_game
+// {
+//     int player_x;
+//     int player_y;
+//     int moves;
+//     int collectibles;
+//     void* mlx_ptr;
+//     void* win_ptr;
+// }t_game
+
 #endif

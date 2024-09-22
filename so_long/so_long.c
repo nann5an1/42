@@ -21,6 +21,10 @@ int main(int ac, char** av)
 
     if(ac == 2)
     {
+        int row = 0;
+        int col = 0;
+        int bytes_read;
+        int i = 0;
         int fd_ber = open(av[1], O_RDONLY);
         if(fd_ber < 0)
         {
@@ -29,14 +33,40 @@ int main(int ac, char** av)
         }
         char buffer[1024];
         int bytesRead = read(fd_ber, buffer, sizeof(buffer));
+        bytes_read = bytesRead;
         buffer[bytesRead] = '\0';
         
-        //printf("Bytes read:%d\n", bytesRead);
+        printf("Bytes read:%d\n", bytesRead);
         printf("Content:\n%s", buffer);
         close(fd_ber);
+
+        while(bytesRead > 0)
+        {
+            if(buffer[bytesRead] == '\n')
+                row++;
+            bytesRead--;
+        }
+        while(i < bytes_read)
+        {
+            if(buffer[i] == '\n')
+                break;
+            col++;
+            i++;
+        }
+            
+        printf("Rows Read: %d\nColumns: %d", row, col);
+        char** map = malloc(sizeof(char) * row);
+        int j = 0;
+        while(j < row)
+        {
+            map[j] = malloc(sizeof(char) * col);
+            j++;
+        }
+
+        // int matrix[row][col] = {{1,1,1,1,1,1}, {1,P,0,C,0,1}, {}, {}, {}};
+
     }
     
-
     //put a .ber map file into the 2D array(grid format)
     //validate the map
         //check if the map is rectangular --> have walls, have a player and exit and collectibles
