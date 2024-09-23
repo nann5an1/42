@@ -30,15 +30,15 @@
 # define KEY_S		1
 # define KEY_D		2
 
-// typedef s_map
-// {
-//     char** map_array;
-//     int width;
-//     int height;
-//     int collect_count;
-//     int exit_count;
-//     int player_count
-// }t_map
+typedef s_map
+{
+    char** map_array;
+    int width;
+    int height;
+    int collect_count;
+    int exit_count;
+    int player_count
+}t_map
 
 // typedef s_game
 // {
@@ -49,5 +49,8 @@
 //     void* mlx_ptr;
 //     void* win_ptr;
 // }t_game
+
+void fill_map(int fd, t_map *game_map);
+void map_validation(t_map *game_map);
 
 #endif

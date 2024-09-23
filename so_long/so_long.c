@@ -12,60 +12,140 @@
 
 #include "so_long.h"
 
+
+void map_validation(t_map *game_map)
+{
+    int flag = 0;
+    int i = 0;
+    while(i < game_map->height)
+    {
+        if(game_map->map_array[i][0] == '1' || game_map->map_array[i][game_map->width-1] == '1')
+            flag = 1;
+        if(i == 0 || i == (game_map->height-1))
+        {
+            int j = 1;
+            while(j < game_map->width)
+            {
+                if(game_map->map_array[i][j] == '1')
+                    flag = 1;
+                else
+                {
+                    flag = 0;
+                    break;
+                }
+                j++;
+            }
+        }
+        i++;
+    }
+    printf("Flag: %d\n", flag);
+}
+
+void fill_map(int fd, t_map *game_map)
+{
+    char buffer;
+    int i = 0;
+    int j = 0;
+
+    while (read(fd, &buffer, 1) > 0)
+    {
+        if (buffer == '\n')
+        {
+            i++;
+            j = 0; 
+        }
+        else
+        {
+            game_map->map_array[i][j] = buffer;
+            if(buffer == 'P')
+                game_map->player_count++;
+            if(buffer == 'C')
+                game_map->collect_count++;
+            if(buffer == 'E')
+                game_map->exit_count++;
+            j++;
+        }
+        if (i >= game_map->height)
+            break;
+    }
+}
+
+
 int main(int ac, char** av)
 {
-    // void *mlx_ptr = mlx_init(); //will init the connection between the software and the display
-    // void *win_ptr = mlx_new_windows(mlx_ptr, 800, 800, "So_Long"); //creating new window for the display
-    // void *img_ptr = mlx_new_image(mlx_ptr, 20, 20);
-    // int put_img = mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 40, 40);
-
-    if(ac == 2)
-    {
+    if (ac == 2) {
         int row = 0;
         int col = 0;
-        int bytes_read;
         int i = 0;
+
         int fd_ber = open(av[1], O_RDONLY);
-        if(fd_ber < 0)
-        {
+        if (fd_ber < 0) {
             perror(".ber file path could not be opened");
             exit(EXIT_FAILURE);
         }
-        char buffer[1024];
-        int bytesRead = read(fd_ber, buffer, sizeof(buffer));
-        bytes_read = bytesRead;
-        buffer[bytesRead] = '\0';
-        
-        printf("Bytes read:%d\n", bytesRead);
-        printf("Content:\n%s", buffer);
-        close(fd_ber);
 
-        while(bytesRead > 0)
-        {
-            if(buffer[bytesRead] == '\n')
+        char buffer[1024];
+        int bytesRead = read(fd_ber, buffer, sizeof(buffer)); 
+        buffer[bytesRead] = '\0'; 
+        close(fd_ber); 
+
+        while (i < bytesRead) {
+            if (buffer[i] == '\n') {
                 row++;
-            bytesRead--;
+            }
+            i++;
         }
-        while(i < bytes_read)
-        {
-            if(buffer[i] == '\n')
-                break;
+
+        i = 0;
+        while (buffer[i] != '\n' && buffer[i] != '\0') {
             col++;
             i++;
         }
-            
-        printf("Rows Read: %d\nColumns: %d", row, col);
-        char** map = malloc(sizeof(char) * row);
+
+        printf("Rows: %d, Columns: %d\n", row, col);
+        char** map = malloc(sizeof(char*) * row);
         int j = 0;
         while(j < row)
         {
-            map[j] = malloc(sizeof(char) * col);
+            map[j] = malloc(sizeof(char) * (col + 1)); // +1 for '\0' at the end of each row if needed
             j++;
         }
+        t_map game_map;
+        game_map.map_array = map;
+        game_map.width = col;
+        game_map.height = row;
+        game_map.collect_count = 0;
+        game_map.exit_count = 0;
+        game_map.player_count = 0;
 
-        // int matrix[row][col] = {{1,1,1,1,1,1}, {1,P,0,C,0,1}, {}, {}, {}};
+        // Reopen the .ber file for reading again
+        fd_ber = open(av[1], O_RDONLY);
+        if (fd_ber < 0) {
+            perror("Error reopening .ber file");
+            exit(EXIT_FAILURE);
+        }
 
+        // Fill the map array
+        fill_map(fd_ber, &game_map);
+        map_validation(&game_map);
+        close(fd_ber); // Close the file again after filling the map
+
+        // Print the map for testing
+        printf("Map content:\n");
+        for (int i = 0; i < row; i++) {
+            printf("%s\n", game_map->map_array[i]);
+        }
+
+        // Free allocated memory
+        for (int j = 0; j < row; j++) {
+            free(game_map->map_array[j]);
+        }
+        free(game_map->map_array);
     }
+    return 0;
+    
+}
+
     
     //put a .ber map file into the 2D array(grid format)
     //validate the map
@@ -82,4 +162,3 @@ int main(int ac, char** av)
     //game loop and rendering
     //player controls
 
-}
