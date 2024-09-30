@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 21:56:25 by nsan              #+#    #+#             */
-/*   Updated: 2024/09/27 19:53:29 by nsan             ###   ########.fr       */
+/*   Created: 2024/09/18 13:07:57 by marvin            #+#    #+#             */
+/*   Updated: 2024/09/30 20:01:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,81 +31,63 @@ char* retrievePaths(char** envp)
     return (NULL);
 }
 
-int execute(char** split_paths, char** envp, char** av)
-{
+int exec_command(char* cmd, char** envp)
+{    
     int i;
-    int j;
     int cmd_found;
-    int flag;
     cmd_found = 0;
     i = -1;
-    flag = 0;
-    
-    while(split_paths[i++] != NULL)
-    {   
-        j = 0;
-        char* path_joined = ft_strjoin(split_paths[i], "/");    // /bin/
-        while(av[j] != NULL)
+   
+    if(cmd[0] == '/')
+    {
+        // fprintf(stderr, "Vainpot NOT in exec_command split/ join\n");
+        char** argv = malloc(sizeof(char*) * 2);
+        argv[1] = NULL;
+        argv[0] = cmd;
+        if(access(cmd, X_OK) == 0)
         {
-            char* search_program = ft_strjoin(path_joined, av[j]);  // /bin/bin     if(cmd-->/bin/ls>
-            //free(path_joined);
-            //fprintf(stderr, "Vainpot is singing\n");
+            // fprintf(stderr, "Vainpot is singing\n");
+            execve(cmd, argv, envp);
+            // fprintf(stderr, "Vainpot after singing\n");
+        }
+        else
+            ft_putstr_fd("No such file or directory\n", 2);
+    }
+    else
+    {
+        // fprintf(stderr, "Vainpot in exec_command split/ join\n");
+        char** av = ft_split(cmd, ' '); //ls -l or // /bin/ls
+        char* all_paths = retrievePaths(envp);
+        char** split_paths = ft_split(all_paths, ':');
+        // fprintf(stderr, "Vainpot in exec_command after split_path\n");
+        cmd_found = 0;
+        while(split_paths[i++] != NULL)
+        {
+            char* path_joined = ft_strjoin(split_paths[i], "/");    
+            char* search_program = ft_strjoin(path_joined, av[0]);
             if(access(search_program, X_OK) == 0)
             {
-                //fprintf(stderr, "Vainpot is humming\n");
-                cmd_found = 1; 
-                execve(search_program, &av[0], envp); //something to tweak atound av[0]
-                //fprintf(stderr, "Vainpot is dancing\n");
-                flag = 1;
+                // fprintf(stderr, "Vainpot in exec_command in execve\n");
+                cmd_found = 1;
+                execve(search_program, &av[0], envp);
+                // fprintf(stderr, "Vainpot in exec_command after execve\n");
                 break;
             }
+            free(path_joined);
             free(search_program);
-            j++;
         }
-        if(flag == 1)
-            break;
+        if(!cmd_found)
+            return (1);
+        //fprintf(stderr, "Vainpot in exec_command after while\n");
     }
-    if(!cmd_found)
-        return (1);
     return (0);
+    // fprintf(stderr, "Vainpot done executing\n");
 }
 
-int split_join(char* cmd, char** envp)
-{    
-    int count;
-    char** av;
-    int ret;
-    int i;
-    char c;
-    i = 0;
-    count = 0;
+//execve = {"/bin/ls", ("ls", "-l", NULL), envp};
+//execve = {"/bin/ls", (NULL), envp};
+        //if the command is not found, print an error message
 
-    while(cmd[i])
-    {
-        if(cmd[i] == '/')
-        {
-            c = '/';
-            break;
-        }
-        else if(cmd[i] == ' '){
-            c = ' ';
-            break;
-        }
-        i++;
-    }
-    av = ft_split(cmd, c); //ls -l   (/bin/ls)
-    // i = 0;
-    // while (av[i] != NULL)
-    // {
-    //     fprintf(stderr, "%s\n", av[i]);
-    //     i++;
-    // }
-    while(av[count] != NULL)
-        count++;
-    char* all_paths = retrievePaths(envp);
-    char** split_paths = ft_split(all_paths, ':'); // /bin/
-    ret = execute(split_paths, envp, av);
-    return (ret);
-}
-
-//execve = {"/bin/ls", "ls", "-l", envp};
+//handling /dev/urandom
+//error output handling
+          //  ft_putstr_fd("Error: command not found\n", 1);
