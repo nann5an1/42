@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:31:51 by nsan              #+#    #+#             */
-/*   Updated: 2024/09/05 18:37:09 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/04 16:46:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,25 @@ void swap(t_struct_node** headRef)
     t_struct_node* first = *headRef;
     t_struct_node* second = (*headRef)->next;    //swapping nodes
     first->next = second->next;
-    second->next = first;    *headRef = second;
+    second->next = first;    
+    *headRef = second;
+}
+
+void rotate(struct node** headref)
+{
+    if(headref == NULL || (*headref)->next == NULL)
+        return;
+    t_struct_node*  first;
+    t_struct_node*  last;
+
+    first = *headref;
+    last = *headref;
+
+    while(last->next != NULL)
+        last = last->next;
+    *headref = first->next;
+    first->next = NULL;
+    last->next = first;
 }
 
 void r_rotate(t_struct_node** headref)
@@ -41,37 +59,6 @@ void r_rotate(t_struct_node** headref)
     secLast->next = NULL;
     last->next = *headref;
     *headref = last;
-}
-
-void rotate(struct node** headref)
-{
-    if(headref == NULL || (*headref)->next == NULL)
-        return;
-    t_struct_node*  first;
-    t_struct_node*  last;
-
-    first = *headref;
-    last = *headref;
-
-    while(last->next != NULL)
-        last = last->next;
-    *headref = first->next;
-    first->next = NULL;
-    last->next = first;
-}
-
-void push(t_struct_node** dest, t_struct_node** src)
-{
-    t_struct_node* temp = *src;
-    if(*src == NULL)
-        return ;
-    if(*dest)
-        temp->next = *dest;
-    else
-        temp->next = NULL;
-    *dest = temp;
-    *src = (*src)->next;
-    
 }
 
 // int getMid(struct node* head) {

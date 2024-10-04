@@ -13,53 +13,7 @@
 #include "push_swap.h"
 
 ////////////////////////////   rules  //////////////////////////////////
-void rotate(struct node** headref)
-{
-    if(headref == NULL || (*headref)->next == NULL)
-        return;
-    t_struct_node*  first;
-    t_struct_node*  last;
 
-    first = *headref;
-    last = *headref;
-
-    while(last->next != NULL)
-        last = last->next;
-    *headref = first->next;
-    first->next = NULL;
-    last->next = first;
-}
-
-void swap(t_struct_node** headRef) 
-{    
-    if(*headRef == NULL || (*headRef)-> next == NULL)
-        return;    
-        //Nodes to be swapped
-    t_struct_node* first = *headRef;
-    t_struct_node* second = (*headRef)->next;    //swapping nodes
-    first->next = second->next;
-    second->next = first;    *headRef = second;
-}
-
-void r_rotate(t_struct_node** headref)
-{
-    if(*headref == NULL || (*headref)-> next == NULL)
-        return;
-    
-    //initializing the nodes first
-    t_struct_node* secLast = NULL;
-    t_struct_node* last = *headref; 
-
-    //link the nodes 
-    while (last->next != NULL)
-    {
-        secLast = last;
-        last = last->next;
-    }
-    secLast->next = NULL;
-    last->next = *headref;
-    *headref = last;
-}
 /////////////////////////////////////////////////////////////////////
 t_struct_node* sort_ascend(t_struct_node* head)
 {
@@ -288,19 +242,3 @@ void do_op(t_struct_node *stackA) // t_struct_node points to the first head of t
     //printf("%d", maxNode(stackA));
 }
 
-int main(int argc, char** argv) 
-{
-    t_struct_node* stackA = NULL;
-    //t_struct_node* stackB = NULL;
-    /* The constructed linked list is: 
-     1->2->3->4->5 */
-    while(--argc)
-        add_list(&stackA, atoi(argv[argc]));
-    // t_struct_node* node = sort_ascend(stackA);
-    // int res = getMed(stackA);
-    // printf("Median: %d", res);
-    // printf("Before sorting and median: ");
-    // show_lst(stackA, stackB);
-    do_op(stackA);
-    return 0;
-}

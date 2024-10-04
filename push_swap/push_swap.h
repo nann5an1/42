@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:40:35 by nsan              #+#    #+#             */
-/*   Updated: 2024/09/05 18:36:59 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/05 01:53:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "libft/libft.h"
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
@@ -28,6 +29,7 @@
 // } t_struct_node;
 
 typedef struct node{
+    int index;
     int data;
     struct node* next;
 }t_struct_node;
@@ -40,9 +42,17 @@ void add_list(struct node** headref, int new_data);
 int getLength(struct node* head);
 void do_op(t_struct_node *stackA);
 void push(t_struct_node** dest, t_struct_node* src);
-t_struct_node* sort_ascend(t_struct_node* head);
-t_struct_node *cloned(t_struct_node* head);
-t_struct_node *maxNode(t_struct_node *ref);
-t_struct_node *do_sort(t_struct_node **head);
+void show_lst(t_struct_node *stack);
+// t_struct_node* sort_ascend(t_struct_node* head);
+// t_struct_node *cloned(t_struct_node* head);
+// t_struct_node *maxNode(t_struct_node *ref);
+// t_struct_node *do_sort(t_struct_node **head);
+t_struct_node	*ft_lstnew_struct(int data);
+void	ft_lstadd_back_struct(t_struct_node **lst, t_struct_node *new);
+void sort_three(t_struct_node **stack);
+void init_stack(t_struct_node **stackA, int count, char *argv[]);
+int maxNode(t_struct_node *ref);
+int minNode(t_struct_node *ref);
+int is_sorted(t_struct_node* ref);
 
 #endif
