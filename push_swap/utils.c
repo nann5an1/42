@@ -15,17 +15,18 @@
 
 int is_sorted(t_struct_node* ref)
 {
+    int flag;
     t_struct_node* current;
 
     current = ref;
-    while(current)
+    while(current->next != NULL)
     {
-        if (current->data > ref->data)
+        if (current->data > current->next->data)  //sorted
             return (0);
         current = current->next;
     }
-    printf("stack is already sorted");
     return (1);
+    printf("stack is already sorted");
 }
 
 int minNode(t_struct_node *ref)

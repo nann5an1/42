@@ -6,12 +6,20 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:31:51 by nsan              #+#    #+#             */
-/*   Updated: 2024/10/04 16:46:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/05 11:06:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+
+void push(t_struct_node** dest, t_struct_node* src)
+{
+    t_struct_node *temp = src;
+    src = src->next;
+    temp->next = *dest;
+    *dest = temp;
+}
 void swap(t_struct_node** headRef) 
 {    
     if(*headRef == NULL || (*headRef)-> next == NULL)

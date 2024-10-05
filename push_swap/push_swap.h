@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:40:35 by nsan              #+#    #+#             */
-/*   Updated: 2024/10/05 01:53:48 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/05 11:26:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void init_stack(t_struct_node **stackA, int count, char *argv[]);
 int maxNode(t_struct_node *ref);
 int minNode(t_struct_node *ref);
 int is_sorted(t_struct_node* ref);
+void    sort_four(t_struct_node **stackA);
 
 #endif

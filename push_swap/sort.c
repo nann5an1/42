@@ -21,11 +21,11 @@ void sort_three(t_struct_node **stack)
     
     printf("Before sorted stack:\n");
     show_lst(*stack);
-    printf("%dmax node:\n", maxNode(*stack));
-    printf("min node%d:\n", minNode(*stack));
+    printf("max node: %d\n", maxNode(*stack));
+    printf("min node: %d\n", minNode(*stack));
     while(is_sorted(*stack) != 1)
     {
-        if (maxNode(*stack) == 0)
+        if (maxNode(*stack) == 0) 
         {
             rotate(stack);
             if(minNode(*stack) == 1 && maxNode(*stack) == 2)
@@ -35,14 +35,37 @@ void sort_three(t_struct_node **stack)
             swap(stack);
         else
             rotate(stack);
-        //show_lst(*stack);
+        
     }
     printf("Sorted stack:\n");
     show_lst(*stack);
-    
 }
 
-void    sort_four()
+void    sort_four(t_struct_node **stackA)
 {
+    t_struct_node   *stackB;
+    int min_index;
+    int max_index;
     
+    stackB = NULL;
+    min_index = minNode(*stackA);
+    max_index = maxNode(*stackA);
+
+    if (min_index == 0 || max_index == 0)
+    {
+        push(&stackB, *stackA);
+        sort_three(stackA);
+        push(stackA, stackB);
+    }
+    else if (min_index == 3 || max_index == 3)
+    {
+        r_rotate(stackA);
+        push(&stackB, *stackA);
+        sort_three(stackA);
+        push(stackA, stackB);
+    }
+    else
+        swap(stackA);
+    printf("Sorted stack in sort 4:\n");
+    show_lst(*stackA);
 }

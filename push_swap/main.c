@@ -33,13 +33,10 @@ void   init_stack(t_struct_node **stackA, int count, char *argv[])
 int main(int argc, char **argv) 
 {
     t_struct_node *stackA;
-    t_struct_node *stackB;
-    t_struct_node   *sA;
     int count;
     int sorted;
     
     stackA = NULL;
-    stackB = NULL;
 
     count = argc - 1;
     if (argc == 1)
