@@ -48,24 +48,33 @@ void    sort_four(t_struct_node **stackA)
     int max_index;
     
     stackB = NULL;
-    min_index = minNode(*stackA);
-    max_index = maxNode(*stackA);
+    
+    if (is_sorted(*stackA) == 1)
+    {
+        printf("The stack 4 is already sorted");
+        return ;
+    }
 
-    if (min_index == 0 || max_index == 0)
+    while (is_sorted(*stackA) != 1)
     {
-        push(&stackB, *stackA);
-        sort_three(stackA);
-        push(stackA, stackB);
+        min_index = minNode(*stackA);
+        max_index = maxNode(*stackA);
+
+        if (min_index == 0 || max_index == 0)
+            push(&stackB, stackA);
+        if (min_index == 3 || max_index == 3)
+            r_rotate(stackA);
+        else
+            swap(stackA);
+        if (getLength(*stackA) <= 3)
+        {
+            sort_three(stackA);
+            while (stackB)
+            {
+                push(stackA, &stackB);
+            }
+        }
     }
-    else if (min_index == 3 || max_index == 3)
-    {
-        r_rotate(stackA);
-        push(&stackB, *stackA);
-        sort_three(stackA);
-        push(stackA, stackB);
-    }
-    else
-        swap(stackA);
     printf("Sorted stack in sort 4:\n");
     show_lst(*stackA);
 }

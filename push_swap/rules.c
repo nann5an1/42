@@ -6,17 +6,18 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:31:51 by nsan              #+#    #+#             */
-/*   Updated: 2024/10/05 11:06:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/06 20:46:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 
-void push(t_struct_node** dest, t_struct_node* src)
+void push(t_struct_node **dest, t_struct_node **src)
 {
-    t_struct_node *temp = src;
-    src = src->next;
+    if (*src == NULL) return; 
+    t_struct_node *temp = *src;
+    *src = (*src)->next;
     temp->next = *dest;
     *dest = temp;
 }
@@ -61,7 +62,7 @@ void r_rotate(t_struct_node** headref)
     //link the nodes 
     while (last->next != NULL)
     {
-        secLast = last;
+        secLast = last; 
         last = last->next;
     }
     secLast->next = NULL;

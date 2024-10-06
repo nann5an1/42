@@ -12,6 +12,16 @@
 
 #include "push_swap.h"
 
+int getLength(t_struct_node *head)
+{
+    int length = 0;
+    while (head)
+    {
+        length++;
+        head = head->next;
+    }
+    return (length);
+}
 
 int is_sorted(t_struct_node* ref)
 {

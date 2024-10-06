@@ -42,9 +42,9 @@ int main(int argc, char **argv)
     if (argc == 1)
         ft_putstr_fd("Error\n", 2);
     init_stack(&stackA, count, argv);
-    if (is_sorted(stackA) == 0)
-        sort_three(&stackA); //simple sort
-
+    // if (is_sorted(stackA) == 0)
+    //     sort_three(&stackA); //simple sort
+    sort_four(&stackA);
 
 
     //t_struct_node* stackB = NULL;
