@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     init_stack(&stackA, count, argv);
     // if (is_sorted(stackA) == 0)
     //     sort_three(&stackA); //simple sort
-    sort_four(&stackA);
+    sort_five(&stackA);
 
 
     //t_struct_node* stackB = NULL;
