@@ -23,10 +23,10 @@ int getLength(t_struct_node *head)
     return (length);
 }
 
-int is_sorted(t_struct_node* ref)
+int is_sorted(t_struct_node *ref)
 {
     int flag;
-    t_struct_node* current;
+    t_struct_node *current;
 
     current = ref;
     while(current->next != NULL)
@@ -87,6 +87,34 @@ int maxNode(t_struct_node *ref)
         index++;
     }
     return (max_index);
+}
+
+int minVal(t_struct_node *ref)
+{
+    if(ref == NULL)
+        return (0);
+    t_struct_node* min_node = ref;
+    while(ref)
+    {
+        if(ref->data < min_node->data)
+            min_node = ref;
+        ref = ref->next;
+    }
+    return (min_node->data);
+}
+
+int maxVal(t_struct_node *ref)
+{
+    if(ref == NULL)
+        return (0);
+    t_struct_node* max_node = ref;
+    while(ref)
+    {
+        if(ref->data > max_node->data)
+            max_node = ref;
+        ref = ref->next;
+    }
+    return (max_node->data);
 }
 t_struct_node	*ft_lstnew_struct(int data)
 {

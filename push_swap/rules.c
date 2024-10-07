@@ -6,22 +6,23 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:31:51 by nsan              #+#    #+#             */
-/*   Updated: 2024/10/06 20:46:13 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/07 17:00:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 
-void push(t_struct_node **dest, t_struct_node **src)
+void push(t_struct_node **dest, t_struct_node **src, char *str)
 {
     if (*src == NULL) return; 
     t_struct_node *temp = *src;
     *src = (*src)->next;
     temp->next = *dest;
     *dest = temp;
+    write(1, str, 3);
 }
-void swap(t_struct_node** headRef) 
+void swap(t_struct_node** headRef, char *str) 
 {    
     if(*headRef == NULL || (*headRef)-> next == NULL)
         return;    
@@ -31,9 +32,10 @@ void swap(t_struct_node** headRef)
     first->next = second->next;
     second->next = first;    
     *headRef = second;
+    write(1, str, 3);
 }
 
-void rotate(struct node** headref)
+void rotate(struct node** headref, char *str)
 {
     if(headref == NULL || (*headref)->next == NULL)
         return;
@@ -48,9 +50,10 @@ void rotate(struct node** headref)
     *headref = first->next;
     first->next = NULL;
     last->next = first;
+    write(1, str, 3);
 }
 
-void r_rotate(t_struct_node** headref)
+void r_rotate(t_struct_node** headref, char *str)
 {
     if(*headref == NULL || (*headref)-> next == NULL)
         return;
@@ -68,6 +71,7 @@ void r_rotate(t_struct_node** headref)
     secLast->next = NULL;
     last->next = *headref;
     *headref = last;
+    write(1, str, 4);
 }
 
 // int getMid(struct node* head) {

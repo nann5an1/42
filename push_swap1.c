@@ -56,8 +56,6 @@ int getMed(t_struct_node *head) //
     int num = 0;
     int med;
    
-    //t_struct_node *before_sort = head;
-    //t_struct_node *temp_stack = NULL;  
     t_struct_node *sorted = sort_ascend(head);
     t_struct_node *temp = sorted;
     printf("Sorted out print in getMed:");

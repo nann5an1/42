@@ -12,83 +12,115 @@
 
 #include "push_swap.h"
 
-void main_sort4(t_struct_node **stackA, t_struct_node *stackB)
+t_struct_node    *check_first_two(t_struct_node **stack_a)
 {
-    push(&stackB, stackA);
-    sort_three(stackA);
-    push(stackA, &stackB);
+    t_struct_node *stackb;
+    int i;
+    int min;
+    int pos;
+
+    stackb = NULL;
+    i = -1;
+    while (++i < 2)
+    {
+        min = minVal(*stack_a);
+        pos = findPosition(*stack_a, min);
+        if (pos <= 2)  //if min in first two pos
+        {
+            while ((*stack_a)->data != min)
+                rotate(stack_a, "ra\n");
+        }
+        else
+        {   //if min in last two pos
+            while ((*stack_a)->data != min)
+                r_rotate(stack_a, "rra\n");
+        }
+        push(&stackb, stack_a, "pb\n");
+    }
+    return (stackb);
 }
 
 void sort_three(t_struct_node **stack)
 {
-    printf("Before sorted stack:\n");
-    show_lst(*stack);
-    while(is_sorted(*stack) != 1)
+    while (!is_sorted(*stack))
     {
-        if (maxNode(*stack) == 0) 
-        {
-            rotate(stack);
-            if(minNode(*stack) == 1 && maxNode(*stack) == 2)
-                swap(stack);
-        }
-        else if(minNode(*stack) == 1 && maxNode(*stack) == 2)
-            swap(stack);
-        else
-            rotate(stack);
+        int min;
+        int max;
+
+        max = maxVal(*stack);
+        min = minVal(*stack);
         
-    }
-    //show_lst(*stack);
-}
-
-void    sort_four(t_struct_node **stackA)
-{
-    t_struct_node   *stackB;
-    
-    stackB = NULL;
-    while (is_sorted(*stackA) != 1)
-    {
-        if (maxNode(*stackA) == 0 || minNode(*stackA) == 0)
+        if ((*stack)->data == max)
         {
-            main_sort4(stackA, stackB);
-            if (is_sorted(*stackA) == 1)
-                break;
-            rotate(stackA);
+            rotate(stack, "ra\n");
+            if ((*stack)->next->data == min && (*stack)->next->next->data  == max)
+                swap(stack, "sa\n"); // Swap the top two if in order
         }
-        else if (minNode(*stackA) == 3 || maxNode(*stackA) == 3)
-        {
-            r_rotate(stackA);
-            if (is_sorted(*stackA) == 1)
-                break;
-            main_sort4(stackA, stackB);
-            rotate(stackA);
-        }
+        else if ((*stack)->next->data  == min && (*stack)->next->next->data == max)
+            swap(stack, "sa\n");
         else
-            swap(stackA);
+            rotate(stack, "ra\n");
     }
-    //show_lst(*stackA);
 }
 
-void    sort_five(t_struct_node **stackA)
+void sort_four(t_struct_node **stack_a)
 {
-    t_struct_node *stackB;
+    int min;
+    t_struct_node *stackb;
 
-    while (is_sorted(*stackA) != 1)
+    if (is_sorted(*stack_a))
+        return;
+    min = minVal(*stack_a);
+    while ((*stack_a)->data != min) //loops until it reaches the minimum
+       rotate(stack_a, "ra\n");
+    push(&stackb, stack_a, "pb\n");
+    sort_three(stack_a);
+    push(stack_a, &stackb, "pa\n");
+}
+
+void sort_five(t_struct_node **stack_a)
+{
+    t_struct_node *stackb;
+    int i;
+    int min;
+    int pos;
+
+    i = -1;
+    if (is_sorted(*stack_a))
+        return ;
+    stackb = check_first_two(stack_a);
+    sort_three(stack_a);
+    while (stackb != NULL)
+        push(stack_a, &stackb, "pa\n");
+}
+
+int findPosition(t_struct_node *stack, int value)
+{
+    int pos;
+
+    pos = 0;
+    while (stack != NULL)
     {
-        if (minNode(*stackA) == 4 || maxNode(*stackA) == 4)
-            r_rotate(stackA);
-        else if (minNode(*stackA) == 1 || maxNode(*stackA) == 1)
-            swap(stackA);
-        else if (minNode(*stackA) == 3 || maxNode(*stackA) == 3)
-        {
-            r_rotate(stackA);
-            r_rotate(stackA);
-        }
-        push(&stackB, stackA);
-        sort_four(stackA);
-        push(stackA, &stackB);
-        if (is_sorted(*stackA) == 1)
-            break;
-        rotate(stackA);
+        if (stack->data == value)
+            return (pos);
+        stack = stack->next;
+        pos++;
     }
-    show_lst(*stackA);
+    return (-1);
+}
+
+void    simple_sort(t_struct_node **stackA, int node_count)
+{
+    if (node_count == 2)
+    {
+        if ((*stackA)->data > (*stackA)->next->data)
+            swap(stackA, "sa\n");
+    }
+    else if (node_count == 3)
+        sort_three(stackA);
+    else if (node_count == 4)
+        sort_four(stackA);
+    else if (node_count == 5)
+        sort_five (stackA);
+    //show_lst(*stackA);
 }
