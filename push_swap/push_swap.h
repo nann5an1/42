@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:40:35 by nsan              #+#    #+#             */
-/*   Updated: 2024/10/07 19:24:40 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/08 13:43:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ void    sort_four(t_struct_node **stackA);
 void    sort_five(t_struct_node **stackA);
 void    simple_sort(t_struct_node **stackA, int node_count);
 int findPosition(t_struct_node *stack, int value);
+void    sort_radix(t_struct_node **stackA);
+int    ft_lstsize_struct(t_struct_node *lst);
 
 #endif

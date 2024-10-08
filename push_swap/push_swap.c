@@ -82,6 +82,8 @@ int main(int argc, char **argv)
         return (0);
     if (argc - 1 <= 5)
         simple_sort(&stackA, argc - 1);
+    else if(argc -1 > 5)
+        sort_radix(&stackA);
     return (0);
 }
 

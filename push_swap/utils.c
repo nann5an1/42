@@ -39,55 +39,55 @@ int is_sorted(t_struct_node *ref)
     printf("stack is already sorted");
 }
 
-int minNode(t_struct_node *ref)
-{
-    int index;
-    int min_index;
-    int min_value;
+// int minNode(t_struct_node *ref)
+// {
+//     int index;
+//     int min_index;
+//     int min_value;
 
-    min_value = INT_MAX;
-    index = 0;
-    min_index = 0;
-    if(ref == NULL)
-        return (0);
-    while(ref)
-    {
-        if(ref->data < min_value)
-        {
-            min_value = ref->data;
-            min_index = index;
-        }
-        index++;
-        ref = ref->next;
-    }
-    return (min_index);
-}
+//     min_value = INT_MAX;
+//     index = 0;
+//     min_index = 0;
+//     if(ref == NULL)
+//         return (0);
+//     while(ref)
+//     {
+//         if(ref->data < min_value)
+//         {
+//             min_value = ref->data;
+//             min_index = index;
+//         }
+//         index++;
+//         ref = ref->next;
+//     }
+//     return (min_index);
+// }
 
-int maxNode(t_struct_node *ref)
-{
-    int index;
-    int max_value;
-    int max_index;
+// int maxNode(t_struct_node *ref)
+// {
+//     int index;
+//     int max_value;
+//     int max_index;
     
-    index = 0;
-    max_index = 0;
-    max_value = INT_MIN;
+//     index = 0;
+//     max_index = 0;
+//     max_value = INT_MIN;
 
-    if(ref == NULL)
-        return (0);
-    //t_struct_node* max_node = ref;
-    while(ref)
-    {
-        if(ref->data > max_value)
-        {
-            max_value = ref->data;
-            max_index = index;
-        }
-        ref = ref->next;
-        index++;
-    }
-    return (max_index);
-}
+//     if(ref == NULL)
+//         return (0);
+//     //t_struct_node* max_node = ref;
+//     while(ref)
+//     {
+//         if(ref->data > max_value)
+//         {
+//             max_value = ref->data;
+//             max_index = index;
+//         }
+//         ref = ref->next;
+//         index++;
+//     }
+//     return (max_index);
+// }
 
 int minVal(t_struct_node *ref)
 {
@@ -131,6 +131,11 @@ t_struct_node	*ft_lstnew_struct(int data)
 void	ft_lstadd_back_struct(t_struct_node **lst, t_struct_node *new)
 {
 	ft_lstadd_back((t_list **)lst, (t_list *)new);
+}
+
+int    ft_lstsize_struct(t_struct_node *lst)
+{
+    ft_lstsize((t_list *)lst);
 }
 
 void show_lst(t_struct_node *stack) 
