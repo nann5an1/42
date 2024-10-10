@@ -31,7 +31,7 @@ int is_sorted(t_struct_node *ref)
     current = ref;
     while(current->next != NULL)
     {
-        if (current->data > current->next->data)  //sorted
+        if (current->data > current->next->data)  //not sorted
             return (0);
         current = current->next;
     }
@@ -88,6 +88,7 @@ int is_sorted(t_struct_node *ref)
 //     }
 //     return (max_index);
 // }
+
 
 int minVal(t_struct_node *ref)
 {
@@ -163,3 +164,54 @@ void show_lst(t_struct_node *stack)
     // }
     // printf("\n\n");
 }
+
+t_struct_node    **handle_neg(t_struct_node **stackA)
+{
+    t_struct_node *current;
+    current = *stackA;
+    if (minVal(*stackA) < 0)
+    {
+        while (current)
+        {
+            current->data += -(minVal(*stackA));
+            current = current->next;
+        }
+    }
+    // show_lst(*stackA);
+    // sort_radix(stackA);
+    return (stackA);
+}
+
+long	ft_atol(const char *str)
+{
+	long	i;
+	long	sign;
+	long	nb;
+
+	i = 0;
+	sign = 1;
+	nb = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nb = nb * 10 + (str[i] - '0');
+		i++;
+	}
+	return (nb * sign);
+}
+// int	main(void)
+// {
+// 	char	str[] = "++278520005";
+// 	printf("%d\n", ft_atoi(str));
+// 	char *s = "++278520005";
+// 	int res = atoi(s);
+// 	printf("%d\n", res);
+// }

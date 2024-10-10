@@ -51,7 +51,7 @@ int   init_stack(t_struct_node **stackA, int count, char *argv[])
     i = 1;
     while(i <= count)
     {
-        if (is_valid_int(argv[i]) == 0 || atol(argv[i]) < -2147483648 || atol(argv[i]) > 2147483647)
+        if (is_valid_int(argv[i]) == 0 || ft_atol(argv[i]) < -2147483648 || ft_atol(argv[i]) > 2147483647)
         {
             ft_putstr_fd("Error\n", 2);
             return (1);
@@ -67,13 +67,28 @@ int   init_stack(t_struct_node **stackA, int count, char *argv[])
     }
     return (0);
 }
+
+void radix_recur(t_struct_node **stackA, t_struct_node **stackB, t_temp *temp, int len)
+{
+      
+    for (temp.i = 0; temp.i < max_bits(&stackA); temp.i++)
+        {
+            // temp.k = 0;
+            radix(&stackA, &stackB, temp, len);
+        }
+}
 int main(int argc, char **argv) 
 {
     t_struct_node *stackA;
-    int count;
-    int sorted;
-    
+    t_struct_node *stackB;
+    t_temp   temp;
+    temp.k = 0;
+    int m_bits;
+    int j;
     stackA = NULL;
+    stackB = NULL;
+    temp.k = 0;
+    j = 0;
     if (argc == 1)
         return (1);
     if (init_stack(&stackA, argc - 1, argv) == 1)
@@ -83,7 +98,19 @@ int main(int argc, char **argv)
     if (argc - 1 <= 5)
         simple_sort(&stackA, argc - 1);
     else if(argc -1 > 5)
-        sort_radix(&stackA);
+    {
+        // radix_recur(stackA, stackB, temp, argc - 1);
+        while (is_sorted(stackA) == 0)
+               radix_recur(&stackA, &stackB, &temp, argc - 1);
+       
+    }
+        // main_radix(&stackA);
+        // temp->i = max_bits(stackA);
+        // m_bits = temp->i;
+        
+        //how do i iterate the temp.i?
+        
+    //handle_neg(&stackA);fprintf
     return (0);
 }
 

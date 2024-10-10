@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:31:51 by nsan              #+#    #+#             */
-/*   Updated: 2024/10/07 17:00:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/10 16:28:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,3 +142,49 @@ void r_rotate(t_struct_node** headref, char *str)
 //     show_lst(*stackA, *stackB);
 // }
 
+// void rr(t_struct_node **stackA, t_struct_node **stackB) {
+//     if (*stackA) {
+//         // Rotate stackA
+//         t_struct_node *temp = *stackA;
+//         *stackA = (*stackA)->next;
+//         temp->next = NULL;
+        
+//         // Find the last node of stackA to attach the rotated element
+//         t_struct_node *last = *stackA;
+//         while (last && last->next) {
+//             last = last->next;
+//         }
+//         if (last) {
+//             last->next = temp;
+//         } else {
+//             *stackA = temp; // In case stackA was empty
+//         }
+//     }
+
+//     if (*stackB) {
+//         // Rotate stackB
+//         t_struct_node *temp = *stackB;
+//         *stackB = (*stackB)->next;
+//         temp->next = NULL;
+        
+//         // Find the last node of stackB to attach the rotated element
+//         t_struct_node *last = *stackB;
+//         while (last && last->next) {
+//             last = last->next;
+//         }
+//         if (last) {
+//             last->next = temp;
+//         } else {
+//             *stackB = temp; // In case stackB was empty
+//         }
+//     }
+    
+//     // Print the operation (optional)
+//     printf("rr\n");
+// }
+
+void    rr(t_struct_node **stackA, t_struct_node **stackB)
+{
+    rotate(stackA, "ra\n");
+    rotate(stackB, "rb\n");
+}
