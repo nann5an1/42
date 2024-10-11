@@ -45,7 +45,7 @@ void radix(t_struct_node **stackA, t_struct_node **stackB, t_temp *temp, int len
             {
                 push(stackB, stackA, "pb\n");
                 // k++;
-                //rotate(stackB, "rb\n");
+                rotate(stackB, "rb\n");
                 temp->k++;
             }
             else
@@ -63,15 +63,15 @@ void radix(t_struct_node **stackA, t_struct_node **stackB, t_temp *temp, int len
     //     }
     // }
     j = -1;
-    // if ((*stackB) != NULL)
-    // {
+    if ((*stackB) != NULL)
+    {
         while (++j < temp->k)
         {
             push(stackA, stackB, "pa\n");
-            if (j < temp->k - 1)
-                rotate(stackA, "ra\n");
+            // if (j < temp->k - 1)
+            rotate(stackA, "ra\n");
         }
-    // }
-    show_lst(*stackA);
+    }
+    // show_lst(*stackA);
 }
     

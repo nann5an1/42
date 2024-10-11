@@ -215,3 +215,45 @@ long	ft_atol(const char *str)
 // 	int res = atoi(s);
 // 	printf("%d\n", res);
 // }
+
+t_struct_node *cloned(t_struct_node* head)
+{
+    if (head == NULL)
+        return (NULL);
+    t_struct_node *new_head = (t_struct_node*)malloc(sizeof(t_struct_node));
+    new_head->data = head->data;
+    new_head->next = cloned(head->next);
+    return (new_head);
+}
+void    convert_to_index(t_struct_node **stackA)
+{
+    t_struct_node   *temp_stack;
+    t_struct_node   *original_cloned_stackA;
+
+    int lst_size = ft_lstsize_struct(*stackA);
+    t_struct_node *cloned_stackA = cloned(*stackA);
+    original_cloned_stackA = cloned_stackA;
+    //t_struct_node **stackA= (t_struct_node **)(sizeof(t_struct_node) * (lst_size + 1));
+    //int max_node = maxNode(temp_stack);
+    
+    // show_lst(*stackA);
+    while (lst_size - 1 >= 0)
+    {
+        temp_stack = *stackA;
+        int max_val = maxVal(*stackA); //210
+        while ((*stackA) && cloned_stackA)
+        {
+            if (cloned_stackA->data == max_val)
+            {
+                (*stackA)->data = lst_size - 1;
+                break;
+            }
+            (*stackA) = (*stackA)->next;
+            cloned_stackA = cloned_stackA->next;
+        }
+        lst_size--;
+        *stackA = temp_stack;
+        cloned_stackA = original_cloned_stackA;
+    }
+    // show_lst(*stackA);
+}

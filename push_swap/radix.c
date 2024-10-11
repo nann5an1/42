@@ -71,11 +71,11 @@ void    sortB_radix(int size, int bit_index, int max_bits, t_struct_node **stack
 {
     // t_struct_node   *ref;
     // ref = *stackB;
-    while (size > 0 && bit_index < max_bits && is_sorted(*stackA) == 0)
+    while (size > 0 && bit_index < max_bits) //&& is_sorted(*stackA) == 0)
     {
-        if (is_sorted(*stackA)) {
-            return; // Stop further processing
-        }
+        // if (is_sorted(*stackA)) {
+        //     return; // Stop further processing
+        // }
         if ((*stackB) != NULL && (*stackA) != NULL)
         {
             if ((*stackB) && (((*stackB)->data >> bit_index) & 1 == 0))
@@ -147,9 +147,9 @@ void    sort_radix(t_struct_node **stackA)
     {
         i = -1;
         size = ft_lstsize_struct(*stackA);
-        if (is_sorted(*stackA)) {
-            break; // Stop further processing
-        }
+        // if (is_sorted(*stackA)) {
+        //     break; // Stop further processing
+        // }
         while (++i < size)
         {
             ref = *stackA;

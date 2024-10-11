@@ -69,8 +69,8 @@ void    sort_four(t_struct_node **stackA);
 void    sort_five(t_struct_node **stackA);
 void    simple_sort(t_struct_node **stackA, int node_count);
 int findPosition(t_struct_node *stack, int value);
-// void    sort_radix(t_struct_node **stackA);
-void radix(t_struct_node **stackA, t_struct_node **stackB, t_temp *temp, int len);
+void    sort_radix(t_struct_node **stackA);
+// void radix(t_struct_node **stackA, t_struct_node **stackB, t_temp *temp, int len);
 // void radix_sort(t_struct_node **stackA, t_struct_node **stackB);
 // void radix_sort(t_struct_node **stack_a, t_struct_node **stack_b);
 int    ft_lstsize_struct(t_struct_node *lst);
@@ -79,6 +79,6 @@ t_struct_node    **handle_neg(t_struct_node **stackA);
 void    main_radix(t_struct_node **stackA);
 void    rr(t_struct_node **stackA, t_struct_node **stackB);
 int max_bits(t_struct_node **stackA);
-
+void    convert_to_index(t_struct_node **stackA);
 
 #endif
