@@ -6,29 +6,33 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:31:51 by nsan              #+#    #+#             */
-/*   Updated: 2024/10/10 16:28:33 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/12 17:49:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
 void push(t_struct_node **dest, t_struct_node **src, char *str)
-{
-    if (*src == NULL) return; 
-    t_struct_node *temp = *src;
+{   
+    t_struct_node   *temp;
+
+    if (*src == NULL)
+        return ; 
+    temp = *src;
     *src = (*src)->next;
     temp->next = *dest;
     *dest = temp;
     write(1, str, 3);
 }
 void swap(t_struct_node** headRef, char *str) 
-{    
+{
+    t_struct_node   *first;
+    t_struct_node  *second;
+    
+    first = *headRef;
+    second = (*headRef)->next;    //swapping nodes
     if(*headRef == NULL || (*headRef)-> next == NULL)
-        return;    
-        //Nodes to be swapped
-    t_struct_node* first = *headRef;
-    t_struct_node* second = (*headRef)->next;    //swapping nodes
+        return;
     first->next = second->next;
     second->next = first;    
     *headRef = second;
@@ -54,15 +58,14 @@ void rotate(struct node** headref, char *str)
 }
 
 void r_rotate(t_struct_node** headref, char *str)
-{
+{   
+    t_struct_node   *secLast;
+    t_struct_node   *last; 
+    
+    last = *headref;
+    secLast = NULL;
     if(*headref == NULL || (*headref)-> next == NULL)
         return;
-    
-    //initializing the nodes first
-    t_struct_node* secLast = NULL;
-    t_struct_node* last = *headref; 
-
-    //link the nodes 
     while (last->next != NULL)
     {
         secLast = last; 
@@ -74,117 +77,3 @@ void r_rotate(t_struct_node** headref, char *str)
     write(1, str, 4);
 }
 
-// int getMid(struct node* head) {
-//     int length = getLength(head);
-//     int mid_index = length/2;
-//     while(mid_index--)
-//         head = head->next;
-//     return (head->data);
-// }
-
-// void check(t_struct_node* stackA, t_struct_node* stackB)
-// {
-//     // t_struct_node* stackB = NULL;
-//     struct node* head = stackA;
-//     t_struct_node* newstackA = NULL;
-    
-//     int mid = getMid(head);
-//     //printf("%d", mid);
-//     while(head != NULL)
-//     {
-//         if(head->data < mid)
-//             push(&stackB, head->data);
-//         else
-//             push(&newstackA, head->data);
-//         head = head->next;
-//     }
-//     //show_lst(newstackA, stackB);
-//     display(newstackA);
-//     display(stackB);
-//     //return (stackB);
-// }
-
-// void check(t_struct_node** stackA, t_struct_node** stackB)
-// {
-//     t_struct_node* head = *stackA;
-//     t_struct_node* newStackA = NULL;
-//     t_struct_node* temp;
-
-//     if (head == NULL)
-//         return; // Handle empty stack case
-
-//     int mid = getMid(head); // Calculate midpoint
-
-//     // Traverse and separate elements
-//     while (head != NULL)
-//     {
-//         temp = head; // Store current node
-//         head = head->next; // Move to the next node
-
-//         if (temp->data < mid)
-//         {
-//             // Push to stackB
-//             temp->next = *stackB; // Update the next pointer of the current node to point to the existing stackB
-//             *stackB = temp; // Update stackB to point to the current node
-//         }
-//         else
-//         {
-//             // Push to newStackA
-//             temp->next = newStackA; // Update the next pointer of the current node to point to the existing newStackA
-//             newStackA = temp; // Update newStackA to point to the current node
-//         }
-//     }
-
-//     // Update stackA to point to newStackA
-//     *stackA = newStackA;
-
-//     // Display both stacks
-//     show_lst(*stackA, *stackB);
-// }
-
-// void rr(t_struct_node **stackA, t_struct_node **stackB) {
-//     if (*stackA) {
-//         // Rotate stackA
-//         t_struct_node *temp = *stackA;
-//         *stackA = (*stackA)->next;
-//         temp->next = NULL;
-        
-//         // Find the last node of stackA to attach the rotated element
-//         t_struct_node *last = *stackA;
-//         while (last && last->next) {
-//             last = last->next;
-//         }
-//         if (last) {
-//             last->next = temp;
-//         } else {
-//             *stackA = temp; // In case stackA was empty
-//         }
-//     }
-
-//     if (*stackB) {
-//         // Rotate stackB
-//         t_struct_node *temp = *stackB;
-//         *stackB = (*stackB)->next;
-//         temp->next = NULL;
-        
-//         // Find the last node of stackB to attach the rotated element
-//         t_struct_node *last = *stackB;
-//         while (last && last->next) {
-//             last = last->next;
-//         }
-//         if (last) {
-//             last->next = temp;
-//         } else {
-//             *stackB = temp; // In case stackB was empty
-//         }
-//     }
-    
-//     // Print the operation (optional)
-//     printf("rr\n");
-// }
-
-void    rr(t_struct_node **stackA, t_struct_node **stackB)
-{
-    rotate(stackA, "ra\n");
-    rotate(stackB, "rb\n");
-}

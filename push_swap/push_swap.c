@@ -88,5 +88,6 @@ int main(int argc, char **argv)
         index_replace(&stackA);
         sort_radix(&stackA);
     }
+    // free_stack();
     return (0);
 }

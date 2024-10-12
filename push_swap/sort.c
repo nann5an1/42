@@ -122,5 +122,4 @@ void    simple_sort(t_struct_node **stackA, int node_count)
         sort_four(stackA);
     else if (node_count == 5)
         sort_five (stackA);
-    //show_lst(*stackA);
 }

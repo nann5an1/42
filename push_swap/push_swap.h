@@ -10,48 +10,41 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <math.h>
-#include <stdbool.h>
 #include "libft/libft.h"
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
 typedef struct node{
-    int data;
-    struct node* next;
+	int data;
+	struct node* next;
 }t_struct_node;
 
-void swap(t_struct_node** headRef, char *str);
-void r_rotate(t_struct_node** headref, char *str);
-void rotate(struct node** headref, char *str);
-void check(t_struct_node* stackA, t_struct_node* stackB);
-void add_list(struct node** headref, int new_data);
-int getLength(struct node* head);
-void do_op(t_struct_node *stackA);
-void push(t_struct_node **dest, t_struct_node **src, char *str);
-void show_lst(t_struct_node *stack);
-int maxVal(t_struct_node *ref);
-int minVal(t_struct_node *ref);
-t_struct_node	*ft_lstnew_struct(int data);
-void	ft_lstadd_back_struct(t_struct_node **lst, t_struct_node *new);
-void sort_three(t_struct_node **stack);
-int init_stack(t_struct_node **stackA, int count, char *argv[]);
-int maxNode(t_struct_node *ref);
-int minNode(t_struct_node *ref);
-int is_sorted(t_struct_node* ref);
-void    sort_four(t_struct_node **stackA);
-void    sort_five(t_struct_node **stackA);
-void    simple_sort(t_struct_node **stackA, int node_count);
-int findPosition(t_struct_node *stack, int value);
-void    sort_radix(t_struct_node **stackA);
-int    ft_lstsize_struct(t_struct_node *lst);
-long	ft_atol(const char *str);
-int     max_bits(t_struct_node **stackA);
-void    index_replace(t_struct_node **stackA);
+
+t_struct_node   *ft_lstnew_struct(int data);
+void            push(t_struct_node **dest, t_struct_node **src, char *str);
+void            sort_three(t_struct_node **stack);
+void            sort_four(t_struct_node **stackA);
+void            sort_five(t_struct_node **stackA);
+void            simple_sort(t_struct_node **stackA, int node_count);
+void            swap(t_struct_node** headRef, char *str);
+void			r_rotate(t_struct_node** headref, char *str);
+void			rotate(struct node** headref, char *str);
+void            sort_radix(t_struct_node **stackA);
+void            add_list(struct node** headref, int new_data);
+int             getLength(struct node* head);
+int             maxVal(t_struct_node *ref);
+int             minVal(t_struct_node *ref);
+void	        ft_lstadd_back_struct(t_struct_node **lst, t_struct_node *new);
+int             init_stack(t_struct_node **stackA, int count, char *argv[]);
+int             is_sorted(t_struct_node* ref);
+int             findPosition(t_struct_node *stack, int value);
+int             ft_lstsize_struct(t_struct_node *lst);
+long            ft_atol(const char *str);
+int             max_bits(t_struct_node **stackA);
+void            index_replace(t_struct_node **stackA);
 
 #endif
