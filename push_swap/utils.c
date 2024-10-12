@@ -39,57 +39,6 @@ int is_sorted(t_struct_node *ref)
     printf("stack is already sorted");
 }
 
-// int minNode(t_struct_node *ref)
-// {
-//     int index;
-//     int min_index;
-//     int min_value;
-
-//     min_value = INT_MAX;
-//     index = 0;
-//     min_index = 0;
-//     if(ref == NULL)
-//         return (0);
-//     while(ref)
-//     {
-//         if(ref->data < min_value)
-//         {
-//             min_value = ref->data;
-//             min_index = index;
-//         }
-//         index++;
-//         ref = ref->next;
-//     }
-//     return (min_index);
-// }
-
-// int maxNode(t_struct_node *ref)
-// {
-//     int index;
-//     int max_value;
-//     int max_index;
-    
-//     index = 0;
-//     max_index = 0;
-//     max_value = INT_MIN;
-
-//     if(ref == NULL)
-//         return (0);
-//     //t_struct_node* max_node = ref;
-//     while(ref)
-//     {
-//         if(ref->data > max_value)
-//         {
-//             max_value = ref->data;
-//             max_index = index;
-//         }
-//         ref = ref->next;
-//         index++;
-//     }
-//     return (max_index);
-// }
-
-
 int minVal(t_struct_node *ref)
 {
     if(ref == NULL)
@@ -109,6 +58,9 @@ int maxVal(t_struct_node *ref)
     if(ref == NULL)
         return (0);
     t_struct_node* max_node = ref;
+
+    if (ref->next == NULL)
+        return (max_node->data);
     while(ref)
     {
         if(ref->data > max_node->data)
@@ -139,49 +91,6 @@ int    ft_lstsize_struct(t_struct_node *lst)
     ft_lstsize((t_list *)lst);
 }
 
-void show_lst(t_struct_node *stack) 
-{
-    printf("Stack A\t\t\n");
-    while(stack != NULL)
-    {
-        printf("%d\n", stack->data);
-        stack = stack->next;
-    }
-
-
-    // printf("\n\n");
-    // printf("Stack A\t\t");
-    // while (stacka != NULL)
-    // {
-    //     printf("%d   ", stacka->data);
-    //     stacka = stacka->next;
-    // }
-    // printf("\nStack B\t\t");
-    // while (stackb != NULL)
-    // {
-    //     printf("%d   ", stackb->data);
-    //     stackb = stackb->next;
-    // }
-    // printf("\n\n");
-}
-
-t_struct_node    **handle_neg(t_struct_node **stackA)
-{
-    t_struct_node *current;
-    current = *stackA;
-    if (minVal(*stackA) < 0)
-    {
-        while (current)
-        {
-            current->data += -(minVal(*stackA));
-            current = current->next;
-        }
-    }
-    // show_lst(*stackA);
-    // sort_radix(stackA);
-    return (stackA);
-}
-
 long	ft_atol(const char *str)
 {
 	long	i;
@@ -207,15 +116,6 @@ long	ft_atol(const char *str)
 	}
 	return (nb * sign);
 }
-// int	main(void)
-// {
-// 	char	str[] = "++278520005";
-// 	printf("%d\n", ft_atoi(str));
-// 	char *s = "++278520005";
-// 	int res = atoi(s);
-// 	printf("%d\n", res);
-// }
-
 t_struct_node *cloned(t_struct_node* head)
 {
     if (head == NULL)
@@ -225,35 +125,74 @@ t_struct_node *cloned(t_struct_node* head)
     new_head->next = cloned(head->next);
     return (new_head);
 }
-void    convert_to_index(t_struct_node **stackA)
+
+t_struct_node* sort_ascend(t_struct_node* head)
+{
+    int temp;
+    t_struct_node* ref = head;
+    t_struct_node* next_node;
+    while(ref != NULL)
+    {
+        next_node = ref->next;
+        while(next_node != NULL)
+        {
+            if(ref->data > next_node->data)
+            {
+                temp = ref->data;
+                ref->data = next_node->data;
+                next_node->data = temp;
+            }
+            next_node = next_node->next;
+        }
+        ref = ref->next;
+    }
+    // head = ref;
+    return (head);
+}
+
+void    lst_to_array(int *array, t_struct_node *cloned_A, int lst_size)
+{
+    int i = -1;
+    while (++i < lst_size)
+    {
+        array[i] = cloned_A->data;
+        cloned_A = cloned_A->next;
+    }
+}
+
+int    find_index_in_sorted(int *array, int value, int lst_size)
+{
+    int i;
+    i = -1;
+    while (++i < lst_size)
+    {
+        if (array[i] == value)
+            return (i);
+    }
+    return (-1);
+}
+
+void    index_replace(t_struct_node **stackA)
 {
     t_struct_node   *temp_stack;
     t_struct_node   *original_cloned_stackA;
+    t_struct_node   *cloned_stackA;
+    t_struct_node   *cloned_sorted;
 
     int lst_size = ft_lstsize_struct(*stackA);
-    t_struct_node *cloned_stackA = cloned(*stackA);
-    original_cloned_stackA = cloned_stackA;
-    //t_struct_node **stackA= (t_struct_node **)(sizeof(t_struct_node) * (lst_size + 1));
-    //int max_node = maxNode(temp_stack);
-    
-    // show_lst(*stackA);
-    while (lst_size - 1 >= 0)
+    cloned_stackA = cloned(*stackA);
+    cloned_sorted = sort_ascend(cloned_stackA);
+
+    int *array = (int*)malloc(sizeof(int) * lst_size);
+    lst_to_array(array, cloned_sorted, lst_size);
+    temp_stack = *stackA;
+    while (temp_stack)
     {
-        temp_stack = *stackA;
-        int max_val = maxVal(*stackA); //210
-        while ((*stackA) && cloned_stackA)
-        {
-            if (cloned_stackA->data == max_val)
-            {
-                (*stackA)->data = lst_size - 1;
-                break;
-            }
-            (*stackA) = (*stackA)->next;
-            cloned_stackA = cloned_stackA->next;
-        }
-        lst_size--;
-        *stackA = temp_stack;
-        cloned_stackA = original_cloned_stackA;
+        int value = temp_stack->data;
+        int index = find_index_in_sorted(array, value, lst_size);
+        temp_stack->data = index;
+        temp_stack = temp_stack->next;
     }
-    // show_lst(*stackA);
+    free (array);
 }
+
