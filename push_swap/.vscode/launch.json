@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/42/push_swap",
-      "program": "d:/42/push_swap/build/Debug/outDebug",
+      "cwd": "c:/Users/NannSu/Downloads/push_swap",
+      "program": "c:/Users/NannSu/Downloads/push_swap/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
