@@ -94,7 +94,7 @@ int	main(int argc, char **argv)
 
 	stack_a = NULL;
 	stack_b = NULL;
-	if (argc == 1)
+	if (argc == 1 || argv[1] == "")
 		return (1);
 	if (init_stack (&stack_a, argc - 1, argv) == 1)
 		return (1);
