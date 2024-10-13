@@ -23,7 +23,7 @@ t_struct_node    *check_first_two(t_struct_node **stack_a)
     i = -1;
     while (++i < 2)
     {
-        min = minVal(*stack_a);
+        min = val_min(*stack_a);
         pos = findPosition(*stack_a, min);
         if (pos <= 2)  //if min in first two pos
         {
@@ -47,8 +47,8 @@ void sort_three(t_struct_node **stack)
         int min;
         int max;
 
-        max = maxVal(*stack);
-        min = minVal(*stack);
+        max = val_max(*stack);
+        min = val_min(*stack);
         
         if ((*stack)->data == max)
         {
@@ -70,7 +70,7 @@ void sort_four(t_struct_node **stack_a)
 
     if (is_sorted(*stack_a))
         return;
-    min = minVal(*stack_a);
+    min = val_min(*stack_a);
     while ((*stack_a)->data != min) //loops until it reaches the minimum
        rotate(stack_a, "ra\n");
     push(&stackb, stack_a, "pb\n");
