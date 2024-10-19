@@ -6,39 +6,70 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 11:36:52 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/20 11:36:52 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/19 13:33:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-
-void map_validation(t_map *game_map)
+void border_check(t_map *game_map)
 {
-    int flag = 0;
+    int flag = 1;
     int i = 0;
-    while(i < game_map->height)
+    //check for first and last rows
+    while(i < game_map->width)
     {
-        if(game_map->map_array[i][0] == '1' || game_map->map_array[i][game_map->width-1] == '1')
-            flag = 1;
-        if(i == 0 || i == (game_map->height-1))
+        if(game_map->map_array[0][i] != '1' || game_map->map_array[game_map->height-1][i] != '1')
         {
-            int j = 1;
-            while(j < game_map->width)
-            {
-                if(game_map->map_array[i][j] == '1')
-                    flag = 1;
-                else
-                {
-                    flag = 0;
-                    break;
-                }
-                j++;
-            }
+            flag = 0;
+            break;
         }
         i++;
     }
-    printf("Flag: %d\n", flag);
+    i = 1;
+    //check for first and last columns
+    while(i < game_map->height - 1)
+    {
+        if(game_map->map_array[i][0] != '1' || game_map->map_array[i][game_map->width-1] != '1')
+        {
+            flag = 0;
+            break;
+        }
+        i++;
+   }
+   if (!flag)
+    strfd("The game map is not a full proper border\n", 2);
+}
+
+
+
+void ch_validate(int r, int c, t_map *g_map)
+{
+    if (g_map->map_array[r][c] == 'P')
+        g_map->player_count++;
+    else if (g_map->map_array[r][c] == 'C')
+        g_map->collect_count++;
+    else if (g_map->map_array[r][c] == 'E')
+        g_map->exit_count++;
+    else if (g_map->map_array[r][c] != '1' && g_map->map_array[r][c] != '0')
+        g_map->outsider++;
+    // error_msg(g_map);
+}
+
+void is_rectangular(t_map* game_map)
+{
+    int expected_width = game_map->width;
+    int i = 0;
+    while(i < game_map->height)
+    {
+        int row_len = ft_strlen(game_map->map_array[i]);
+        if(row_len != expected_width)
+        {
+            perror("\nMap is not a rectangle");
+            exit(EXIT_FAILURE);
+        }
+        i++;
+    }
 }
 
 void fill_map(int fd, t_map *game_map)
@@ -57,66 +88,97 @@ void fill_map(int fd, t_map *game_map)
         else
         {
             game_map->map_array[i][j] = buffer;
-            if(buffer == 'P')
-                game_map->player_count++;
-            if(buffer == 'C')
-                game_map->collect_count++;
-            if(buffer == 'E')
-                game_map->exit_count++;
+            if (i >= 1 && i <= game_map->height - 2)
+            {
+                if (j >= 1 && j <= game_map->width - 2)
+                    ch_validate (i, j, game_map);
+            } 
             j++;
         }
         if (i >= game_map->height)
             break;
     }
+    error_msg(game_map);
+    printf("Player count:%d\nCollectible:%d\nExit:%i\nOutsider:%d\n", game_map->player_count, game_map->collect_count, game_map->exit_count, game_map->outsider);
+    
+}
+void    row_col(int fd_ber)
+{
+    int row;
+    int col;
+    char buffer[1024];
+    int i;
+
+    i = -1;
+    row = 0;
+    col = 0;
+    int bytesRead = read(fd_ber, buffer, sizeof(buffer)); 
+    buffer[bytesRead] = '\0'; 
+    close(fd_ber); 
+    while (++i < bytesRead)
+    {
+        if (buffer[i] == '\n')
+            row++;
+    }
+    i = -1;
+    while (buffer[++i] != '\n' && buffer[++i] != '\0')
+        col++;
 }
 
 
 int main(int ac, char** av)
 {
-    if (ac == 2) {
-        int row = 0;
-        int col = 0;
-        int i = 0;
+    if (ac == 2)
+    {
+        int i = -1;
+        int fd_ber;
+        int len;
+        int cmp;
 
-        int fd_ber = open(av[1], O_RDONLY);
-        if (fd_ber < 0) {
-            perror(".ber file path could not be opened");
-            exit(EXIT_FAILURE);
+        char** splitted = ft_split (av[1], '.');
+        cmp = ft_strncmp(splitted[1], "ber", 3);
+        if (cmp == 0)
+        {
+            fd_ber = open(av[1], O_RDONLY);
+            if (fd_ber < 0)
+            {
+                perror(".ber file path could not be opened");
+                exit(EXIT_FAILURE);
+            }
         }
-
+        // row_col (fd_ber);
+        int row;
+        int col;
         char buffer[1024];
+        row = 0;
+        col = 0;
         int bytesRead = read(fd_ber, buffer, sizeof(buffer)); 
         buffer[bytesRead] = '\0'; 
         close(fd_ber); 
-
-        while (i < bytesRead) {
-            if (buffer[i] == '\n') {
+        while (++i < bytesRead)
+        {
+            if (buffer[i] == '\n')
                 row++;
-            }
-            i++;
         }
-
-        i = 0;
-        while (buffer[i] != '\n' && buffer[i] != '\0') {
+        i = -1;
+        while (buffer[++i] != '\n' && buffer[i] != '\0')
             col++;
-            i++;
-        }
+        printf("Rows: %d\nColumns: %d\n", row, col);
 
-        printf("Rows: %d, Columns: %d\n", row, col);
         char** map = malloc(sizeof(char*) * row);
         int j = 0;
         while(j < row)
         {
-            map[j] = malloc(sizeof(char) * (col + 1)); // +1 for '\0' at the end of each row if needed
+            map[j] = malloc(sizeof(char) * (col + 1));
             j++;
         }
-        t_map game_map;
-        game_map.map_array = map;
-        game_map.width = col;
-        game_map.height = row;
-        game_map.collect_count = 0;
-        game_map.exit_count = 0;
-        game_map.player_count = 0;
+        t_map* game_map = malloc(sizeof(t_map));
+        game_map->map_array = map;
+        game_map->width = col;
+        game_map->height = row;
+        game_map->collect_count = 0;
+        game_map->exit_count = 0;
+        game_map->player_count = 0;
 
         // Reopen the .ber file for reading again
         fd_ber = open(av[1], O_RDONLY);
@@ -126,8 +188,10 @@ int main(int ac, char** av)
         }
 
         // Fill the map array
-        fill_map(fd_ber, &game_map);
-        map_validation(&game_map);
+        fill_map(fd_ber, game_map);   //has char validation inside
+        // print_map(game_map, row);
+        border_check(game_map);
+        //is_rectangular(game_map);  //have to test this
         close(fd_ber); // Close the file again after filling the map
 
         // Print the map for testing
@@ -142,11 +206,7 @@ int main(int ac, char** av)
         }
         free(game_map->map_array);
     }
-    return 0;
-    
 }
-
-    
     //put a .ber map file into the 2D array(grid format)
     //validate the map
         //check if the map is rectangular --> have walls, have a player and exit and collectibles
@@ -162,3 +222,4 @@ int main(int ac, char** av)
     //game loop and rendering
     //player controls
 
+//compiling the program --> ./so_long map.ber

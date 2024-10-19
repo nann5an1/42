@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/42/so_long",
-      "program": "d:/42/so_long/build/Debug/outDebug",
+      "cwd": "c:/Users/NannSu/Downloads/so_long/so_long",
+      "program": "c:/Users/NannSu/Downloads/so_long/so_long/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
