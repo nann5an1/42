@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:20:41 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/19 12:56:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/20 12:25:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,13 @@ typedef struct s_map
 //     void* win_ptr;
 // }t_game
 
-void fill_map(int fd, t_map *game_map);
-void border_check(t_map *game_map);
-void ch_validate(int r, int c, t_map *g_map);
-void is_rectangular(t_map* game_map);
+void    fill_map(int fd, t_map *game_map);
+void    border_check(t_map *game_map);
+void    ch_validate(int r, int c, t_map *g_map);
+void    is_rectangular(t_map* game_map);
 void    print_map(t_map *game_map, int row);
 void    error_msg(t_map *g_map);
+void    m_validate(char **av, int fd_ber, t_map *game_map);
+int    check_file(char **av);
 
 #endif

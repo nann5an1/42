@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 11:36:52 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/19 13:33:03 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/20 12:29:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,19 @@ void ch_validate(int r, int c, t_map *g_map)
 
 void is_rectangular(t_map* game_map)
 {
-    int expected_width = game_map->width;
-    int i = 0;
-    while(i < game_map->height)
+    int i;
+    int row_len;
+
+    i = 0;
+    int expected_width = ft_strlen(game_map->map_array[i]);
+    while(++i < game_map->height)
     {
-        int row_len = ft_strlen(game_map->map_array[i]);
+        row_len = ft_strlen(game_map->map_array[i]);
         if(row_len != expected_width)
         {
             perror("\nMap is not a rectangle");
             exit(EXIT_FAILURE);
         }
-        i++;
     }
 }
 
@@ -134,8 +136,9 @@ int main(int ac, char** av)
         int fd_ber;
         int len;
         int cmp;
+        char** splitted;
 
-        char** splitted = ft_split (av[1], '.');
+        splitted = ft_split (av[1], '.');
         cmp = ft_strncmp(splitted[1], "ber", 3);
         if (cmp == 0)
         {
@@ -146,7 +149,7 @@ int main(int ac, char** av)
                 exit(EXIT_FAILURE);
             }
         }
-        // row_col (fd_ber);
+        // check_file (av);
         int row;
         int col;
         char buffer[1024];
@@ -164,7 +167,6 @@ int main(int ac, char** av)
         while (buffer[++i] != '\n' && buffer[i] != '\0')
             col++;
         printf("Rows: %d\nColumns: %d\n", row, col);
-
         char** map = malloc(sizeof(char*) * row);
         int j = 0;
         while(j < row)
@@ -179,42 +181,19 @@ int main(int ac, char** av)
         game_map->collect_count = 0;
         game_map->exit_count = 0;
         game_map->player_count = 0;
-
-        // Reopen the .ber file for reading again
-        fd_ber = open(av[1], O_RDONLY);
-        if (fd_ber < 0) {
-            perror("Error reopening .ber file");
-            exit(EXIT_FAILURE);
-        }
-
-        // Fill the map array
-        fill_map(fd_ber, game_map);   //has char validation inside
-        // print_map(game_map, row);
-        border_check(game_map);
-        //is_rectangular(game_map);  //have to test this
-        close(fd_ber); // Close the file again after filling the map
-
+        m_validate(av, fd_ber, game_map);
+        print_map(game_map, row);
         // Print the map for testing
-        printf("Map content:\n");
-        for (int i = 0; i < row; i++) {
-            printf("%s\n", game_map->map_array[i]);
-        }
-
-        // Free allocated memory
-        for (int j = 0; j < row; j++) {
-            free(game_map->map_array[j]);
-        }
-        free(game_map->map_array);
     }
 }
     //put a .ber map file into the 2D array(grid format)
     //validate the map
         //check if the map is rectangular --> have walls, have a player and exit and collectibles
+    //recursive
     //after map validation, render to the screen using minilibx
         //will require .xpm files to represent each type of element visually
     //validate the player movements
     //implement win and exit conditions
-
 
     //main parts of the project
     //file reading and map parsing
