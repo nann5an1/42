@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:20:41 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/21 16:28:33 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/21 21:18:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,14 @@ void    ch_validate(int r, int c, t_map *g_map);
 void    is_rectangular(t_map* game_map);
 void    print_map(t_map *game_map, int row);
 void    error_msg(t_map *g_map);
-void    m_validate(char **av, int fd_ber, t_map *game_map);
+void    m_validate(char **av, t_map *game_map);
 int     check_file(char **av);
 void	flood_fill(char **tab, t_point size, t_point begin);
 void    fill (char **tab, t_point size, t_point cur);
+int file_validate(char **av);
+void    **row_col(int bytes_read, char *buffer, t_map *g_map);
+char **map_array_alloc(t_map *game_map);
+void g_struct(char **av, t_map *game_map, int bytesRead, char *buffer);
+void    begin_point(char **map, t_map *g_map, t_point *begin);
 
 #endif

@@ -23,6 +23,25 @@ void    print_map(t_map *game_map, int row)
     }
 }
 
+
+int file_validate(char **av)
+{
+    char** splitted;
+    int fd_ber;
+
+    splitted = ft_split (av[1], '.');
+    if (ft_strncmp(splitted[1], "ber", 3) == 0)
+    {
+        fd_ber = open(av[1], O_RDONLY);
+        if (fd_ber < 0)
+        {
+            perror(".ber file path could not be opened");
+            exit (1);
+        }
+    }
+    return (fd_ber);
+}
+
 void    error_msg(t_map *g_map)
 {
     if(g_map->player_count != 1)
@@ -35,8 +54,9 @@ void    error_msg(t_map *g_map)
         strfd ("Error! Unrelated character in the game map\n", 2);
 }
 
-void    m_validate(char **av, int fd_ber, t_map *game_map)
-{
+void    m_validate(char **av, t_map *game_map)
+{   
+    int fd_ber;
     fd_ber = open(av[1], O_RDONLY);
     if (fd_ber < 0)
     {
@@ -54,7 +74,7 @@ int check_file(char **av)
     int cmp;
     char** splitted;
     int fd_ber;
-    char buffer[1024];
+    char buffer[4096];
     int bytesRead;
 
     splitted = ft_split (av[1], '.');
@@ -68,10 +88,47 @@ int check_file(char **av)
             exit(EXIT_FAILURE);
         }
     }
-    bytesRead = read(fd_ber, buffer, sizeof(buffer)); 
-    buffer[bytesRead] = '\0'; 
-    close(fd_ber);
     return (bytesRead);
+}
+void  **row_col(int bytes_read, char *buffer, t_map *g_map)
+{
+    int i;
+    int row;
+    int col;
+    t_point *size;
+
+    row = 0;
+    col = 0;
+    i = -1;
+    // printf("Bytes read:%d\n", bytes_read);
+    while (++i < bytes_read)
+    {
+        if (buffer[i] == '\n')
+            row++;
+    }
+    i = -1;
+    while (buffer[++i] != '\n' && buffer[i] != '\0')
+        col++;
+    row++;
+    printf("Rows: %d\nColumns: %d\n", row, col);
+    g_map->width = col;
+    g_map->height = row;
+}
+
+char **map_array_alloc(t_map *game_map)
+{
+    int j;
+    char **map;
+
+    j = -1;
+    map = malloc(sizeof(char*) * game_map->height);
+    while(++j < game_map->height)
+        map[j] = malloc(sizeof(char) * (game_map->width + 1));
+    game_map->map_array = map;
+    game_map->collect_count = 0;
+    game_map->exit_count = 0;
+    game_map->player_count = 0;
+    return (map);
 }
 
 void    fill (char **tab, t_point size, t_point cur)
@@ -108,5 +165,22 @@ void	flood_fill(char **tab, t_point size, t_point begin)
             }
         }
     }
+}
+
+void g_struct(char **av, t_map *game_map, int bytesRead, char *buffer)
+{
+    t_point size;
+    t_point begin;
+    char **map;
+
+    game_map = malloc(sizeof(t_map));
+    row_col(bytesRead, buffer, game_map);
+    map = map_array_alloc(game_map);
+    size.x = game_map->width;
+    size.y = game_map->height;
+    m_validate(av, game_map);
+    begin_point(map, game_map, &begin);
+    print_map(game_map, game_map->height);
+    flood_fill(map, size, begin);
 }
 
