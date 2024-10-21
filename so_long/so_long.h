@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:20:41 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/20 12:25:17 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/21 16:28:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ typedef struct s_map
     int outsider;
 } t_map;
 
+typedef struct f_point
+{
+    int x;
+    int y;
+    int b_x;
+    int b_y;
+    int count;
+}   t_point;
+
 // typedef s_game
 // {
 //     int player_x;
@@ -59,6 +68,8 @@ void    is_rectangular(t_map* game_map);
 void    print_map(t_map *game_map, int row);
 void    error_msg(t_map *g_map);
 void    m_validate(char **av, int fd_ber, t_map *game_map);
-int    check_file(char **av);
+int     check_file(char **av);
+void	flood_fill(char **tab, t_point size, t_point begin);
+void    fill (char **tab, t_point size, t_point cur);
 
 #endif

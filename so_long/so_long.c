@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 11:36:52 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/20 12:29:42 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/21 16:59:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,28 @@ void border_check(t_map *game_map)
     strfd("The game map is not a full proper border\n", 2);
 }
 
-
-
 void ch_validate(int r, int c, t_map *g_map)
 {
+    t_point begin;
     if (g_map->map_array[r][c] == 'P')
         g_map->player_count++;
     else if (g_map->map_array[r][c] == 'C')
         g_map->collect_count++;
     else if (g_map->map_array[r][c] == 'E')
         g_map->exit_count++;
+    // else if (g_map->map_array[r][c] == '0')
+    // {
+    //     begin.count++;
+    //     if (begin.count == 1)
+    //     {
+    //         begin.y = r;
+    //         begin.x = c;
+    //     }
+    // }
     else if (g_map->map_array[r][c] != '1' && g_map->map_array[r][c] != '0')
         g_map->outsider++;
     // error_msg(g_map);
+    
 }
 
 void is_rectangular(t_map* game_map)
@@ -127,7 +136,30 @@ void    row_col(int fd_ber)
         col++;
 }
 
-
+void    begin_point(char **map, t_map *g_map, t_point *begin)
+{
+    int i;
+    int j;
+    
+    j = 1;
+    while (j <= g_map->height - 2)
+    {
+        i = 1;
+        while (i <= g_map->width - 2)
+        {
+            if (map[j][i] == 'P')
+            {
+                begin->y = j;
+                begin->x = i;
+                printf("The pos of P:( %d, %d )\n", begin->y, begin->x);
+                return ;
+            }
+            i++;
+        }
+        j++;
+    }
+    
+}
 int main(int ac, char** av)
 {
     if (ac == 2)
@@ -137,6 +169,8 @@ int main(int ac, char** av)
         int len;
         int cmp;
         char** splitted;
+        t_point size;
+        t_point begin;
 
         splitted = ft_split (av[1], '.');
         cmp = ft_strncmp(splitted[1], "ber", 3);
@@ -181,8 +215,13 @@ int main(int ac, char** av)
         game_map->collect_count = 0;
         game_map->exit_count = 0;
         game_map->player_count = 0;
+        size.x = col;
+        size.y = row;
         m_validate(av, fd_ber, game_map);
+        begin_point(map, game_map, &begin);
         print_map(game_map, row);
+        // beg_pt(game_map);
+        flood_fill(map, size, begin);
         // Print the map for testing
     }
 }

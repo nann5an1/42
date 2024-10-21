@@ -73,3 +73,40 @@ int check_file(char **av)
     close(fd_ber);
     return (bytesRead);
 }
+
+void    fill (char **tab, t_point size, t_point cur)
+{
+    if (size.x < 0 || cur.x >= size.x || size.y < 0 || cur.y >= size.y || \
+    (tab[cur.y][cur.x] != 'C' && tab[cur.y][cur.x] != 'P' && tab[cur.y][cur.x] != '0' && \
+    tab[cur.y][cur.x] != 'E'))
+        return ;
+    tab[cur.y][cur.x] = 'F';
+    fill(tab, size, (t_point){cur.x - 1, cur.y});
+    fill(tab, size, (t_point){cur.x + 1, cur.y});
+    fill(tab, size, (t_point){cur.x, cur.y - 1});
+    fill(tab, size, (t_point){cur.x, cur.y + 1});
+}
+
+void	flood_fill(char **tab, t_point size, t_point begin)
+{
+    printf("Starting point for flood fill: y = %d, x = %d\n", begin.y, begin.x);
+	fill(tab, size, begin);
+    int i = -1;
+    while (++i < size.y)
+        printf("%s\n", tab[i]);
+    i = 0;
+    int j;
+    while (++i < size.y - 2)
+    {   
+        j = 0;
+        while (++j < size.x - 2)
+        {
+            if (tab[i][j] == 'E' || tab[i][j] == 'C')
+            {
+                printf("Not a valid map\n");
+                return ;
+            }
+        }
+    }
+}
+
