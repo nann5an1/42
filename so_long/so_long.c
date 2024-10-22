@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 11:36:52 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/21 23:14:04 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/22 12:36:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 void border_check(t_map *game_map)
 {
-    int flag = 1;
-    int i = 0;
-    //check for first and last rows
-    while(i < game_map->width)
+    int flag;
+    int i;
+
+    flag = 1;
+    i = -1;
+    while(++i < game_map->width)
     {
         if(game_map->map_array[0][i] != '1' || game_map->map_array[game_map->height-1][i] != '1')
         {
             flag = 0;
             break;
         }
-        i++;
     }
-    i = 1;
-    //check for first and last columns
-    while(i < game_map->height - 1)
+    i = 0;
+    while(++i < game_map->height - 1)
     {
         if(game_map->map_array[i][0] != '1' || game_map->map_array[i][game_map->width-1] != '1')
         {
             flag = 0;
             break;
         }
-        i++;
    }
    if (!flag)
     strfd("The game map is not a full proper border\n", 2);
@@ -60,14 +59,16 @@ void is_rectangular(t_map* game_map)
     int row_len;
 
     i = 0;
-    int expected_width = ft_strlen(game_map->map_array[i]) + (i == game_map->height - 1);
-    while(++i < game_map->height)
+    int expected_width = ft_strlen(game_map->map_array[i]) - 1;
+    if ((game_map->map_array)[i][expected_width - 1] == '\n')
+        expected_width -= 1;
+    while(++i < game_map->height - 1)
     {
-        row_len = ft_strlen(game_map->map_array[i]);
+        row_len = ft_strlen(game_map->map_array[i]) - 1;
         if(row_len != expected_width)
         {
             perror("\nMap is not a rectangle");
-            exit(EXIT_FAILURE);
+            exit(1);
         }
     }
 }
@@ -75,34 +76,31 @@ void is_rectangular(t_map* game_map)
 void fill_map(int fd, t_map *game_map)
 {
     char buffer;
-    int i = 0;
-    int j = 0;
+    int i;
+    int j;
 
-    while (read(fd, &buffer, 1) > 0)
+    i = 0;
+    j = 0;
+    while (read(fd, &buffer, 1) > 0 && i < game_map->height)
     {
         if (buffer == '\n')
         {
             i++;
             j = 0;
-            // printf("%d\n", i);
         }
         else
         {
             game_map->map_array[i][j] = buffer;
-            if (i >= 1 && i <= game_map->height - 2)
+            if (i >= 1 && i <= (game_map->height) - 2)
             {
                 if (j >= 1 && j <= game_map->width - 2)
                     ch_validate (i, j, game_map);
             } 
             j++;
         }
-        if (i >= game_map->height)
-            break;
     }
-    print_map(game_map, game_map->height);
     error_msg(game_map);
     printf("Player count:%d\nCollectible:%d\nExit:%i\nOutsider:%d\n", game_map->player_count, game_map->collect_count, game_map->exit_count, game_map->outsider);
-    
 }
 
 void    begin_point(char **map, t_map *g_map, t_point *begin)
@@ -120,15 +118,15 @@ void    begin_point(char **map, t_map *g_map, t_point *begin)
             {
                 begin->y = j;
                 begin->x = i;
-                printf("The pos of P:( %d, %d )\n", begin->y, begin->x);
+                // printf("The pos of P:( %d, %d )\n", begin->y, begin->x);
                 return ;
             }
             i++;
         }
         j++;
     }
-    
 }
+
 int main(int ac, char** av)
 {
     if (ac == 2)

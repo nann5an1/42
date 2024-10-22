@@ -23,7 +23,6 @@ void    print_map(t_map *game_map, int row)
     }
 }
 
-
 int file_validate(char **av)
 {
     char** splitted;
@@ -100,7 +99,6 @@ void  **row_col(int bytes_read, char *buffer, t_map *g_map)
     row = 0;
     col = 0;
     i = -1;
-    // printf("Bytes read:%d\n", bytes_read);
     while (++i < bytes_read)
     {
         if (buffer[i] == '\n')
@@ -110,6 +108,12 @@ void  **row_col(int bytes_read, char *buffer, t_map *g_map)
     while (buffer[++i] != '\n' && buffer[i] != '\0')
         col++;
     row++;
+    col--;
+    if (row <= 2)
+    {
+        perror ("The map must have at least 3 rows.\n");
+        exit (1);
+    }
     printf("Rows: %d\nColumns: %d\n", row, col);
     g_map->width = col;
     g_map->height = row;
