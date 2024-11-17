@@ -50,4 +50,8 @@ typedef struct s_program
     t_philo *philo;
 } t_program;
 
+int	ft_atoi(const char *str);
+int init_prog(t_program *prog, t_philo *philo);
+int init_fork(pthread_mutex_t *forks, int total_philo);
+
 #endif

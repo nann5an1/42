@@ -41,6 +41,11 @@ int validate_digits(char **argv)
 }
 
 
+void* routine()
+{
+    printf("Test is printing");
+}
+
 int validate_args(char **argv)
 {
     if (validate_digits(argv) == 1)
@@ -63,6 +68,7 @@ int validate_args(char **argv)
 
 int main(int argc, char** argv)
 {
+    pthread_t thread;
     t_program prog;
     t_philo philo;
     pthread_mutex_t forks[PHILOMAX];
@@ -73,9 +79,15 @@ int main(int argc, char** argv)
         return (1);
     else
         printf("All okay:)\n");
+    pthread_create(&thread, NULL, &routine, NULL);
+    pthread_join(thread, NULL);
+    pthread_mutex_init();
+    pthread_mutex_lock();
+    pthread_mutex_unlock();
+    gettimeofday();
     // init_prog(&prog, &philo);
-    init_fork(forks, ft_atoi(argv[1]));
-    init_philo();
+    // init_fork(forks, ft_atoi(argv[1]));
+    // init_philo();
 
 }
 

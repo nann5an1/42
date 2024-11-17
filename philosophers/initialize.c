@@ -12,12 +12,13 @@
 
 #include "philo.h"
 
-int init_prog(t_program *prog, t_philo *philo)
-{
-    pthread_create(philo, NULL, prog, NULL);
-    prog->philo = philo;
+// int init_prog(t_program *prog, t_philo *philo)
+// {
+//     pthread_create(philo, NULL, prog, NULL);
+//     pthread_create()
+//     prog->philo = philo;
 
-}
+// }
 
 int init_fork(pthread_mutex_t *forks, int total_philo)
 {
