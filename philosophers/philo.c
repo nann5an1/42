@@ -43,7 +43,7 @@ int validate_digits(char **argv)
 
 void* routine()
 {
-    printf("Test is printing");
+    printf("Test is printing\n");
 }
 
 int validate_args(char **argv)
@@ -81,13 +81,9 @@ int main(int argc, char** argv)
         printf("All okay:)\n");
     pthread_create(&thread, NULL, &routine, NULL);
     pthread_join(thread, NULL);
-    pthread_mutex_init();
-    pthread_mutex_lock();
-    pthread_mutex_unlock();
-    gettimeofday();
-    // init_prog(&prog, &philo);
-    // init_fork(forks, ft_atoi(argv[1]));
-    // init_philo();
+    init_prog(&prog, &philo);
+    init_fork(forks, ft_atoi(argv[1]));
+    eat(forks, &philo);
 
 }
 

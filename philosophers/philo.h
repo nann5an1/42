@@ -53,5 +53,6 @@ typedef struct s_program
 int	ft_atoi(const char *str);
 int init_prog(t_program *prog, t_philo *philo);
 int init_fork(pthread_mutex_t *forks, int total_philo);
+void eat(pthread_mutex_t *forks, t_philo *philo);
 
 #endif

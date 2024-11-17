@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 23:20:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/08 23:20:43 by marvin           ###   ########.fr       */
+/*   Created: 2024/11/17 20:14:15 by marvin            #+#    #+#             */
+/*   Updated: 2024/11/17 20:14:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int init_prog(t_program *prog, t_philo *philo)
+void eat(pthread_mutex_t *forks, t_philo *philo)
 {
-    prog->philo = philo;
-    printf("Philo thead has been created\n");
+    int l_fork = philo->id;
+    int r_fork = (philo->id + 1);
+
+    pthread_mutex_lock(&forks[l_fork]);
+    pthread_mutex_lock(&forks[r_fork]);
+
+    printf("%d is eating\n", philo->id);
+    
+    pthread_mutex_unlock(&forks[l_fork]);
+    pthread_mutex_unlock(&forks[r_fork]);
 }
 
-int init_fork(pthread_mutex_t *forks, int total_philo)
-{
-    int i;
+// void sleep()
+// {
 
-    i = 0;
-    while (i < total_philo)
-    {
-        pthread_mutex_init(&forks[i], NULL);
-        i++;
-    }
-    printf("fork mutex has been has been initiated\n");
-}
+// }
 
-void init_philos()
-{
 
-}
+// void think()
+// {
+
+
+// }
