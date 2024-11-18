@@ -39,7 +39,8 @@ typedef struct s_philo
     size_t time_to_sleep;
     size_t num_of_times_to_eat;
     pthread_t *forks;
-
+    pthread_mutex_t *r_fork;
+    pthread_mutex_t *l_fork;
 } t_philo;
 
 typedef struct s_program
@@ -51,8 +52,14 @@ typedef struct s_program
 } t_program;
 
 int	ft_atoi(const char *str);
-int init_prog(t_program *prog, t_philo *philo);
-int init_fork(pthread_mutex_t *forks, int total_philo);
-void eat(pthread_mutex_t *forks, t_philo *philo);
+int prog_init(t_program *prog, t_philo *philo);
+int fork_init(pthread_mutex_t *forks, int total_philo);
+void eat_philo(pthread_mutex_t *forks, t_philo *philo);
+size_t sleep_philo(t_philo *philo);
+void args_input(t_philo *philo, char** av);
+void* routine();
+size_t current_time_of_day();
+void thread_init(t_philo *philo);
+void philo_init(t_philo *philo, char** av);
 
 #endif

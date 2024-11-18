@@ -45,3 +45,12 @@ int	ft_atoi(const char *str)
 // 	int res = atoi(s);
 // 	printf("%d\n", res);
 // }
+
+
+size_t current_time_of_day()
+{
+	struct timeval tv;
+	if (gettimeofday(&tv, NULL) == 0)
+        return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+    printf("Error in gettimeofday.\n");
+}

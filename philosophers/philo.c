@@ -79,11 +79,16 @@ int main(int argc, char** argv)
         return (1);
     else
         printf("All okay:)\n");
-    pthread_create(&thread, NULL, &routine, NULL);
-    pthread_join(thread, NULL);
-    init_prog(&prog, &philo);
-    init_fork(forks, ft_atoi(argv[1]));
-    eat(forks, &philo);
+    // pthread_create(&thread, NULL, &routine, NULL);
+    // pthread_join(thread, NULL);
+    args_input(&philo, argv);
+    // prog_init(&prog, &philo);
+    // fork_init(forks, ft_atoi(argv[1]));
+    philo_init(&philo, argv);
+    // threads_init();
+    // eat_philo(forks, &philo);
+    // printf("%ld\n", sleep_philo(&philo));
+    
 
 }
 
