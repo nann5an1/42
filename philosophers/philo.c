@@ -86,7 +86,7 @@ int main(int argc, char** argv)
     // fork_init(forks, ft_atoi(argv[1]));
     philo_init(&philo, argv);
     // threads_init();
-    // eat_philo(forks, &philo);
+    eating(forks, &philo, argv);
     // printf("%ld\n", sleep_philo(&philo));
     
 

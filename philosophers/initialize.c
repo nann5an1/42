@@ -68,11 +68,3 @@ void args_input(t_philo *philo, char** av)
     printf("%ld\n", philo->num_of_times_to_eat);
 }
 
-void thread_init(t_philo *philo)
-{
-    pthread_t thread;
-
-    pthread_create(&thread, NULL, &routine, NULL);
-    pthread_join(thread, NULL);
-    pthread_detach(thread);
-}

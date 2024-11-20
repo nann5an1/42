@@ -54,12 +54,13 @@ typedef struct s_program
 int	ft_atoi(const char *str);
 int prog_init(t_program *prog, t_philo *philo);
 int fork_init(pthread_mutex_t *forks, int total_philo);
-void eat_philo(pthread_mutex_t *forks, t_philo *philo);
-size_t sleep_philo(t_philo *philo);
+void eating(pthread_mutex_t *forks, t_philo *philo, char **argv);
+size_t sleeping(t_philo *philo);
 void args_input(t_philo *philo, char** av);
 void* routine();
 size_t current_time_of_day();
 void thread_init(t_philo *philo);
 void philo_init(t_philo *philo, char** av);
+void thread_init(t_philo *philo);
 
 #endif
