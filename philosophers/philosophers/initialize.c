@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 23:20:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/21 18:06:18 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/21 19:34:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void philo_init(t_philo *philo_arr, char** av, pthread_mutex_t *forks)
         philo_arr[i].eating = 0;
         args_input(&philo_arr[i], av);
         philo_arr[i].start_time = current_time_of_day();
-        philo_arr[i].end_time = current_time_of_day();
+        philo_arr[i].last_eat_time = current_time_of_day();
         philo_arr[i].count_eaten = 0;
         philo_arr[i].l_fork =  &forks[i];
         philo_arr[i].r_fork = &forks[i] + 1 % ft_atoi(av[1]);

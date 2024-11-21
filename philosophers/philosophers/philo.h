@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:23:05 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/21 17:58:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/21 19:46:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 typedef struct s_philo
 {
     int start_time;
-    int end_time;
+    // int end_time;
     int id;
     int eating;
     int count_eaten;
@@ -69,6 +69,7 @@ void sleep_func(size_t millisec);
 void *action(void *args);
 int fork_destroy(pthread_mutex_t *forks, int total_philo);
 void thread_init(t_philo *philo);
+int dead_check(t_philo *philo);
 // void msg_output(int id, t_philo *philo, char *str);
 
 
