@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:42:23 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/20 14:32:46 by nsan             ###   ########.fr       */
+/*   Updated: 2024/11/21 17:59:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,3 +64,26 @@ void sleep_func(size_t millisec)
 	if (current_time_of_day() - start < millisec)
 		usleep (500);
 }
+
+// int dead_lock(t_philo *philo)
+// {
+// 	pthread_mutex_lock(philo->lock_dead);
+// 	if (*philo->dead == 1)
+// 		return (pthread_mutex_unlock(philo->lock_dead), 1);
+// 	return (pthread_mutex_unlock(philo->lock_dead), 0);
+// }
+
+// void msg_output(char *str, t_philo *philo, int id)
+// {
+// 	size_t time;
+
+// 	pthread_mutex_lock(philo->lock_write);
+// 	printf("Inside msg_output\n");
+// 	// printf("start time: %d", philo->start_time);
+// 	time = current_time_of_day() - philo->start_time;
+// 	// printf("Inside msg_output 1\n");
+// 	// printf("Time: %ld\n", time);
+// 	if(dead_lock(philo) == 0)
+// 		printf("%ld %d %s\n", time, id, str);
+// 	pthread_mutex_unlock(philo->lock_write);
+// }

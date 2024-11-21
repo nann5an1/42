@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:23:05 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/21 14:35:19 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/21 17:58:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_philo
     int id;
     int eating;
     int count_eaten;
+    int last_eat_time;
     pthread_t thread;
     size_t num_of_philo;
     size_t time_to_die;
@@ -41,6 +42,9 @@ typedef struct s_philo
     // pthread_t *forks;
     pthread_mutex_t *r_fork;
     pthread_mutex_t *l_fork;
+    pthread_mutex_t *lock_dead;
+    pthread_mutex_t *lock_meal;
+    pthread_mutex_t *lock_write;
 } t_philo;
 
 typedef struct s_program
@@ -56,6 +60,7 @@ int prog_init(t_program *prog, t_philo *philo);
 int fork_init(pthread_mutex_t *forks, int total_philo);
 void eating(t_philo *philo);
 size_t sleeping(t_philo *philo);
+void thinking(t_philo *philo);
 void args_input(t_philo *philo, char **av);
 size_t current_time_of_day();
 void thread_init(t_philo *philo);
@@ -64,6 +69,7 @@ void sleep_func(size_t millisec);
 void *action(void *args);
 int fork_destroy(pthread_mutex_t *forks, int total_philo);
 void thread_init(t_philo *philo);
+// void msg_output(int id, t_philo *philo, char *str);
 
 
 #endif

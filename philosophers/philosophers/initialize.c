@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 23:20:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/21 14:33:04 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/21 18:06:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void philo_init(t_philo *philo_arr, char** av, pthread_mutex_t *forks)
     i = 0;
     while (i < ft_atoi(av[1]))
     {
-        printf("i value in philo_init : %d\n", i);
+        // printf("i value in philo_init : %d\n", i);
         philo_arr[i].id = i + 1;
         philo_arr[i].eating = 0;
         args_input(&philo_arr[i], av);

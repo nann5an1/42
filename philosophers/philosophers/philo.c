@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:22:40 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/21 14:35:58 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/21 17:33:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,14 @@ int main(int argc, char** argv)
     // args_input(&philo, argv);
     // printf("inside main\n");
 
+    
     // prog_init(&prog, &philo);
     fork_init(forks, ft_atoi(argv[1]));
     philo_init(philo, argv, forks);
-    // eating(philo);
-    // sleeping(philo);
+    // // eating(philo);
+    // // sleeping(philo);
     thread_init(philo); //--> thread and philo creation
-    fork_destroy(forks, ft_atoi(argv[1]));
+    // fork_destroy(forks, ft_atoi(argv[1]));
 }
 
 //input argument --> total 6 arguments

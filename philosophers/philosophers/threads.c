@@ -6,36 +6,19 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:11:37 by nsan              #+#    #+#             */
-/*   Updated: 2024/11/21 14:31:03 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/21 18:11:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-
-// void *action(void *arg)
-// {
-// 	t_philo *philo;
-// 	philo = (t_philo *)arg;
-// 	// eating(philo, prog, av);
-// 	sleeping(philo);
-// 	return (NULL);
-// }
-
 void *action(void *args)
 {
     t_philo *philo = (t_philo *)args;
     eating(philo);
     sleeping(philo);
+    thinking(philo);
     return (NULL);
 }
-
-// void *action(void *arg, t_philo *philo, t_program *prog, char **av)
-// {
-// 	eating(philo, prog, av);
-// 	sleeping(philo);
-// 	return (NULL);
-// }
 
 void thread_init(t_philo *philo)
 {
@@ -46,6 +29,11 @@ void thread_init(t_philo *philo)
     while (i < philo->num_of_philo)
     {
         pthread_create(&thread, NULL, action, (void *)&philo[i]);
+        i++;
+    }
+    i = 0;
+    while (i < philo->num_of_philo)
+    {
         pthread_join(thread, NULL);
         i++;
     }
