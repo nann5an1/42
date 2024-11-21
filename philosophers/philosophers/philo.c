@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:22:40 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/08 15:22:40 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/20 20:10:16 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ int validate_digits(char **argv)
 }
 
 
-void* routine()
-{
-    printf("Test is printing\n");
-}
 
 int validate_args(char **argv)
 {
@@ -62,15 +58,14 @@ int validate_args(char **argv)
         return (printf("Time to sleep cannot be less than 0.\n"), 1);
     else if(argv[5] && ft_atoi(argv[5]) < 0)
         return (printf("Invalid number of times to eat.\n"), 1);
-
-
+    return (0);
 }
 
 int main(int argc, char** argv)
 {
     pthread_t thread;
     t_program prog;
-    t_philo philo;
+    t_philo philo[PHILOMAX];
     pthread_mutex_t forks[PHILOMAX];
 
     if (argc < 5 || argc > 6)
@@ -79,16 +74,20 @@ int main(int argc, char** argv)
         return (1);
     else
         printf("All okay:)\n");
-    // pthread_create(&thread, NULL, &routine, NULL);
-    // pthread_join(thread, NULL);
-    args_input(&philo, argv);
+    // args_input(&philo, argv);
+    printf("inside main\n");
+
     // prog_init(&prog, &philo);
-    // fork_init(forks, ft_atoi(argv[1]));
-    philo_init(&philo, argv);
-    // threads_init();
-    eating(forks, &philo, argv);
+    fork_init(forks, ft_atoi(argv[1]));
+    // philo_arr = malloc(sizeof(t_philo) * philo.num_of_philo);
+    printf("malloc done\n");
+    philo_init(philo, argv, forks);
+    // eating(philo, &prog, argv);
+    fork_destroy(forks, ft_atoi(argv[1]));
+    // thread_init(philo); //--> thread and philo creation
+
     // printf("%ld\n", sleep_philo(&philo));
-    
+
 
 }
 

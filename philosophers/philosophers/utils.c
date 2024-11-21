@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:42:23 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/08 16:42:23 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/20 14:32:46 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,6 @@ int	ft_atoi(const char *str)
 // 	printf("%d\n", res);
 // }
 
-void usleep_func(size_t millisec){
-	size_t start;
-
-	start = current_time_of_day();
-	while((current_time_of_day() - start) < millisec)
-		usleep(500);
-}
 
 size_t current_time_of_day()
 {
@@ -61,4 +54,13 @@ size_t current_time_of_day()
         return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
     printf("Error in gettimeofday.\n");
 	return (0);
+}
+
+void sleep_func(size_t millisec)
+{
+	size_t start;
+
+	start = current_time_of_day();
+	if (current_time_of_day() - start < millisec)
+		usleep (500);
 }

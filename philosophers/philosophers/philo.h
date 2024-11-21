@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:23:05 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/08 15:23:05 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/20 20:09:24 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_philo
     size_t time_to_eat;
     size_t time_to_sleep;
     size_t num_of_times_to_eat;
-    pthread_t *forks;
+    // pthread_t *forks;
     pthread_mutex_t *r_fork;
     pthread_mutex_t *l_fork;
 } t_philo;
@@ -54,13 +54,17 @@ typedef struct s_program
 int	ft_atoi(const char *str);
 int prog_init(t_program *prog, t_philo *philo);
 int fork_init(pthread_mutex_t *forks, int total_philo);
-void eating(pthread_mutex_t *forks, t_philo *philo, char **argv);
+void eating(t_philo *philo, char **av);
 size_t sleeping(t_philo *philo);
-void args_input(t_philo *philo, char** av);
+void args_input(t_philo *philo, char **av);
 void* routine();
 size_t current_time_of_day();
 void thread_init(t_philo *philo);
-void philo_init(t_philo *philo, char** av);
+void philo_init(t_philo *philo_arr, char** av, pthread_mutex_t *forks);
+void sleep_func(size_t millisec);
+void *action(t_philo *philo, t_program *prog, char **av);
+int fork_destroy(pthread_mutex_t *forks, int total_philo);
 void thread_init(t_philo *philo);
+
 
 #endif
