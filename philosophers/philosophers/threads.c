@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:11:37 by nsan              #+#    #+#             */
-/*   Updated: 2024/11/20 20:10:35 by nsan             ###   ########.fr       */
+/*   Updated: 2024/11/21 14:31:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@
 // 	return (NULL);
 // }
 
+void *action(void *args)
+{
+    t_philo *philo = (t_philo *)args;
+    eating(philo);
+    sleeping(philo);
+    return (NULL);
+}
+
 // void *action(void *arg, t_philo *philo, t_program *prog, char **av)
 // {
 // 	eating(philo, prog, av);
@@ -29,11 +37,16 @@
 // 	return (NULL);
 // }
 
-// void thread_init(t_philo *philo)
-// {
-//     pthread_t thread;
+void thread_init(t_philo *philo)
+{
+    pthread_t thread;
 
-//     pthread_create(&thread, NULL, action, (void *)philo);
-//     pthread_join(thread, NULL);
-//     // pthread_detach(thread);
-// }
+    int i = 0;
+    printf("num of philo from struct : %ld \n", philo->num_of_philo);
+    while (i < philo->num_of_philo)
+    {
+        pthread_create(&thread, NULL, action, (void *)&philo[i]);
+        pthread_join(thread, NULL);
+        i++;
+    }
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 23:20:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/20 19:25:10 by nsan             ###   ########.fr       */
+/*   Updated: 2024/11/21 14:33:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void philo_init(t_philo *philo_arr, char** av, pthread_mutex_t *forks)
         philo_arr[i].count_eaten = 0;
         philo_arr[i].l_fork =  &forks[i];
         philo_arr[i].r_fork = &forks[i] + 1 % ft_atoi(av[1]);
-        printf("philo id %d\n", philo_arr[i].id);
-        printf("philo start time %d\n", philo_arr[i].start_time);
-        printf("philo end time %d\n", philo_arr[i].end_time);
-        printf("philo eaten count %d\n\n", philo_arr[i].count_eaten);
+        // printf("philo id %d\n", philo_arr[i].id);
+        // printf("philo start time %d\n", philo_arr[i].start_time);
+        // printf("philo end time %d\n", philo_arr[i].end_time);
+        // printf("philo eaten count %d\n\n", philo_arr[i].count_eaten);
         // thread_init(philo);
         i++;
     }

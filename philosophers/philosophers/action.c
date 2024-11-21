@@ -3,55 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 20:14:15 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/20 20:09:11 by nsan             ###   ########.fr       */
+/*   Updated: 2024/11/21 14:19:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void eating(t_philo *philo, char **av)
+// void eating(t_philo *philo)
+// {
+//     // printf("inside eating\n");
+//     int i;
+//     i = 0;
+//     // printf("num of philo from struct : %ld \n", philo->num_of_philo);
+//     while (i < philo->num_of_philo)
+//     {
+//         printf("philo id: %d \n", philo[i].id);
+//         // printf("inside while eating\n");
+//         if (philo[i].id % 2 == 0)
+//         {
+//             // printf("inside while eating1\n");
+//             pthread_mutex_lock(philo[i].r_fork);
+//             // printf("inside eating after right fork\n");
+//             printf("Philo %d has taken the right fork\n", philo[i].id);
+//             pthread_mutex_lock(philo[i].l_fork);
+//             printf("Philo %d has taken the left fork\n", philo[i].id);
+//         }
+//         else
+//         {
+//             // printf("inside while eating2\n");
+//             pthread_mutex_lock(philo[i].l_fork);
+//             // printf("inside eating after left fork\n");
+//             printf("Philo %d has taken the left fork\n", philo[i].id);
+//             pthread_mutex_lock(philo[i].r_fork);
+//             printf("Philo %d has taken the right fork\n", philo[i].id);
+//         }
+
+//         // pthread_mutex_lock(&prog->lock_meal);
+
+//         philo[i].eating = 1;
+//         printf("%d is eating\n", philo[i].id);
+//         usleep(500 * 1000);
+//         philo[i].count_eaten++;
+//         // printf("philo %d has eaten %d times\n", philo[i].id, philo[i].count_eaten);
+//         // pthread_mutex_unlock(&prog->lock_meal);
+//         pthread_mutex_unlock(philo[i].l_fork);
+//         pthread_mutex_unlock(philo[i].r_fork);
+//         i++;
+//     }
+// }
+
+
+void eating(t_philo *philo)
 {
     // printf("inside eating\n");
-    int i;
-    i = 0;
-    while (i < ft_atoi(av[1]))
-    {
-        printf("philo id: %d \n", philo[i].id);
+    // printf("num of philo from struct : %ld \n", philo->num_of_philo);
+        printf("philo id: %d \n", philo->id);
         // printf("inside while eating\n");
-        if (philo[i].id % 2 == 0)
+        if (philo->id % 2 == 0)
         {
             // printf("inside while eating1\n");
-            pthread_mutex_lock(philo[i].r_fork);
+            pthread_mutex_lock(philo->r_fork);
             // printf("inside eating after right fork\n");
-            printf("Philo %d has taken the right fork\n", philo[i].id);
-            pthread_mutex_lock(philo[i].l_fork);
-            printf("Philo %d has taken the left fork\n", philo[i].id);
+            printf("Philo %d has taken the right fork\n", philo->id);
+            pthread_mutex_lock(philo->l_fork);
+            printf("Philo %d has taken the left fork\n", philo->id);
         }
         else
         {
             // printf("inside while eating2\n");
-            pthread_mutex_lock(philo[i].l_fork);
+            pthread_mutex_lock(philo->l_fork);
             // printf("inside eating after left fork\n");
-            printf("Philo %d has taken the left fork\n", philo[i].id);
-            pthread_mutex_lock(philo[i].r_fork);
-            printf("Philo %d has taken the right fork\n", philo[i].id);
+            printf("Philo %d has taken the left fork\n", philo->id);
+            pthread_mutex_lock(philo->r_fork);
+            printf("Philo %d has taken the right fork\n", philo->id);
         }
 
         // pthread_mutex_lock(&prog->lock_meal);
 
-        philo[i].eating = 1;
-        printf("%d is eating\n", philo[i].id);
+        philo->eating = 1;
+        printf("%d is eating\n", philo->id);
         usleep(500 * 1000);
-        philo[i].count_eaten++;
+        philo->count_eaten++;
         // printf("philo %d has eaten %d times\n", philo[i].id, philo[i].count_eaten);
         // pthread_mutex_unlock(&prog->lock_meal);
-        pthread_mutex_unlock(philo[i].l_fork);
-        pthread_mutex_unlock(philo[i].r_fork);
-        i++;
-    }
+        pthread_mutex_unlock(philo->l_fork);
+        pthread_mutex_unlock(philo->r_fork);
 }
 
 size_t sleeping(t_philo *philo)
