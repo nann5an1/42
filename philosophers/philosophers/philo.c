@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:22:40 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/21 21:07:46 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/22 17:00:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,17 @@ int main(int argc, char** argv)
     philo_init(philo, argv, forks);
     // // eating(philo);
     // // sleeping(philo);
-    printf("philo last eating time: %d\n", philo->last_eat_time);
-    thread_init(philo); //--> thread and philo creation
+    // printf("philo last eating time: %d\n", philo->last_eat_time);
+    prog.philo = (void *)malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+    thread_init(philo, &prog); //--> thread and philo creation
+    // if (argv[5])
+    // {
+    //     if(check_if_all_eaten(philo, ft_atoi(argv[5])) == 1)
+            
+    // }
+        
     
-    // if(dead_check(philo) == 1)
+    // if(check_death(philo) == 1)
     //     printf("The philo has died\n");
     // else
     //     printf("The philo is still alive\n");

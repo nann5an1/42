@@ -6,55 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 20:14:15 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/21 21:00:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/22 15:35:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// void eating(t_philo *philo)
-// {
-//     // printf("inside eating\n");
-//     int i;
-//     i = 0;
-//     // printf("num of philo from struct : %ld \n", philo->num_of_philo);
-//     while (i < philo->num_of_philo)
-//     {
-//         printf("philo id: %d \n", philo[i].id);
-//         // printf("inside while eating\n");
-//         if (philo[i].id % 2 == 0)
-//         {
-//             // printf("inside while eating1\n");
-//             pthread_mutex_lock(philo[i].r_fork);
-//             // printf("inside eating after right fork\n");
-//             printf("Philo %d has taken the right fork\n", philo[i].id);
-//             pthread_mutex_lock(philo[i].l_fork);
-//             printf("Philo %d has taken the left fork\n", philo[i].id);
-//         }
-//         else
-//         {
-//             // printf("inside while eating2\n");
-//             pthread_mutex_lock(philo[i].l_fork);
-//             // printf("inside eating after left fork\n");
-//             printf("Philo %d has taken the left fork\n", philo[i].id);
-//             pthread_mutex_lock(philo[i].r_fork);
-//             printf("Philo %d has taken the right fork\n", philo[i].id);
-//         }
-
-//         // pthread_mutex_lock(&prog->lock_meal);
-
-//         philo[i].eating = 1;
-//         printf("%d is eating\n", philo[i].id);
-//         usleep(500 * 1000);
-//         philo[i].count_eaten++;
-//         // printf("philo %d has eaten %d times\n", philo[i].id, philo[i].count_eaten);
-//         // pthread_mutex_unlock(&prog->lock_meal);
-//         pthread_mutex_unlock(philo[i].l_fork);
-//         pthread_mutex_unlock(philo[i].r_fork);
-//         i++;
-//     }
-// }
-
 
 void eating(t_philo *philo)
 {
@@ -78,6 +34,7 @@ void eating(t_philo *philo)
         printf("%ld %d is eating\n", current_time_of_day() - philo->start_time, philo->id);
         usleep(500 * 1000);
         philo->count_eaten++;
+        printf("philo id %d count eaten : %d\n", philo->id, philo->count_eaten);
         philo->last_eat_time = current_time_of_day();
         // pthread_mutex_unlock(philo->lock_meal);
         pthread_mutex_unlock(philo->r_fork);

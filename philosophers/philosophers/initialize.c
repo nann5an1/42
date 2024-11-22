@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 23:20:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/21 19:34:18 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/22 16:59:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void args_input(t_philo *philo, char **av)
         philo->num_of_times_to_eat =  ft_atoi(av[5]);
     // printf("before malloc\n");
     // philo = malloc(sizeof(t_philo) * philo->num_of_philo);
-    // printf("%ld\n", philo->num_of_philo);
-    // printf("%ld\n", philo->time_to_die);
+    printf("NUM OF PHILOS%ld\n", philo->num_of_philo);
+    printf("TIME TO DIE %ld\n", philo->time_to_die);
     // printf("%ld\n", philo->time_to_sleep);
     // printf("%ld\n", philo->time_to_eat);
     // printf("%ld\n", philo->num_of_times_to_eat);

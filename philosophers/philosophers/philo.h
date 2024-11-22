@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:23:05 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/21 19:46:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/22 15:56:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 
 typedef struct s_philo
 {
+    pthread_t thread;
     int start_time;
     // int end_time;
     int id;
     int eating;
     int count_eaten;
     int last_eat_time;
-    pthread_t thread;
     size_t num_of_philo;
     size_t time_to_die;
     size_t time_to_eat;
@@ -63,13 +63,14 @@ size_t sleeping(t_philo *philo);
 void thinking(t_philo *philo);
 void args_input(t_philo *philo, char **av);
 size_t current_time_of_day();
-void thread_init(t_philo *philo);
+void thread_init(t_philo *philo, t_program *prog);
 void philo_init(t_philo *philo_arr, char** av, pthread_mutex_t *forks);
 void sleep_func(size_t millisec);
 void *action(void *args);
 int fork_destroy(pthread_mutex_t *forks, int total_philo);
-void thread_init(t_philo *philo);
-int dead_check(t_philo *philo);
+// void thread_init(t_philo *philo);
+int check_if_died(t_philo *philo);
+void *monitor(void *args);
 // void msg_output(int id, t_philo *philo, char *str);
 
 

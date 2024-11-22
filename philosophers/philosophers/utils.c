@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:42:23 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/21 17:59:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/22 14:23:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,19 @@ void sleep_func(size_t millisec)
 	start = current_time_of_day();
 	if (current_time_of_day() - start < millisec)
 		usleep (500);
+}
+
+void destroy(t_philo *philo, pthread_mutex_t *forks)
+{
+	int i;
+
+	i = 0;
+	while(i < philo->num_of_philo)
+	{
+		pthread_mutex_destroy(&forks[i]);
+		i++;
+	}
+	printf("mutex has been destroyed\n");
 }
 
 // int dead_lock(t_philo *philo)
