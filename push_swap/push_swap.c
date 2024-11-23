@@ -1,116 +1,117 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 13:24:36 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/03 13:24:36 by marvin           ###   ########.fr       */
+/*   Created: 2024/10/17 16:01:40 by nsan              #+#    #+#             */
+/*   Updated: 2024/10/17 16:01:40 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_duplicates(t_struct_node *head)
+t_struct_node	*allocate_node(char **argv, int i)
 {
-	t_struct_node	*current;
-	t_struct_node	*runner;
+	t_struct_node	*new_node;
 
-	current = head;
-	while (current != NULL)
+	new_node = (t_struct_node *)malloc(sizeof(t_struct_node));
+	if (!new_node)
 	{
-		runner = current->next;
-		while (runner != NULL)
-		{
-			if (current->data == runner->data)
-				return (1);
-			runner = runner->next;
-		}
-		current = current->next;
+		handle_free(argv, i, NULL);
+		exit (1);
 	}
-	return (0);
+	new_node->data = ft_atoi(argv[i]);
+	new_node->next = NULL;
+	return (new_node);
 }
 
-int	is_valid_int(const char *str)
-{
-	if (*str == '-' || *str == '+')
-		str++;
-	if (*str == '\0')
-		return (0);
-	while (*str)
-	{
-		if (isalpha(*str))
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
-void	free_stack(t_struct_node *stack)
-{
-	t_struct_node	*temp;
-
-	while (stack)
-	{
-		temp = stack;
-		stack = stack->next;
-		free (temp);
-	}
-}
-
-int	init_stack(t_struct_node **stackA, int count, char *argv[])
+void	init_stack(t_struct_node **stack_a, char **argv)
 {
 	int				i;
-	t_struct_node	*new;
+	t_struct_node	*new_node;
+	t_struct_node	*temp;
 
-	i = 1;
-	while (i <= count)
+	i = 0;
+	*stack_a = NULL;
+	while (argv[i])
 	{
-		if (is_valid_int(argv[i]) == 0 || ft_atol(argv[i]) < -2147483648 \
-		|| ft_atol(argv[i]) > 2147483647)
+		if (is_valid_int(argv[i]) == 0 || \
+		ft_atol(argv[i]) < -2147483648 || ft_atol(argv[i]) > 2147483647)
+			error_handle(argv, i, *stack_a);
+		new_node = allocate_node(argv, i);
+		if (*stack_a == NULL)
+			*stack_a = new_node;
+		else
 		{
-			ft_putstr_fd ("Error\n", 2);
-			free_stack (*stackA);
-			return (1);
+			temp = *stack_a;
+			while (temp->next != NULL)
+				temp = temp->next;
+			temp->next = new_node;
 		}
-		new = ft_lstnew_struct (ft_atoi (argv[i]));
-		ft_lstadd_back_struct (stackA, new);
 		i++;
 	}
-	if (check_duplicates (*stackA) == 1)
+	if (check_dup(argv) == 1)
+		error_handle(argv, i, *stack_a);
+}
+
+char	**new_argv(int argc, char **argv)
+{
+	int		i;
+	char	**new_av;
+
+	i = 0;
+	new_av = malloc(sizeof(char *) * argc);
+	while (argv[i])
 	{
-		ft_putstr_fd ("Error\n", 2);
-		free_stack (*stackA);
-		return (1);
+		new_av[i] = ft_strdup(argv[i]);
+		if (!new_av[i])
+		{
+			handle_free(new_av, i, NULL);
+			return (NULL);
+		}
+		i++;
 	}
-	return (0);
+	new_av[i] = NULL;
+	return (new_av);
+}
+
+void	check_if_sorted(t_struct_node *stack_a)
+{
+	if (!is_sorted (stack_a))
+	{
+		if (ft_lstsize_struct(stack_a) <= 5)
+			simple_sort (&stack_a, ft_lstsize_struct(stack_a));
+		else
+		{
+			index_replace (&stack_a);
+			sort_radix (&stack_a);
+		}
+	}
+	free_stack(&stack_a);
 }
 
 int	main(int argc, char **argv)
 {
 	t_struct_node	*stack_a;
 	t_struct_node	*stack_b;
+	int				i;
 
+	i = 0;
 	stack_a = NULL;
 	stack_b = NULL;
-	if (argc == 1 || argv[1] == "")
-		return (1);
-	if (init_stack (&stack_a, argc - 1, argv) == 1)
-		return (1);
-	if (is_sorted (stack_a) == 1)
+	argv = input_validate (argc, argv);
+	if (is_digit (argv) == 1)
+		error_handle (argv, i, stack_a);
+	init_stack (&stack_a, argv);
+	while (argv[i])
 	{
-		free_stack (stack_a);
-		return (0);
+		free (argv[i]);
+		i++;
 	}
-	if (argc - 1 <= 5)
-		simple_sort (&stack_a, argc - 1);
-	else if (argc -1 > 5)
-	{
-		index_replace (&stack_a);
-		sort_radix (&stack_a);
-	}
-	free_stack (stack_a);
-	free_stack (stack_b);
+	free (argv);
+	check_if_sorted(stack_a);
+	free_stack (&stack_b);
 	return (0);
 }

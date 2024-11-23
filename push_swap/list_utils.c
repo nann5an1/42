@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 17:41:50 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/13 20:52:20 by marvin           ###   ########.fr       */
+/*   Created: 2024/10/14 13:53:40 by nsan              #+#    #+#             */
+/*   Updated: 2024/10/17 21:19:22 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-t_struct_node	*ft_lstnew_struct(int data)
-{
-	t_struct_node	*new;
-
-	new = (t_struct_node *)malloc(sizeof(t_struct_node));
-	if (!new)
-		return (NULL);
-	new->data = data;
-	new->next = NULL;
-	return (new);
-}
-
-void	ft_lstadd_back_struct(t_struct_node **lst, t_struct_node *new)
-{
-	ft_lstadd_back ((t_list **)lst, (t_list *)new);
-}
 
 int	ft_lstsize_struct(t_struct_node *lst)
 {
@@ -36,7 +19,6 @@ int	ft_lstsize_struct(t_struct_node *lst)
 
 int	is_sorted(t_struct_node *ref)
 {
-	int				flag;
 	t_struct_node	*current;
 
 	current = ref;

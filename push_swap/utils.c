@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/04 09:38:53 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/04 09:38:53 by marvin           ###   ########.fr       */
+/*   Created: 2024/10/17 15:59:43 by nsan              #+#    #+#             */
+/*   Updated: 2024/10/17 15:59:43 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	find_index_in_sorted(int *array, int value, int lst_size)
 void	index_replace(t_struct_node **stackA)
 {
 	t_struct_node	*temp_stack;
-	t_struct_node	*org_cloned_stack_a;
 	t_struct_node	*cloned_stack_a;
 	t_struct_node	*cloned_sorted;
 	int				*array;
@@ -93,6 +92,6 @@ void	index_replace(t_struct_node **stackA)
 		temp_stack->data, ft_lstsize_struct(*stackA));
 		temp_stack = temp_stack->next;
 	}
-	free(cloned_stack_a);
+	free_stack (&cloned_stack_a);
 	free (array);
 }

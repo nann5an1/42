@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/06/03 13:10:36 by nsan              #+#    #+#              #
+#    Updated: 2024/10/17 21:22:17 by nsan             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
        ft_isprint.c ft_strlen.c ft_memset.c ft_bzero.c \
        ft_memcpy.c ft_memmove.c ft_strlcpy.c ft_strlcat.c \
@@ -27,8 +39,8 @@ all: ${NAME}
 bonus: ${NAME} ${OBJSBNS}
 	${LIBC} ${NAME} ${OBJSBNS}
 clean:
-	${RM} ${OBJS}
+	${RM} ${OBJS} ${OBJSBNS}
 fclean: clean
-	${RM} ${NAME} ${bonus}
+	${RM} ${NAME}
 re: fclean all
 .PHONY : all bonus clean fclean re

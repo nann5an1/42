@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:53:59 by nsan              #+#    #+#             */
-/*   Updated: 2024/09/17 13:15:19 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/01 17:54:02 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (sr1[i] - sr2[i]);
 }
 
-// int	main(int argc, char *argv[])
-// {
-// 	argc = 3;
-// 	printf ("%d", ft_strncmp(argv[1], argv[2], 6));
-// 	return (0);
-// }
+/*int	main(int argc, char *argv[])
+{
+	argc = 3;
+	printf ("%d", ft_strncmp(argv[1], argv[2], 6));
+	return (0);
+}*/

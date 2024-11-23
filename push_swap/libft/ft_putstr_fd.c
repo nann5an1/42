@@ -6,13 +6,13 @@
 /*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:52:52 by nsan              #+#    #+#             */
-/*   Updated: 2024/06/01 17:52:54 by nsan             ###   ########.fr       */
+/*   Updated: 2024/10/14 14:25:54 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	strfd(char *s, int fd)
 {
 	int	i;
 

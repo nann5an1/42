@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:53:14 by nsan              #+#    #+#             */
-/*   Updated: 2024/08/21 10:38:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/01 17:53:15 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ char	*ft_strdup(const char *src)
 	return (dest);
 }
 
-// int	main(void)
-// {
-// 	char	*str;
-// 	char	*newstr;
+/*int	main(void)
+{
+	char	*str;
+	char	*newstr;
 
-// 	str = "Hello world";
-// 	newstr = ft_strdup(str);
-// 	printf("%s", newstr);
-// }
+	str = "Hello world";
+	newstr = ft_strdup(str);
+	printf("%s", newstr);
+}*/

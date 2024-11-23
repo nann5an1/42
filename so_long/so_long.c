@@ -3,143 +3,123 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 11:36:52 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/22 12:36:38 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/27 21:53:36 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void border_check(t_map *game_map)
+void	process_map_char(char buffer, int i, int j, t_map *game_map)
 {
-    int flag;
-    int i;
-
-    flag = 1;
-    i = -1;
-    while(++i < game_map->width)
-    {
-        if(game_map->map_array[0][i] != '1' || game_map->map_array[game_map->height-1][i] != '1')
-        {
-            flag = 0;
-            break;
-        }
-    }
-    i = 0;
-    while(++i < game_map->height - 1)
-    {
-        if(game_map->map_array[i][0] != '1' || game_map->map_array[i][game_map->width-1] != '1')
-        {
-            flag = 0;
-            break;
-        }
-   }
-   if (!flag)
-    strfd("The game map is not a full proper border\n", 2);
+	game_map->map_array[i][j] = buffer;
+	ch_validate (i, j, game_map);
 }
 
-void ch_validate(int r, int c, t_map *g_map)
+int	fill_map(int fd, t_map *game_map)
 {
-    t_point begin;
-    if (g_map->map_array[r][c] == 'P')
-        g_map->player_count++;
-    else if (g_map->map_array[r][c] == 'C')
-        g_map->collect_count++;
-    else if (g_map->map_array[r][c] == 'E')
-        g_map->exit_count++;
-    else if (g_map->map_array[r][c] != '1' && g_map->map_array[r][c] != '0')
-        g_map->outsider++;
+	char	buffer;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (read(fd, &buffer, 1) > 0 && i < game_map->height)
+	{
+		if (buffer == '\n')
+		{
+			game_map->map_array[i++][j] = '\0';
+			j = 0;
+		}
+		else if (j < game_map->width)
+			process_map_char(buffer, i, j++, game_map);
+		else
+			return (strfd("The map is NOT a rectangle\n", 2), 1);
+	}
+	if (j > 0 && i < game_map->height)
+		game_map->map_array[i][j] = '\0';
+	if (error_msg(game_map) == 1)
+		return (1);
+	return (0);
 }
 
-void is_rectangular(t_map* game_map)
+void	begin_point(char **map, t_map *g_map, t_point *begin)
 {
-    int i;
-    int row_len;
+	int	i;
+	int	j;
 
-    i = 0;
-    int expected_width = ft_strlen(game_map->map_array[i]) - 1;
-    if ((game_map->map_array)[i][expected_width - 1] == '\n')
-        expected_width -= 1;
-    while(++i < game_map->height - 1)
-    {
-        row_len = ft_strlen(game_map->map_array[i]) - 1;
-        if(row_len != expected_width)
-        {
-            perror("\nMap is not a rectangle");
-            exit(1);
-        }
-    }
+	j = 1;
+	while (j <= g_map->height - 2)
+	{
+		i = 1;
+		while (i <= g_map->width - 2)
+		{
+			if (map[j][i] == 'P')
+			{
+				begin->y = j;
+				begin->x = i;
+			}
+			i++;
+		}
+		j++;
+	}
 }
 
-void fill_map(int fd, t_map *game_map)
+int	game_struct(t_game *gmlx, char **av, int bytesRead, char *buffer)
 {
-    char buffer;
-    int i;
-    int j;
+	t_point	size;
+	t_point	begin;
+	t_map	*game_map;
+	char	**game_cpy;
 
-    i = 0;
-    j = 0;
-    while (read(fd, &buffer, 1) > 0 && i < game_map->height)
-    {
-        if (buffer == '\n')
-        {
-            i++;
-            j = 0;
-        }
-        else
-        {
-            game_map->map_array[i][j] = buffer;
-            if (i >= 1 && i <= (game_map->height) - 2)
-            {
-                if (j >= 1 && j <= game_map->width - 2)
-                    ch_validate (i, j, game_map);
-            } 
-            j++;
-        }
-    }
-    error_msg(game_map);
-    printf("Player count:%d\nCollectible:%d\nExit:%i\nOutsider:%d\n", game_map->player_count, game_map->collect_count, game_map->exit_count, game_map->outsider);
+	game_map = (t_map *)malloc(sizeof(t_map));
+	if (row_col(bytesRead, buffer, game_map) == 1)
+		return (free_tmap(game_map));
+	map_array_alloc (game_map);
+	width_height_set (&size, gmlx, game_map);
+	if (m_validate (av, game_map) == 1)
+		return (free_game_map(game_map), 1);
+	begin_point (game_map->map_array, game_map, &begin);
+	game_cpy = (char **)malloc(sizeof(char *) * game_map->height);
+	cpy_map (game_cpy, game_map);
+	if (flood_fill (game_cpy, size, begin) == 1)
+	{
+		free_copy (game_cpy, game_map);
+		return (free_game_map (game_map), 1);
+	}
+	gmlx->map_arr = (char **)malloc(sizeof(char *) * gmlx->height);
+	cpy_map (gmlx->map_arr, game_map);
+	free_copy (game_cpy, game_map);
+	return (free_game_map (game_map), 0);
+	return (0);
 }
 
-void    begin_point(char **map, t_map *g_map, t_point *begin)
+int	main(int ac, char **av)
 {
-    int i;
-    int j;
-    
-    j = 1;
-    while (j <= g_map->height - 2)
-    {
-        i = 1;
-        while (i <= g_map->width - 2)
-        {
-            if (map[j][i] == 'P')
-            {
-                begin->y = j;
-                begin->x = i;
-                // printf("The pos of P:( %d, %d )\n", begin->y, begin->x);
-                return ;
-            }
-            i++;
-        }
-        j++;
-    }
-}
+	int		bytes_read;
+	char	buffer[4096];
+	t_game	gmlx;
 
-int main(int ac, char** av)
-{
-    if (ac == 2)
-    {
-        int fd_ber;
-        int bytesRead;
-        char buffer[4096];
-        t_map *game_map;
-
-        fd_ber = file_validate (av);
-        bytesRead = read(fd_ber, buffer, sizeof(buffer)); 
-        buffer[bytesRead] = '\0';
-        close(fd_ber);
-        g_struct(av, game_map, bytesRead, buffer);
-    }
+	if (ac != 2)
+		return (strfd("Wrong use of arguments", 2), 1);
+	if (file_validate(av) == -1)
+		return (1);
+	else
+	{
+		bytes_read = read(file_validate(av), buffer, sizeof(buffer));
+		buffer[bytes_read] = '\0';
+		close(file_validate(av));
+		if (game_struct(&gmlx, av, bytes_read, buffer) == 0)
+		{
+			win_init (&gmlx);
+			find_player (&gmlx);
+			render_map (&gmlx);
+			mlx_hook (gmlx.win, 2, 1L << 0, &key_handle, &gmlx);
+			mlx_hook (gmlx.win, 17, 1L << 2, &handle_close, &gmlx);
+			mlx_loop (gmlx.mlx);
+		}
+		exit (1);
+	}
 }

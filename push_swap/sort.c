@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 13:07:41 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/03 13:07:41 by marvin           ###   ########.fr       */
+/*   Created: 2024/10/17 15:59:23 by nsan              #+#    #+#             */
+/*   Updated: 2024/10/17 15:59:23 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,7 @@ void	sort_four(t_struct_node **stack_a)
 void	sort_five(t_struct_node **stack_a)
 {
 	t_struct_node	*stackb;
-	int				i;
-	int				min;
-	int				pos;
 
-	i = -1;
 	if (is_sorted(*stack_a))
 		return ;
 	stackb = check_first_two(stack_a);
