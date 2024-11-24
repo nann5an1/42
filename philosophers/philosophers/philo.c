@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:22:40 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/22 17:00:13 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/24 00:29:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,26 +78,22 @@ int main(int argc, char** argv)
     // printf("inside main\n");
 
     
-    // prog_init(&prog, &philo);
+    prog_init(&prog, philo);
     fork_init(forks, ft_atoi(argv[1]));
-    philo_init(philo, argv, forks);
+    printf("before philo init\n");
+    philo_init(&prog, philo, argv, forks);
     // // eating(philo);
     // // sleeping(philo);
     // printf("philo last eating time: %d\n", philo->last_eat_time);
-    prog.philo = (void *)malloc(sizeof(t_philo) * ft_atoi(argv[1]));
-    thread_init(philo, &prog); //--> thread and philo creation
-    // if (argv[5])
+    // prog.philo = (void *)malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+    // int i = 0;
+    // while (i < ft_atoi(argv[1]))
     // {
-    //     if(check_if_all_eaten(philo, ft_atoi(argv[5])) == 1)
-            
+    //     prog.philo[i] = philo[i];
+    //     i++;
     // }
-        
-    
-    // if(check_death(philo) == 1)
-    //     printf("The philo has died\n");
-    // else
-    //     printf("The philo is still alive\n");
-    // fork_destroy(forks, ft_atoi(argv[1]));
+    thread_init(philo, &prog); //--> thread and philo creation
+    fork_destroy(forks, ft_atoi(argv[1]));
 }
 
 //input argument --> total 6 arguments

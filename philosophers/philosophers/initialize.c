@@ -6,18 +6,21 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 23:20:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/22 16:59:20 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/24 00:43:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int prog_init(t_program *prog, t_philo *philo)
+void prog_init(t_program *prog, t_philo *philo)
 {
     //mutex initialization
+    prog->flag_death = 0;
     prog->philo = philo;
-    printf("Philo thead has been created\n");
-    return (0);
+    pthread_mutex_init(&prog->lock_write, NULL);
+    pthread_mutex_init(&prog->lock_dead, NULL);
+    pthread_mutex_init(&prog->lock_meal, NULL);
+    printf("PROGRAM has been created\n");
 }
 
 int fork_init(pthread_mutex_t *forks, int total_philo)
@@ -48,7 +51,7 @@ int fork_destroy(pthread_mutex_t *forks, int total_philo)
     return (0);
 }
 
-void philo_init(t_philo *philo_arr, char** av, pthread_mutex_t *forks)
+void philo_init(t_program *prog, t_philo *philo_arr, char** av, pthread_mutex_t *forks)
 {
     int i;
     i = 0;
@@ -61,8 +64,15 @@ void philo_init(t_philo *philo_arr, char** av, pthread_mutex_t *forks)
         philo_arr[i].start_time = current_time_of_day();
         philo_arr[i].last_eat_time = current_time_of_day();
         philo_arr[i].count_eaten = 0;
+        philo_arr[i].lock_write = &prog->lock_write;
+        philo_arr[i].lock_meal = &prog->lock_meal;
+        philo_arr[i].lock_dead = &prog->lock_dead;
+        philo_arr[i].dead = &prog->flag_death;
         philo_arr[i].l_fork =  &forks[i];
         philo_arr[i].r_fork = &forks[i] + 1 % ft_atoi(av[1]);
+        // printf("before right fork\n");
+        // philo_arr[i].r_fork = &forks[i] + 1; 
+        // printf("after right fork\n");
         // printf("philo id %d\n", philo_arr[i].id);
         // printf("philo start time %d\n", philo_arr[i].start_time);
         // printf("philo end time %d\n", philo_arr[i].end_time);
@@ -86,8 +96,8 @@ void args_input(t_philo *philo, char **av)
         philo->num_of_times_to_eat =  ft_atoi(av[5]);
     // printf("before malloc\n");
     // philo = malloc(sizeof(t_philo) * philo->num_of_philo);
-    printf("NUM OF PHILOS%ld\n", philo->num_of_philo);
-    printf("TIME TO DIE %ld\n", philo->time_to_die);
+    // printf("NUM OF PHILOS%ld\n", philo->num_of_philo);
+    // printf("TIME TO DIE %ld\n", philo->time_to_die);
     // printf("%ld\n", philo->time_to_sleep);
     // printf("%ld\n", philo->time_to_eat);
     // printf("%ld\n", philo->num_of_times_to_eat);

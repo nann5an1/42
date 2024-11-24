@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:42:23 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/22 14:23:58 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/23 17:06:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void destroy(t_philo *philo, pthread_mutex_t *forks)
 	printf("mutex has been destroyed\n");
 }
 
-// int dead_lock(t_philo *philo)
-// {
-// 	pthread_mutex_lock(philo->lock_dead);
-// 	if (*philo->dead == 1)
-// 		return (pthread_mutex_unlock(philo->lock_dead), 1);
-// 	return (pthread_mutex_unlock(philo->lock_dead), 0);
-// }
+int flag_death_check(t_philo *philo)
+{
+	pthread_mutex_lock(philo->lock_dead);
+	if (*philo->dead == 1)
+		return (pthread_mutex_unlock(philo->lock_dead), 1);
+	return (pthread_mutex_unlock(philo->lock_dead), 0);
+}
 
 // void msg_output(char *str, t_philo *philo, int id)
 // {

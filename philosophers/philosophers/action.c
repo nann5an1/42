@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 20:14:15 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/22 15:35:59 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/24 11:32:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ void eating(t_philo *philo)
         philo->eating = 1;
         // msg_output("is eating", philo, philo->id);
         printf("%ld %d is eating\n", current_time_of_day() - philo->start_time, philo->id);
-        usleep(500 * 1000);
-        philo->count_eaten++;
-        printf("philo id %d count eaten : %d\n", philo->id, philo->count_eaten);
+        pthread_mutex_lock(philo->lock_meal);
         philo->last_eat_time = current_time_of_day();
-        // pthread_mutex_unlock(philo->lock_meal);
+        philo->count_eaten++;
+        pthread_mutex_unlock(philo->lock_meal);
+        usleep(500 * 1000);
+        philo->eating = 0;
+        printf("philo id %d count eaten : %d\n", philo->id, philo->count_eaten);
         pthread_mutex_unlock(philo->r_fork);
         pthread_mutex_unlock(philo->l_fork);
 }
