@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 19:31:39 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/29 12:52:16 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/29 18:32:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int	check_if_all_eaten(t_philo *philo)
 
 	i = -1;
 	done_eating = 1;
-	if (philo->program->num_of_times_to_eat == -1 || \
-	philo->program->num_of_times_to_eat == 0)
+	if (philo->program->num_of_times_to_eat == -1)
 		return (0);
 	while (++i < philo->program->num_of_philo)
 	{

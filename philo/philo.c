@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:22:40 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/29 12:56:14 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/29 18:31:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	validate_args(char **argv)
 		return (printf("Time to eat must be greater than 0.\n"), 1);
 	else if (ft_atoi (argv[4]) <= 0)
 		return (printf("Time to sleep must be greater than 0.\n"), 1);
-	else if (argv[5] && ft_atoi(argv[5]) < 0)
+	else if (argv[5] && ft_atoi(argv[5]) <= 0)
 		return (printf("Invalid number of times to eat.\n"), 1);
 	return (0);
 }
