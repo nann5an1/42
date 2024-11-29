@@ -6,28 +6,12 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:42:23 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/29 00:54:28 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:59:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t			i;
-	unsigned char	*sr1;
-	unsigned char	*sr2;
-
-	i = 0;
-	sr1 = (unsigned char *)s1;
-	sr2 = (unsigned char *)s2;
-	if (!n)
-		return (0);
-	while (sr1[i] == sr2[i] && i < n - 1 && sr1[i])
-		i++;
-	return (sr1[i] - sr2[i]);
-}
 int	ft_atoi(const char *str)
 {
 	int	i;
