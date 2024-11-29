@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 23:20:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/29 12:43:54 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/29 22:23:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char **av, pthread_mutex_t *forks)
 	while (++i < ft_atoi(av[1]))
 	{
 		philo_arr[i].id = i + 1;
-		philo_arr[i].eating = 0;
 		philo_arr[i].start_time = current_time_of_day();
 		philo_arr[i].last_eat_time = current_time_of_day();
 		philo_arr[i].count_eaten = 0;

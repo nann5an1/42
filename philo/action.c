@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 20:14:15 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/29 12:36:37 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/29 22:22:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->program->lock_dead);
 	if (pick_up_fork(philo) == 1)
 		return (1);
-	philo->eating = 1;
 	print_message (philo, "is eating");
 	pthread_mutex_lock(&philo->program->lock_meal);
 	philo->last_eat_time = current_time_of_day();
@@ -29,7 +28,6 @@ int	eating(t_philo *philo)
 	philo->count_eaten++;
 	pthread_mutex_unlock(&philo->lock_meal_count);
 	usleep(philo->program->time_to_eat * 1000);
-	philo->eating = 0;
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 	return (0);

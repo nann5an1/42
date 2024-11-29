@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:23:05 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/29 18:13:35 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/29 22:22:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_philo
 	time_t			start_time;
 	time_t			last_eat_time;
 	int				id;
-	int				eating;
 	int				count_eaten;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
