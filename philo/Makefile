@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 PROG 	= philo
-SRCS 	= action.c initialize.c monitor.c utils.c philo.c threads.c
+SRCS 	= action.c initialize.c monitor.c utils.c philo.c threads.c utils_2.c
 OBJS 	= ${SRCS:.c=.o}
 HEADER	= -Iincludes
 CC 		= cc 

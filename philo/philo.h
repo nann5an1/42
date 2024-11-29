@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 15:23:05 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/29 00:52:26 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:26:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int flag_death_check(t_philo *philo);
 int validate_digits(char **argv);
 void print_message(t_philo *philo, const char *message);
 void destroy_all(t_program *program, pthread_mutex_t *forks);
+int pick_up_fork(t_philo *philo);
 
 #endif
