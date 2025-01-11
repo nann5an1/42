@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:40:05 by nsan              #+#    #+#             */
-/*   Updated: 2024/12/17 21:11:43 by nsan             ###   ########.fr       */
+/*   Updated: 2024/12/22 12:57:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
@@ -46,6 +47,8 @@ void detect_str(char *str, t_tokens tokens);
 t_tokens *create_new_token(char *str);
 void	ft_lstadd_back(t_tokens **lst, t_tokens *new);
 void tokenize_str(t_tokens *new_token, char *str);
-void tokenization(char **dest, int count);
+t_tokens **tokenization(char **dest, int count);
+void execute_builtins(t_tokens **whole_list);
+void execute_echo(t_tokens **whole_list);
 
 #endif

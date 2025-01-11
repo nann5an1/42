@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:39:37 by nsan              #+#    #+#             */
-/*   Updated: 2024/12/18 11:26:15 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/22 12:33:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,49 +21,6 @@ void handle_signal(int sig)
 		rl_redisplay();
 	}
 }
-
-// int main() {
-// 	struct sigaction sa_int;
-// 	char **dest;
-// 	t_tokens tokens;
-
-// 	while(1)
-// 	{
-// 		// signal(SIGINT, handle_signal);
-// 		sa_int.sa_handler = handle_signal;
-// 		if(sigaction(SIGINT, &sa_int, NULL) == -1)
-// 			printf("Sigaction failed\n");
-// 		sigemptyset(&sa_int.sa_mask);
-// 		char *input = readline("minishell> ");
-
-// 		if (input)
-// 		{
-// 			int i;
-
-// 			i = 0;
-// 			dest = ft_split(input, ' ');
-// 			tokens.str = malloc(sizeof(char *) * strlen(input));
-// 			while(dest[i] != NULL)
-// 			{
-// 				detect_str(dest[i], tokens);
-// 				i++;
-// 			}
-// 			add_history(input);
-// 			if(ft_strncmp(input, "clear", 5) == 0)
-// 				rl_clear_history();
-// 			free(input);
-// 		}
-// 		else if(!input)
-// 			break;
-// 		else {
-// 			printf("Error reading input.\n");
-// 		}
-
-// 	}
-// 	return 0;
-// }
-
-
 int is_balanced_quotes(const char *input) {
 	int single_quote = 0, double_quote = 0;
 	while (*input) {
@@ -111,7 +68,7 @@ void free_tokens(char **tokens) {
 int main() {
 	struct sigaction sa_int;
 	char **dest;
-	t_tokens tokens;
+	t_tokens **whole_list;
 	int	i;
 
 	while (1)
@@ -132,10 +89,21 @@ int main() {
 			i = 0;
 			while (dest[i])
 				i++;
-			tokenization(dest, i);
+			whole_list = tokenization(dest, i);
+			t_tokens *current = *whole_list;
+			int j = 0;
+			while (current != NULL) {
+				printf("Content %d:\n", j);
+				printf("String: %s\n", current->str);
+				printf("Token: %u\n\n", current->tok_types);
+				current = current->next;
+				j++;
+			}
+			// if(grammar_check(whole_list))
+			// {
+				execute_builtins(whole_list);
+			// }
 			add_history(input);
-			if (strncmp(input, "clear", 5) == 0)
-				rl_clear_history();
 		} else if (!input) {
 			break;
 		} else {
@@ -155,3 +123,44 @@ int main() {
 // 		current = current->next;
 // 		j++;
 // 	}
+
+// int main() {
+// 	struct sigaction sa_int;
+// 	char **dest;
+// 	t_tokens tokens;
+
+// 	while(1)
+// 	{
+// 		// signal(SIGINT, handle_signal);
+// 		sa_int.sa_handler = handle_signal;
+// 		if(sigaction(SIGINT, &sa_int, NULL) == -1)
+// 			printf("Sigaction failed\n");
+// 		sigemptyset(&sa_int.sa_mask);
+// 		char *input = readline("minishell> ");
+
+// 		if (input)
+// 		{
+// 			int i;
+
+// 			i = 0;
+// 			dest = ft_split(input, ' ');
+// 			tokens.str = malloc(sizeof(char *) * strlen(input));
+// 			while(dest[i] != NULL)
+// 			{
+// 				detect_str(dest[i], tokens);
+// 				i++;
+// 			}
+// 			add_history(input);
+// 			if(ft_strncmp(input, "clear", 5) == 0)
+// 				rl_clear_history();
+// 			free(input);
+// 		}
+// 		else if(!input)
+// 			break;
+// 		else {
+// 			printf("Error reading input.\n");
+// 		}
+
+// 	}
+// 	return 0;
+// }

@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:54:08 by nsan              #+#    #+#             */
-/*   Updated: 2024/12/18 11:29:19 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/22 12:49:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void tokenization(char **dest, int count)
+t_tokens **tokenization(char **dest, int count)
 {
 	t_tokens *new_token;
 	t_tokens **whole_list = malloc(sizeof(t_tokens *) * count);
@@ -38,4 +38,23 @@ void tokenization(char **dest, int count)
 	// 		current = current->next;
 	// 		j++;
 	// }
+	return (whole_list);
+}
+
+void grammar_check(t_tokens **whole_list)
+{
+	
+}
+
+void execute_builtins(t_tokens **whole_list)
+{
+	// int i;
+	// i = 0;
+	if(whole_list[0] && ft_strncmp(whole_list[0]->str, "echo", 4) == 0)
+	{
+		execute_echo(whole_list);
+		printf("%s\n", whole_list[0]->str);
+	}
+	
+	
 }

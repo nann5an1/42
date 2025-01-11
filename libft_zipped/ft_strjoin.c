@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:53:24 by nsan              #+#    #+#             */
-/*   Updated: 2024/09/17 14:45:31 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/04 21:20:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 // 	return (i);
 // }
 
-char	*ft_strjoin(char const *s1, char c)
+//hello hi
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*dest;
 	int		i;
@@ -32,8 +33,8 @@ char	*ft_strjoin(char const *s1, char c)
 	j = 0;
 	if (!s1)
 		return (NULL);
-	// total_len = (int)ft_strlen(s1) + 2;
-	dest = malloc(sizeof(char) * (int)ft_strlen(s1) + 2);
+	total_len = (int)ft_strlen(s1) + (int)ft_strlen(s2) + 1;
+	dest = malloc(sizeof(char) * total_len);
 	if (!dest)
 		return (NULL);
 	while (i < (int)ft_strlen(s1))
@@ -41,14 +42,18 @@ char	*ft_strjoin(char const *s1, char c)
 		dest[i] = s1[i];
 		i++;
 	}
-	dest[i] = c;
-    i++;
-	// while (i < total_len)
-	// 	dest[i++] = s2[j++];
+	// dest[i] = c;
+    // i++;
+	while (i < total_len)
+		dest[i++] = s2[j++];
 	dest[i] = '\0';
 	return (dest);
 }
 
+int main(void){
+	char *dest = ft_strjoin("hello", "world");
+	printf("%s\n", dest);
+}
 // int main(void)
 // {
 //     // Test 1: Normal concatenation
