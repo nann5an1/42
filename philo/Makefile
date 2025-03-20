@@ -15,7 +15,7 @@ SRCS 	= action.c initialize.c monitor.c utils.c philo.c threads.c utils_2.c
 OBJS 	= ${SRCS:.c=.o}
 HEADER	= -Iincludes
 CC 		= cc 
-CFLAGS 	= -Wall -Wextra -Werror 
+CFLAGS 	= -Wall -Wextra -Werror -std=c++98
 #-g -fsanitize=thread 
 #LIB = -lpthread
 
