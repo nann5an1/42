@@ -3,28 +3,27 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/03/20 15:59:41 by marvin            #+#    #+#              #
-#    Updated: 2025/03/20 15:59:41 by marvin           ###   ########.fr        #
+#    Created: 2025/03/26 16:57:04 by nsan              #+#    #+#              #
+#    Updated: 2025/03/26 16:57:04 by nsan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 PROG 	= PhoneBook
 SRCS 	= PhoneBook.cpp Contact.cpp Main.cpp
 OBJS 	= ${SRCS:.cpp=.o}
-HEADER	= -Iincludes
-CPP 		= c++ 
-CFLAGS 	= -Wall -Wextra -Werror -std=c++98
+CXX 		= c++ 
+CXXFLAGS 	= -Wall -Wextra -Werror -std=c++98
 
 
 all: 		${PROG}
 
 ${PROG}:	${OBJS}
-		${CPP} ${CFLAGS} ${OBJS} ${HEADER} -o ${PROG} 
+		${CXX} ${CXXFLAGS} ${OBJS} -o ${PROG} 
 
 %.o: %.c
-		$(CPP) ${CFLAGS} ${HEADER} -cpp $< -o $@
+		$(CXX) ${CXXFLAGS} -cpp $< -o $@
 
 clean:
 		rm -f ${OBJS}

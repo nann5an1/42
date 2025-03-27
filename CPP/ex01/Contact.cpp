@@ -3,24 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   Contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/20 18:05:51 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/20 18:05:51 by marvin           ###   ########.fr       */
+/*   Created: 2025/03/25 17:18:56 by nsan              #+#    #+#             */
+/*   Updated: 2025/03/25 17:18:56 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
-#include "PhoneBook.hpp"
 
-void Contact :: AddContact(std::string first, std::string last, std::string nick, std::string phone, std::string secret){
-    PhoneBook phonebook;
+void Contact::setFirstName(std::string first_n){
+    _first = first_n;
+}
 
-    content_arr[0] = first;
-    content_arr[1] = last;
-    content_arr[2] = nick;
-    content_arr[3] = phone;
-    content_arr[4] = secret;
-    phonebook.addcontent(content_arr);
-    // std::cout << first << content_arr[4];
+std::string Contact::getFirst(){
+    return (_first);
+}
+
+void Contact::setLastName(std::string last_n){
+    _last = last_n;
+}
+std::string Contact::getLast(){
+    return (_last);
+}
+
+void Contact::setNickName(std::string nick_n){
+    _nick = nick_n;
+}
+std::string Contact:: getNick(){
+    return (_nick);
+}
+
+void Contact::setPhone(std::string phone_num){
+    _phone = phone_num;
+}
+std::string Contact:: getPhone(){
+    return (_phone);
+}
+
+void Contact::setSecret(std::string secret){
+    _secret = secret;
+}
+std::string Contact:: getSecret(){
+    return (_secret);
+}
+
+void Contact :: addContent(std::string first, std::string last, std::string nick, std::string phone, std::string secret){
+    _first = first;
+    _last = last;
+    _nick = nick;
+    _phone = phone;
+    _secret = secret;
 }

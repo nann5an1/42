@@ -16,13 +16,24 @@
 #include <iostream>
 
 class Contact{
-    public:
-        void AddContact(std::string first, std::string last, std::string nick, std::string phone, std::string secret);
     private:
-        char col_width[10];
-        std::string content_arr[5];
+        std::string _first;
+        std::string _last;
+        std::string _nick;
+        std::string _phone;
+        std::string _secret;
+    public:
+        void setFirstName(std::string first_n);
+        void setLastName(std::string last_n);
+        void setNickName(std::string nick_n);
+        void setPhone(std::string phone);
+        void setSecret(std::string secret);
+        std::string getFirst();
+        std::string getLast();
+        std::string getNick();
+        std::string getPhone();
+        std::string getSecret();
+        void addContent(std::string first, std::string last, std::string nick, std::string phone, std::string secret);
 };
 
 #endif
-
-// char *first, char *last, char *nick, char *phone, char *secret

@@ -3,23 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nsan <nsan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/20 17:23:15 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/20 17:23:15 by marvin           ###   ########.fr       */
+/*   Created: 2025/03/25 18:25:37 by nsan              #+#    #+#             */
+/*   Updated: 2025/03/25 18:25:37 by nsan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHONE_BOOK_HPP
 #define PHONE_BOOK_HPP
 
+#include "Contact.hpp"
 #include <iostream>
+#include <iomanip>
 
 class PhoneBook{ //class declaration
+    private:
+        Contact _contact_arr[8];
+        int _index;
+        void printOut(int index, int flag);
     public:
-        void addcontent(std::string content_arr[5]);
-        void PbDisplay();
-        std::string phonecontacts[8][5];
+        PhoneBook() : _index(0){};
+        int index;
+        void addContact(Contact contact);
+        void displayPhoneBook();
+        void displayContact();
 };
 
 #endif
