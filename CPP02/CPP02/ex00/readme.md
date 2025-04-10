@@ -54,11 +54,11 @@ public:
     }
 };
 
-    MyClass& is the return type (so you can do chained assignments like a = b = c;).
+MyClass& is the return type (so you can do chained assignments like a = b = c;).
 
-    const MyClass& is the input parameter (best practice to avoid unnecessary copying).
+const MyClass& is the input parameter (best practice to avoid unnecessary copying).
 
-    *this is returned to allow chaining.
+*this is returned to allow chaining.
 
 
 ------- Quick Recap of the Two: -----
