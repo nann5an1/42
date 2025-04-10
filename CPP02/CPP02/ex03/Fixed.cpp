@@ -6,27 +6,23 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 19:05:06 by nsan              #+#    #+#             */
-/*   Updated: 2025/04/09 21:47:55 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/10 20:57:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
 Fixed::~Fixed(){
-    std::cout << "Destructor called" << std::endl;
 }
 
 Fixed::Fixed(): _fixedPointValue(0), _fractionalBits(8){
-    std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const Fixed& other): _fixedPointValue(other._fixedPointValue), _fractionalBits(other._fractionalBits){
-    std::cout << "Copy constructor called" << std::endl;
     *this = other;
 }
 
 Fixed &Fixed::operator=(const Fixed& other){
-    std::cout << "Copy assignment operator called" << std::endl;
     if(this != &other)
         this->_fixedPointValue = other.getRawBits();
     return (*this);
@@ -38,7 +34,6 @@ std::ostream &operator<<(std::ostream &out, const Fixed& other){ //sort of like 
 } 
 
 Fixed::Fixed(const int int_val):_fractionalBits(8){
-    std::cout << "Int constructor called" << std::endl;
     this->_fixedPointValue = int_val * (1 << _fractionalBits);
 }
 
