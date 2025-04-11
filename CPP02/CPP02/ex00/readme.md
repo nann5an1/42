@@ -25,11 +25,11 @@ When the object is usually made and the constructor is called, normally the impl
 
 -Deep Copy
 
-    Copies the actual data by allocating new memory and copying the contents.
+Copies the actual data by allocating new memory and copying the contents.
 
-    Each object has its own copy.
+Each object has its own copy.
 
-    No shared memory = no conflict or accidental overwrites.
+No shared memory = no conflict or accidental overwrites.
     e.g 
         // Inside the copy constructor
         data = new int(*other.data); // create new memory and copy the value

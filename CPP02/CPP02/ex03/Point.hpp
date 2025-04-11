@@ -4,8 +4,8 @@
 #include "Fixed.hpp"
 class Point{
     private:
-        Fixed const x;
-        Fixed const y;
+        Fixed const _x;
+        Fixed const _y;
     public:
         Point();
         Point(const int x, const int y); //parameterized
@@ -13,6 +13,8 @@ class Point{
         Point& operator=(Point &other);
         ~Point();
         bool bsp( Point const a, Point const b, Point const c, Point const point);
+        Fixed sign(Point const &point, Point const &x, Point const &y);
 };
+
 
 #endif

@@ -6,12 +6,12 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/08 19:03:10 by nsan              #+#    #+#              #
-#    Updated: 2025/04/10 18:37:13 by marvin           ###   ########.fr        #
+#    Updated: 2025/04/11 13:32:08 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 PROG 	= bsp
-SRCS 	= main.cpp Fixed.cpp Point.cpp, bsp.cpp
+SRCS 	= main.cpp Fixed.cpp Point.cpp bsp.cpp
 OBJS 	= ${SRCS:.cpp=.o}
 CXX 		= c++ 
 CXXFLAGS 	= -Wall -Wextra -Werror -std=c++98
