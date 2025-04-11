@@ -10,7 +10,8 @@ Point::Point(Point& other){
 }
 
 Point& Point::operator=(Point &other){
-    (void)other;
+    (Fixed)this->_x = other._x;
+    (Fixed)this->_y = other._y;
     return (*this);
 }
 
