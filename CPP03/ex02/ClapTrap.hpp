@@ -13,8 +13,8 @@ class ClapTrap{
         ClapTrap();
         ~ClapTrap();
         ClapTrap(std::string name);
-        ClapTrap(ClapTrap& other);
-        ClapTrap& operator=(ClapTrap &other);
+        ClapTrap(const ClapTrap& other);
+        ClapTrap& operator=(const ClapTrap &other);
 
         //member functions
         void attack(const std::string& target);

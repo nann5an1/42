@@ -8,6 +8,8 @@ class ScavTrap :public ClapTrap{
         ~ScavTrap();
         ScavTrap();
         ScavTrap(std::string name);
+        ScavTrap(const ScavTrap &other);
+        ScavTrap& operator=(const ScavTrap &other);
         void guardGate();
         void attack(const std::string& target);
 };

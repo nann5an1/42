@@ -1,7 +1,7 @@
 #include "ScavTrap.hpp"
 
 ScavTrap::~ScavTrap(){
-    std::cout << "ScapTrap destructor called." << std::endl;
+    std::cout << "ScavTrap destructor called." << std::endl;
 }
 
 ScavTrap::ScavTrap():ClapTrap(){
@@ -11,6 +11,16 @@ ScavTrap::ScavTrap(std::string name):ClapTrap(name){
     std::cout << "ScavTrap Parameterized constructor called." << std::endl;
 }
 
+//inherit the copy constructor of the parent
+ScavTrap::ScavTrap(const ScavTrap &other):ClapTrap(other){
+    std::cout << "ScavTrap copy constructor called" << std::endl;
+}
+
+ScavTrap& ScavTrap::operator=(const ScavTrap &other){
+    if(this != &other)
+        ClapTrap::operator=(other); // Call base class assignment operator
+    return (*this);
+}
 void ScavTrap::guardGate(){
     std::cout << "ScavTrap is now in Gatekeeper mode." << std::endl;
 }
