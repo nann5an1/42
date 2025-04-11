@@ -19,7 +19,7 @@ class Fixed{
         int toInt( void ) const;
         float toFloat( void ) const;
         Fixed(const Fixed& other); //copy constructor
-        Fixed& operator=(const Fixed& other); //copy assignment operator
+        Fixed& operator=(const Fixed& other); //assignment operator
         ~Fixed();
         int getRawBits( void ) const;
         void setRawBits( int const raw );
