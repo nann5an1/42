@@ -9,6 +9,9 @@ ScavTrap::ScavTrap():ClapTrap(){
 }
 ScavTrap::ScavTrap(std::string name):ClapTrap(name){
     std::cout << "ScavTrap Parameterized constructor called." << std::endl;
+    _hit_points = 100;
+    _energy_pts = 50;
+    _attack_dmg = 20;
 }
 
 void ScavTrap::guardGate(){

@@ -14,6 +14,7 @@ class DiamondTrap:public ScavTrap, public FragTrap{
         DiamondTrap(DiamondTrap const &other);
         DiamondTrap& operator=(DiamondTrap const &other);
         void whoAmI();
+        using ScavTrap::attack; //use the attack from the ScavTrap class(from specific parent class)
 };
 
 #endif

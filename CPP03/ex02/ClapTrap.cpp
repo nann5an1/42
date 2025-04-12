@@ -1,13 +1,13 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap():_hit_points(100), _energy_pts(100), _attack_dmg(30){
+ClapTrap::ClapTrap():_hit_points(10), _energy_pts(10), _attack_dmg(0){
     std::cout << "ClapTrap Default constructor called." << std::endl;
 }
 ClapTrap::~ClapTrap(){
     std::cout << "ClapTrap Destructor called." << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name):_hit_points(100), _energy_pts(100), _attack_dmg(30){
+ClapTrap::ClapTrap(std::string name):_hit_points(10), _energy_pts(10), _attack_dmg(0){
     std::cout << "ClapTrap Parameterized constructor called." << std::endl;
     _name = name;
 }

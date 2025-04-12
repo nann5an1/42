@@ -3,7 +3,7 @@
 
 #include "ClapTrap.hpp"
 
-class FragTrap : public ClapTrap{
+class FragTrap : virtual public ClapTrap{ //must set the ClapTrap to virtual so that there will only be 1 instance of ClapTrap to be called from the Diaomond
     public:
         FragTrap();
         ~FragTrap();
