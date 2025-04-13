@@ -8,16 +8,17 @@ DiamondTrap::~DiamondTrap(){
 }
 
 DiamondTrap::DiamondTrap(std::string name):
-ClapTrap(name + "_clap_name"), ScavTrap(name), FragTrap(name){
+ClapTrap(name + "_clap_name"), FragTrap(name), ScavTrap(name){
     std::cout << "DiamondTrap parameterized constructor called" << std::endl;
     _name = name;
+    _attack_dmg = 30;
     _hit_points = FragTrap::_hit_points;
     _energy_pts = ScavTrap::_energy_pts;
     _attack_dmg = FragTrap::_attack_dmg;
 }
 
 DiamondTrap::DiamondTrap(DiamondTrap const &other) 
-: ClapTrap(other), ScavTrap(other), FragTrap(other), _name(other._name){ //explicitly initialized in the copy constructor
+: ClapTrap(other), FragTrap(other), ScavTrap(other), _name(other._name){ //explicitly initialized in the copy constructor
     std::cout << "DiamondTrap copy constructor called" << std::endl;
     *this = other;
 }
