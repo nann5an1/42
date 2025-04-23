@@ -1,22 +1,22 @@
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap():_hit_points(10), _energy_pts(10), _attack_dmg(0){
-    std::cout << "ClapTrap Default constructor called." << std::endl;
+    std::cout << "Default constructor called." << std::endl;
 }
 ClapTrap::~ClapTrap(){
-    std::cout << "ClapTrap destructor called." << std::endl;
+    std::cout << "Attacker " + _name + " is destroyed." << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string name):_hit_points(10), _energy_pts(10), _attack_dmg(0){
-    std::cout << "ClapTrap Parameterized constructor called." << std::endl;
+    std::cout << "Parameterized constructor called." << std::endl;
     _name = name;
 }
 
-ClapTrap::ClapTrap(ClapTrap& other){
+ClapTrap::ClapTrap(const ClapTrap& other){
     *this = other;
 }
 
-ClapTrap& ClapTrap ::operator=(ClapTrap &other){
+ClapTrap& ClapTrap ::operator=(const ClapTrap &other){
     if(this != &other){
         this->_name = other._name;
         this->_hit_points = other._hit_points;
@@ -27,24 +27,55 @@ ClapTrap& ClapTrap ::operator=(ClapTrap &other){
 }
 
 //member functions
-void ClapTrap:: attack(const std::string& target){
-    if(_hit_points == 0 || _energy_pts == 0)
-        std::cout << "No hit points or energy points left." << std::endl;
+void ClapTrap::attack(const std::string& target){
+    if(_hit_points <= 0){
+        std::cout << "No hit points left." << std::endl;
+        _hit_points = 0;
+       return ;
+    }
+    if(_energy_pts <= 0){
+        std::cout << "No energy points left." << std::endl;
+        _energy_pts = 0;
+        return ;
+    }
     _energy_pts--;
-    _attack_dmg++;
-    std::cout << "ClapTrap " << _name << " attacks " << target 
-              << ", causing " << _attack_dmg << " points of damage!" << std::endl;
-    std::cout << _name + " Energy points after attacking: " << _energy_pts << std::endl;
+    std::cout << "---" << _name << " attacks " << target << "---"<< "\n"
+              << "CLAPTRAP HIT POINTS: " << _hit_points << "\n"
+              << "CLAPTRAP ATTACK DAMAGE POINTS: " << _attack_dmg << "\n"
+              << "CLAPTRAP ENERGY POINTS: " << _energy_pts << std::endl;
 }
 
 void ClapTrap::takeDamage(unsigned int amount){
-    _hit_points -= amount;
-    std::cout << _name + " Hit points after damaged: " << _hit_points << std::endl;
+    if(_hit_points <= 0){
+        std::cout << "Hit points cannot be less than or be 0. Cannot deduct from it." << std::endl;
+        std::cout << _name + " Hit points checkpoint: " << _hit_points << std::endl;
+    }
+    else{
+        int temp = _hit_points - amount;
+        if(temp < 0)
+            _hit_points = 0;
+        else
+            _hit_points = temp;
+        std::cout << "--- " << _name << " AFTER DAMAGED ---\n"
+                    << "HIT POINTS: " << _hit_points << std::endl;
+    }
 }
 
 void ClapTrap::beRepaired(unsigned int amount){
-    _energy_pts--;
-    _hit_points = _hit_points + amount;
-    std::cout << _name + " Hit points after repaired: " << _hit_points << std::endl;
-    std::cout << _name + " Energy points after repaired: " << _energy_pts << std::endl;
+    if(_energy_pts <= 0){
+        std::cout << "Energy points already must be at least 1 for repairing." << std::endl;
+        return ;
+    }
+    else{
+        _energy_pts--;
+        _hit_points = _hit_points + amount;
+        std::cout << "--- " + _name + " AFTER GETTING REPAIRD ---\n"
+                    << "HIT POINTS: " << _hit_points << "\n"
+                    << "ENERGY POINTS: " << _energy_pts << "\n";
+    }
+}
+
+unsigned int ClapTrap::getHitPoints() const
+{
+	return _hit_points;
 }
