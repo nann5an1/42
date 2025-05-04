@@ -2,11 +2,13 @@
 
 Cat::Cat():Animal(){
     std::cout << "Cat Default Constructor." << std::endl;
+    Brain* catbrain = new Brain();
     type = "Type: Cat";
 }
 
 Cat::~Cat(){
     std::cout << "Cat Destructor Constructor." << std::endl;
+    delete brain;
 }
 
 Cat::Cat(const Cat &other):Animal(other){

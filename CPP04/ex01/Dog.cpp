@@ -2,12 +2,14 @@
 
 Dog::Dog():Animal(){
     std::cout << "Dog Default Constructor." << std::endl;
+    Brain* dogbrain = new Brain();
     type = "Type: Dog";
 }
 
 
 Dog::~Dog(){
     std::cout << "Dog Destructor Constructor." << std::endl;
+    delete brain;
 }
 
 Dog::Dog(const Dog &other):Animal(other){
