@@ -3,6 +3,7 @@
 
 class Character : public ICharacter{
     private:
+        std::string _name;
         AMateria *_materias[4];
     public:
         Character();
@@ -10,9 +11,11 @@ class Character : public ICharacter{
         ~Character();
         Character(const Character &other);
         Character &operator=(const Character &other);
-        virtual void equip(AMateria* m) override;
-        virtual void unequip(int idx) override;
-        virtual void use(int idx, ICharacter& target) override;
-}
+        
+        virtual std::string const & getName() const; // <-- ADD THIS
+        virtual void equip(AMateria* m);
+        virtual void unequip(int idx);
+        virtual void use(int idx, ICharacter& target);
+};
 
 #endif

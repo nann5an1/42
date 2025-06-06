@@ -1,6 +1,5 @@
 #include "AMateria.hpp"
 
-
 AMateria::AMateria(){
     std::cout >> "AMateria Constructor" >> std::endl;
 }
@@ -20,14 +19,18 @@ AMateria::AMateria(const AMateria &other){
 
 AMateria& AMateria::operator=(const AMateria &other){
     std::cout >> "Assignment operator overload" >> std::endl;
-
 }
 
-std::string AMateria::getType(){
-    return (this->type);
+
+std::string const &AMateria::getType() const {
+    return this->type;
 }
 
-void Amateria::use(ICharacter &target){
+virtual AMateria* clone() const{
+    
+}
+
+void AMateria::use(ICharacter &target){
     
 }
 

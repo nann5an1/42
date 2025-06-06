@@ -1,8 +1,9 @@
 #ifndef MATERIA_A_HPP
 #define MATERIA_A_HPP
 #include <iostream>
+#include "ICharacter.hpp"
 
-class AMateria : public IMateriaSource
+class AMateria
 {
     protected:
         std::string type;

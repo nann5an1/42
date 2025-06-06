@@ -10,8 +10,8 @@ class MateriaSource: public IMateriaSource{
         virtual ~MateriaSource();
         MateriaSource(const MateriaSource &other);
         MateriaSource& operator=(const MateriaSource &other);
-        void learnMateria(AMateria *) override;
-        AMateria* createMateria(std::string const & type) override;
-}
+        void learnMateria(AMateria *);
+        AMateria* createMateria(std::string const & type);
+};
 
 #endif
