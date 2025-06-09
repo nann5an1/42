@@ -1,6 +1,7 @@
 #ifndef MATERIA_SOURCE_HPP
 #define MATERIA_SOURCE_HPP
 #include <string.h>
+#include "IMateriaSource.hpp"
 
 class MateriaSource: public IMateriaSource{
     protected:

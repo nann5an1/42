@@ -4,13 +4,16 @@
 #include <iostream>
 
 class Brain{
+    // private:
+    //     std::string idea;
     public:
         std::string ideas[100];
         Brain();
         ~Brain();
         Brain(const Brain &other);
         Brain& operator=(const Brain &other);
-        void setIdeas(const std::string &idea);
+        std::string getIdeas(int idx);
+        void setIdeas(int idx, const std::string &idea);
 };
 
 #endif

@@ -10,7 +10,7 @@ class WrongCat : public WrongAnimal{
         WrongCat(const WrongCat &other);
         WrongCat& operator=(const WrongCat &other);
         void makeSound ()const;
-        std::string getType();
+        std::string getType() const;
 };
 
 #endif

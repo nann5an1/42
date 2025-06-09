@@ -2,11 +2,11 @@
 
 Cat::Cat():Animal(){
     std::cout << "Cat Default Constructor." << std::endl;
-    type = "Type: Cat";
+    type = "Cat";
 }
 
 Cat::~Cat(){
-    std::cout << "Cat Destructor Constructor." << std::endl;
+    std::cout << "Cat Destructor." << std::endl;
 }
 
 Cat::Cat(const Cat &other):Animal(other){
@@ -23,8 +23,4 @@ Cat& Cat::operator=(const Cat &other){
 
 void Cat::makeSound() const{
     std::cout << "Cat MEOWS." << std::endl;
-}
-
-std::string Cat::getType(){
-    return type;
 }

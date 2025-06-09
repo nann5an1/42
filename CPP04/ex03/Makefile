@@ -1,5 +1,5 @@
 PROG 	= materia
-SRCS 	= main.cpp AMateria.cpp Ice.cpp Cure.cpp Character.cpp
+SRCS 	= main.cpp AMateria.cpp MateriaSource.cpp Ice.cpp Cure.cpp Character.cpp
 OBJS 	= ${SRCS:.cpp=.o}
 CXX 		= c++ 
 CXXFLAGS 	= -Wall -Wextra -Werror -std=c++98

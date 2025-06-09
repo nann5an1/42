@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/42/CPP04/ex00",
-      "program": "d:/42/CPP04/ex00/build/Debug/outDebug",
+      "cwd": "c:/Users/NannSu/Downloads/cpp04(1)/cpp04/ex03",
+      "program": "c:/Users/NannSu/Downloads/cpp04(1)/cpp04/ex03/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

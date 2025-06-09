@@ -1,12 +1,13 @@
 #include "Animal.hpp"
 
-Animal::Animal():type("Animal"){
+Animal::Animal(){
     std::cout << "Animal Default Constructor." << std::endl;
-    type = "Type: Animal";
+    type = "Animal";
 }
 
 Animal::~Animal(){
     std::cout << "Animal Destructor Constructor." << std::endl;
+    
 }
 
 Animal::Animal(const Animal &other){

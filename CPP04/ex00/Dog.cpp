@@ -2,12 +2,12 @@
 
 Dog::Dog():Animal(){
     std::cout << "Dog Default Constructor." << std::endl;
-    type = "Type: Dog";
+    type = "Dog";
 }
 
 
 Dog::~Dog(){
-    std::cout << "Dog Destructor Constructor." << std::endl;
+    std::cout << "Dog Destructor." << std::endl;
 }
 
 Dog::Dog(const Dog &other):Animal(other){
@@ -24,8 +24,4 @@ Dog& Dog::operator=(const Dog &other){
 
 void Dog::makeSound() const{
     std::cout << "Dog WOOFS." << std::endl;
-}
-
-std::string Dog::getType(){
-    return type;
 }

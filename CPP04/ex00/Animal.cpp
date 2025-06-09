@@ -2,7 +2,7 @@
 
 Animal::Animal():type("Animal"){
     std::cout << "Animal Default Constructor." << std::endl;
-    type = "Type: Animal";
+    type = "Animal";
 }
 
 Animal::~Animal(){

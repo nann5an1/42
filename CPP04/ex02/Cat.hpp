@@ -13,7 +13,8 @@ class Cat : public Animal{
         Cat(const Cat &other);
         Cat& operator=(const Cat &other);
         void makeSound ()const;
-        std::string getType();
+        std::string getIdea(int idx) const;
+        void setIdea(int idx, std::string idea) const;
 };
 
 #endif
