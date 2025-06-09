@@ -42,20 +42,11 @@ const std::string& Character::getName() const {
     return this->_name;
 }
 
-// bool Character::hasEquipped(AMateria* m) const {
-//     for (int i = 0; i < 4; ++i) {
-//         if (_materias[i] == m)
-//             return true;
-//     }
-//     return false;
-// }
-
 void Character::equip(AMateria* m){
     if (!m)
         return ;
     for(int i = 0; i < 4; i++)
     {
-        // std::cout << &_materias[i] << &m << std::endl;
         if (_materias[i] == m ){
             std::cout << "Each Materia can only be equipped once" << std::endl;
             _materias[i] = NULL;

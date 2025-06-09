@@ -1,20 +1,15 @@
 #include "AMateria.hpp"
 
-AMateria::AMateria() : type("") {
-    // std::cout << "AMateria Constructor" << std::endl;
-}
+AMateria::AMateria() : type("") {}
 
 AMateria::AMateria(std::string const &type){
     std::cout << "AMateria Parameterized Constructor" << std::endl;
     this->type = type;
 }
 
-AMateria::~AMateria(){
-    // std::cout << "AMateria Destructor" << std::endl;
-}
+AMateria::~AMateria(){}
 
 AMateria::AMateria(const AMateria &other){
-    // std::cout << "AMateria Copy Constructor" << std::endl;
     *this = other;
 }
 
@@ -24,8 +19,6 @@ AMateria& AMateria::operator=(const AMateria &other){
     return *this;
 }
 
-
 std::string const &AMateria::getType() const {
     return this->type;
 }
-

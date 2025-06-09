@@ -11,10 +11,10 @@ void charactertest();
 int main()
 {
     // comment out the tests you don't want to run
-    // subjectPdfExample();
+    subjectPdfExample();
     materiasourcetest();
-    // materiatest();
-    // charactertest();
+    materiatest();
+    charactertest();
 
     return 0;
 }

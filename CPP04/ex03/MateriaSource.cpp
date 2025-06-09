@@ -30,7 +30,7 @@ MateriaSource& MateriaSource:: operator=(const MateriaSource &other){
 void MateriaSource::learnMateria(AMateria *materia){
     for (int i = 0; i <= 4; i++) {
         if (i == 4){
-            std::cout << "Materia cannot be created more than 4 items" << std::endl;
+            std::cout << "Materia cannot be learnt more than 4 items" << std::endl;
             delete materia;
             return ;
         } 
@@ -50,7 +50,6 @@ AMateria *MateriaSource::createMateria(std::string const &type)
             return _materias[i]->clone();
         }
     }
-    std::cout << "Materia " << type << " cannot be created" << std::endl;
+    std::cout << "Materia " << type << " is not learnt thus not created" << std::endl;
     return 0;
-
 }
