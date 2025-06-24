@@ -1,5 +1,5 @@
-#ifndef FORM_HPP
-#define FORM_HPP
+#ifndef AFORM_HPP
+#define AFORM_HPP
 #include "Bureaucrat.hpp"
 
 class Bureaucrat;
@@ -10,20 +10,21 @@ class AForm{
         int const _gradeReqToSign;
         int const _gradeReqToExecute;
     public:
-        Form();
-        Form(std::string formName);
-        Form(std::string formName, int dummy_num); //this func just to test for form-out-of-bounds
-        ~Form();
-        Form(Form const &other);
-        Form& operator=(Form const &other);
+        AForm();
+        AForm(std::string formName);
+        AForm(std::string formName, int gradeReqToSign, int gradeReqToExec); //this func just to test for form-out-of-bounds
+        virtual ~AForm();
+        AForm(AForm const &other);
+        AForm& operator=(AForm const &other);
 
         std::string getFormName();
         bool getIsFormSigned();
         void setIsFormSigned();
         int  getGradeReqToSign();
         int getGradeReqToExecute();
-        void beSigned(Bureaucrat *person);
+        virtual void beSigned(Bureaucrat *person) = 0;
         void handleExceptions(Bureaucrat *person);
+        virtual void execute(Bureaucrat const & executor) const = 0;
         class GradeTooHighException: public std::exception {
             public:
                 const char* what() const throw(){
@@ -38,7 +39,13 @@ class AForm{
                 }
                     
             };
+            class ExecutionException: public std::exception{
+            public:
+                const char* what() const throw(){
+                    return  "Bureacrat cannot execute due to not enough rank.";
+                }
+            };
 
 };
-    std::ostream& operator<<(std::ostream &out, Form &form);
+    std::ostream& operator<<(std::ostream &out, AForm &form);
 #endif

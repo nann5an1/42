@@ -55,7 +55,7 @@ void Bureaucrat::setGrade(int grade){
     this->grade = grade;
 }
 
-void Bureaucrat:: signForm(Form *form){
+void Bureaucrat:: signForm(AForm *form){
     form->beSigned(this);
 }
 

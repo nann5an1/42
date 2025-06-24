@@ -1,42 +1,42 @@
 #include "Form.hpp"
 
 //need to initialized the attributes for the constructors
-Form::Form(): _formName("Dummy"), _signedStatus(false), 
+AForm::AForm(): _formName("Dummy"), _signedStatus(false), 
 _gradeReqToSign(2), _gradeReqToExecute(2){
     std::cout << "Form Default Constructor" << std::endl;
 }
 
 //modify the grade required to sign and execute here
-Form::Form(std::string formName): _formName(formName), _signedStatus(false), 
+AForm::AForm(std::string formName): _formName(formName), _signedStatus(false), 
 _gradeReqToSign(2), _gradeReqToExecute(1){
     (void)formName;
      std::cout   << "Form Parameterized Constructor" << std::endl;
 }
 
 //modify the grade required to sign and execute here
-Form::Form(std::string formName, int dummy_num): _formName("Out-Of-Bounds-Form"), _signedStatus(false), 
+AForm::AForm(std::string formName, int dummy_num): _formName("Out-Of-Bounds-Form"), _signedStatus(false), 
 _gradeReqToSign(-2), _gradeReqToExecute(2){
    (void)formName;
    (void)dummy_num;
 }
 
-Form::~Form(){
+AForm::~AForm(){
     std::cout << "Form destructor" << std::endl;
 }
 
-Form::Form(Form const &other): _formName("Hummy"), _signedStatus(false), 
+AForm::AForm(AForm const &other): _formName("Hummy"), _signedStatus(false), 
 _gradeReqToSign(2), _gradeReqToExecute(2){
     std::cout << "Form Copy Constructor" << std::endl;
     *this = other;
 }
 
-Form& Form:: operator=(Form const &other){
+AForm& AForm:: operator=(AForm const &other){
     if (this != &other)
         this->_signedStatus = other._signedStatus;
     return *this;
 }
 
-std::ostream& operator<<(std::ostream &out, Form &form){
+std::ostream& operator<<(std::ostream &out, AForm &form){
     out 
         << "Form Name -> " << form.getFormName() << std::endl
         << "Grade Required to Sign -> " << form.getGradeReqToSign() << std::endl
@@ -45,27 +45,27 @@ std::ostream& operator<<(std::ostream &out, Form &form){
     return out;
 }
 
-std::string Form::getFormName(){
+std::string AForm::getFormName(){
     return this->_formName;
 }
 
-bool Form::getIsFormSigned(){
+bool AForm::getIsFormSigned(){
     return (_signedStatus ? true : false);
 }
 
-void Form::setIsFormSigned(){
+void AForm::setIsFormSigned(){
     this->_signedStatus = false;
 }
 
-int Form::getGradeReqToSign(){
+int AForm::getGradeReqToSign(){
     return (this->_gradeReqToSign);
 }
 
-int Form::getGradeReqToExecute(){
+int AForm::getGradeReqToExecute(){
     return (this->_gradeReqToExecute);
 }
 
-void Form::beSigned(Bureaucrat *person){
+void AForm::beSigned(Bureaucrat *person){
     this->handleExceptions(person);
     std::cout << *this;
     if((person->getGrade() <= this->getGradeReqToSign()) && this->getIsFormSigned()) //1 < 2 / 1 = 1
@@ -79,7 +79,7 @@ void Form::beSigned(Bureaucrat *person){
 }
 
 //check the grade whether out of bounds or not
-void Form::handleExceptions(Bureaucrat *person){
+void AForm::handleExceptions(Bureaucrat *person){
     if (this->getGradeReqToSign() < 1 || this->getGradeReqToExecute() < 1){
         delete person;
         delete this;

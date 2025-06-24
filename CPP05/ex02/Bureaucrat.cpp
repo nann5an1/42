@@ -55,7 +55,7 @@ void Bureaucrat::setGrade(int grade){
     this->grade = grade;
 }
 
-void Bureaucrat:: signForm(Form *form){
+void Bureaucrat:: signForm(AForm *form){
     form->beSigned(this);
 }
 
@@ -66,4 +66,13 @@ void Bureaucrat::handleExceptions(){
         throw GradeTooLowException();
     else
         std::cout << *this;
+}
+
+void Bureaucrat::executeForm(AForm* form) const{
+    form->execute(this);
+    // if(this->grade <= form.getGradeReqToExecute() && form.getIsFormSigned()){
+    //     std::cout << executor << "executed" << form.getFormName() << std::endl;
+    // }
+    // else
+    //     std::cout << "Bureacrat cannot execute due to not enough rank." << std::endl;
 }

@@ -3,9 +3,9 @@
 #include <iostream>
 #include <exception>
 #include <typeinfo>
-#include "Form.hpp"
+#include "AForm.hpp"
 
-class Form;
+class AForm;
 class Bureaucrat{
     private:
         std::string const name;
@@ -22,8 +22,9 @@ class Bureaucrat{
         std::string getName();
         int getGrade();
         void setGrade(int grade);
-        void signForm(Form *form); 
+        void signForm(AForm *form); 
         void handleExceptions();
+        void executeForm(AForm* form) const;
         class GradeTooHighException: public std::exception {
         public:
             const char* what() const throw(){

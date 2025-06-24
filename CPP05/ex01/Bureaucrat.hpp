@@ -5,7 +5,7 @@
 #include <typeinfo>
 #include "Form.hpp"
 
-class Form;
+class AForm;
 class Bureaucrat{
     private:
         std::string const name;
@@ -22,7 +22,7 @@ class Bureaucrat{
         std::string getName();
         int getGrade();
         void setGrade(int grade);
-        void signForm(Form *form); 
+        void signForm(AForm *form); 
         void handleExceptions();
         class GradeTooHighException: public std::exception {
         public:

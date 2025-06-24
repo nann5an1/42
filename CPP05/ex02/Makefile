@@ -1,5 +1,5 @@
-PROG 	= signform
-SRCS 	= main.cpp Bureaucrat.cpp Form.cpp
+PROG 	= forms
+SRCS 	= main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp
 OBJS 	= ${SRCS:.cpp=.o}
 CXX 		= c++ 
 CXXFLAGS 	= -Wall -Wextra -Werror -g -std=c++98

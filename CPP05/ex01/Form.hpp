@@ -3,19 +3,19 @@
 #include "Bureaucrat.hpp"
 
 class Bureaucrat;
-class Form{
+class AForm{
     private:
         std::string const _formName;
         bool _signedStatus;
         int const _gradeReqToSign;
         int const _gradeReqToExecute;
     public:
-        Form();
-        Form(std::string formName);
-        Form(std::string formName, int dummy_num); //this func just to test for form-out-of-bounds
-        ~Form();
-        Form(Form const &other);
-        Form& operator=(Form const &other);
+        AForm();
+        AForm(std::string formName);
+        AForm(std::string formName, int dummy_num); //this func just to test for form-out-of-bounds
+        ~AForm();
+        AForm(AForm const &other);
+        AForm& operator=(AForm const &other);
 
         std::string getFormName();
         bool getIsFormSigned();
@@ -40,5 +40,5 @@ class Form{
             };
 
 };
-    std::ostream& operator<<(std::ostream &out, Form &form);
+    std::ostream& operator<<(std::ostream &out, AForm &form);
 #endif

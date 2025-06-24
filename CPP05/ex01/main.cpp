@@ -73,18 +73,18 @@ int main(){
     //test for valid bureacrat grade with valid signing authority 
     try
     {
-        Form *form;
-        Form *form1;
+        AForm *form;
+        AForm *form1;
         Bureaucrat *steve;
         Bureaucrat *steve1;
         std::cout << "\033[1;32m[TEST CASE]Valid Bureacrat grade with valid signing authority, res -> must be SIGNED ✅\033[0m" << std::endl;
         steve = new Bureaucrat("Steve", 1);
-        form = new Form("Dummy Form");
+        form = new AForm("Dummy Form");
         steve->signForm(form);
 
         std::cout << "\033[1;32m[TEST CASE]Valid Bureacrat grade with invalid signing authority, res -> must NOT be SIGNED ✅\033[0m" << std::endl;
         steve1 = new Bureaucrat("Steve", 10);
-        form1 = new Form("Dummy Form");
+        form1 = new AForm("Dummy Form");
         steve1->signForm(form);
 
         delete form;
@@ -101,13 +101,13 @@ int main(){
     //test for copies of form
     try
     {
-        Form *form;
-        Form *form1;
+        AForm *form;
+        AForm *form1;
         Bureaucrat *steve;
 
         std::cout << "\033[1;32m[TEST CASE](Copy Constructors)Valid Bureacrat grade with valid signing authority, res -> must be SIGNED ✅\033[0m" << std::endl;
         steve = new Bureaucrat("Steve", 2);
-        form = new Form("Dummy Form");
+        form = new AForm("Dummy Form");
         form1 = form;
         
         steve->incrementGrade(1);
@@ -126,14 +126,14 @@ int main(){
      //test for copies of bureacrats
     try
     {
-        Form *form;
+        AForm *form;
         Bureaucrat *steve;
         Bureaucrat *steve1;
 
         std::cout << "\033[1;32m[TEST CASE](Copy Constructors)Valid Copies of Bureacrats, res -> must NOT be SIGNED ✅\033[0m" << std::endl;
         steve1 = new Bureaucrat("Steve1", 3);
 
-        form = new Form("Dummy Form");
+        form = new AForm("Dummy Form");
         steve = steve1;
         steve->signForm(form);
     
@@ -149,11 +149,11 @@ int main(){
     //test for form out of bounds exception
     try
     {
-        Form *form;
+        AForm *form;
         Bureaucrat *steve;
         std::cout << "\033[1;32m[TEST CASE]Form Class Out Of Bounds Exception ✅\033[0m" << std::endl;
         steve = new Bureaucrat("Steve", 1);
-        form = new Form("Dummy Form", -2);
+        form = new AForm("Dummy Form", -2);
         steve->signForm(form);
 
         delete form;
