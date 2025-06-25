@@ -7,6 +7,8 @@ class Bureaucrat;
 class AForm{
     private:
         std::string const _formName;
+        std::string const _target;
+        std::string target; //just added the target
         bool _signedStatus;
         int const _gradeReqToSign;
         int const _gradeReqToExecute;

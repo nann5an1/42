@@ -21,7 +21,6 @@ _gradeReqToSign(gradeReqToSign), _gradeReqToExecute(gradeReqToExec){
     (void)gradeReqToExec;
 }
 
-
 AForm::~AForm(){
     std::cout << "Form destructor" << std::endl;
 }
@@ -71,10 +70,6 @@ int AForm::getGradeReqToExecute() const{
     return (this->_gradeReqToExecute);
 }
 
-
-std::string AForm:: getTarget() const{
-    return this->_target;
-}
 void AForm::beSigned(Bureaucrat *person){
     (void)person;
     this->handleExceptions();

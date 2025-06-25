@@ -165,27 +165,125 @@ int main(){
     // catch(const std::exception& e)
     // {
     //     std::cerr << e.what() << '\n';
+   //       delete form;
+   //       delete steve;
     // }
 
-    //test for form out of bounds exception
+   //////////////////////////////////   EX02  //////////////////////////////////////
+    //test for form out of bounds execution exception -> SHRUBBERY
+    Auto *shrubbery = NULL;
+    AForm *robotomy = NULL;
+    AForm *presidential = NULL;
+    Bureaucrat *steve = NULL;
     try
     {
-        std::cout << "\033[1;32m[TEST CASE]✅\033[0m" << std::endl;
-        AForm *shrubbery = new ShrubberyCreationForm("Dummy Form");
-        Bureaucrat *steve;
-        // Bureaucrat *peter;
-        steve = new Bureaucrat("Steve", 1);
-        // peter = new Bureaucrat("Peter", 150);
-        
+        //• ShrubberyCreationForm: Required grades: sign 145, exec 137
+        std::cout << "\033[1;32m[TEST CASE]form out of bounds execution exception -> SHRUBBERY✅\033[0m" << std::endl;
+        shrubbery = new ShrubberyCreationForm("Dummy Form");
+        steve = new Bureaucrat("Steve", 137);
+
         steve->signForm(shrubbery);
-        // peter->signForm(shrubbery);
         steve->executeForm(shrubbery);
         delete shrubbery;
         delete steve;
-        // delete peter;
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
+        delete shrubbery;
+        delete steve;
     }
+
+     //test for form out of bounds execution exception -> ROBOTOMY
+    try
+    {
+        //RobotomyRequestForm: Required grades: sign 72, exec 45
+        std::cout << "\033[1;32m[TEST CASE]form out of bounds execution exception -> ROBOTOMY✅\033[0m" << std::endl;
+        robotomy = new RobotomyRequestForm("Robort Form");
+        steve = new Bureaucrat("Steve", 71);
+
+        steve->signForm(robotomy);
+        steve->executeForm(robotomy);
+        delete robotomy;
+        delete steve;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        delete robotomy;
+        delete steve;
+    }
+
+   //test for ROBOTOMY and PRESIDENTIAL
+   try
+   {
+       //PresidentialPardonForm: Required grades: sign 25, exec 5
+      std::cout << "\033[1;32m[TEST CASE]Presidential & Robotomy✅\033[0m" << std::endl;
+      presidential = new PresidentialPardonForm("military form");
+      robotomy = new RobotomyRequestForm("form for Tina");
+      steve = new Bureaucrat("Steve", 25);
+
+      steve->signForm(presidential);
+      steve->executeForm(presidential);
+
+      steve->signForm(robotomy);
+      steve->executeForm(robotomy);
+      delete presidential;
+      delete robotomy;
+      delete steve;
+   }
+   catch(const std::exception& e)
+   {
+      std::cerr << e.what() << '\n';
+      delete presidential;
+      delete robotomy;
+      delete steve;
+   }
+
+   //test for copy constructors of the forms
+   try
+   {
+      //PresidentialPardonForm: Required grades: sign 25, exec 5
+      //RobotomyRequestForm: Required grades: sign 72, exec 45
+      //ShrubberyCreationForm: Required grades: sign 145, exec 137
+      std::cout << "\033[1;32m[TEST CASE]form out of bounds execution exception -> Presidential & Robotomy\033[0m" << std::endl;
+      PresidentialPardonForm presidential("military form");
+      RobotomyRequestForm robotomy("robot form");
+      ShrubberyCreationForm shrubbery("Wix Map");
+
+      steve = new Bureaucrat("Steve", 5);
+      std::cout << "\n\033[1;32m[TEST CASE]Presidential Copy Constructor\033[0m" << std::endl;
+      steve->signForm(&presidential); //signstatus = 0
+      steve->executeForm(&presidential);
+
+      //copy constructor test for presidential
+      PresidentialPardonForm presidential1(presidential);
+      std::cout << "Presidential1 Form Status :" << presidential1.getIsFormSigned() << "\n"
+               << "Presidential1 Form Name: " <<  presidential1.getFormName() << "\n"
+               << std::endl;
+
+      //copy constructor test for robotomy
+      std::cout << "\n\033[1;32m[TEST CASE]Robotomy Copy Constructor\033[0m" << std::endl;
+      steve->signForm(&robotomy);
+      RobotomyRequestForm robotomy1(robotomy);
+      std::cout << "Robotomy1 Grade : " << robotomy1.getGradeReqToExecute() << std::endl;
+      std::cout << "Robotomy1 Sign Status : " << robotomy1.getIsFormSigned() << std::endl;
+      steve->executeForm(&robotomy1);
+
+      std::cout << "\n\033[1;32m[TEST CASE]Shrubbery Copy Constructor\033[0m" << std::endl;
+      //copy constructor test for shrubbery
+      steve->executeForm(&shrubbery);
+      steve->signForm(&shrubbery); //signstatus 1
+      ShrubberyCreationForm shrubbery1(shrubbery);
+      std::cout << "Shrubbery1 Req To Execute:" << shrubbery1.getGradeReqToExecute() << "\n"
+               << "Shrubbery1 Form Name: " <<  shrubbery1.getFormName() << "\n"
+               << "Shrubbery1 Form Status:" << shrubbery1.getIsFormSigned() << "\n"
+               << std::endl;
+      delete steve;
+   }
+   catch(const std::exception& e)
+   {
+      std::cerr << e.what() << '\n';
+      delete steve;
+   }
 }

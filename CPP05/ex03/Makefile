@@ -1,5 +1,5 @@
 PROG 	= forms
-SRCS 	= main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+SRCS 	= main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp Intern.cpp
 OBJS 	= ${SRCS:.cpp=.o}
 CXX 		= c++ 
 CXXFLAGS 	= -Wall -Wextra -Werror -g -std=c++98
