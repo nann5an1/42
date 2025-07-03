@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 19:05:06 by nsan              #+#    #+#             */
-/*   Updated: 2025/04/11 13:54:47 by marvin           ###   ########.fr       */
+/*   Updated: 2025/07/02 14:46:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ std::ostream &operator<<(std::ostream &out, const Fixed& other){
     out << std::setprecision(6) << other.toFloat();
     return out;
 } 
+
 
 Fixed::Fixed(const int int_val):_fractionalBits(8){
     this->_fixedPointValue = int_val * (1 << _fractionalBits);
@@ -101,7 +102,8 @@ Fixed& Fixed::operator++(){
     ++this->_fixedPointValue;
     return (*this);
 }
- 
+
+//post increment or decrement returns the value of the previous value
 Fixed Fixed::operator++(int){
     Fixed temp;
     temp._fixedPointValue = this->_fixedPointValue;
@@ -119,6 +121,7 @@ Fixed Fixed::operator--(int){
     this->_fixedPointValue--;
     return (temp);
 }
+
 
 // //static member functions
 // Fixed& Fixed::min(Fixed& fixed_pt1, Fixed& fixed_pt2){

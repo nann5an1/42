@@ -35,7 +35,7 @@ class Fixed{
         Fixed operator+(const Fixed& other)const;
         Fixed operator-(const Fixed& other)const;
         Fixed operator*(const Fixed& other)const;
-        Fixed operator/(const Fixed& other)const ;
+        Fixed operator/(const Fixed& other)const;
 
          //assignment operator overload for 4 increment/decrement operators
         Fixed& operator++();
@@ -55,5 +55,6 @@ class Fixed{
         // const static Fixed& max(const Fixed& fixed_pt1,const Fixed& fixed_pt2);
     };
     std::ostream& operator<<(std::ostream &out, const Fixed& other);
+    // std::ostream& operator<<(std::ostream &out, const Fixed& other);
 
 #endif
