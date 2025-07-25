@@ -22,9 +22,11 @@ class	bigint
 		bigint	operator+=(const bigint& other);
 		bigint	operator++(int);
 		bigint	operator++(void);
+		
 		bigint	operator<<(unsigned int value) const;
 		bigint	operator<<=(unsigned int value);
 		bigint	operator>>=(const bigint& other);
+
 		bool	operator>(const bigint& other);
 		bool	operator<(const bigint& other);
 		bool	operator==(const bigint& other);

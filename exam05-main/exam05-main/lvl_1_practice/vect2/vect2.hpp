@@ -28,7 +28,7 @@ class vect2{
         vect2 operator-(int addon) const;
         vect2 operator-(const vect2 &other);
 
-        //  //'-' operator overloads
+        //  //'*' operator overloads
          vect2 operator*(int multi) const;
          vect2 operator*(const vect2 &other);
 

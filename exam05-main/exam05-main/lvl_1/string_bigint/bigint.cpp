@@ -107,10 +107,10 @@ bigint	bigint::operator>>=(const bigint& other)
 	if (this->_string == "0")
 		return (*this);
 
-	std::stringstream oss;
-	oss << other;
+	std::stringstream ss;
+	ss << other;
 	size_t shift = 0;
-	oss >> shift;
+	ss >> shift;
 
 	if (this->_string.size() > shift) //1234 > 2
 		this->_string.erase(this->_string.begin() + (this->_string.size() - shift), this->_string.end());

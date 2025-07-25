@@ -1,0 +1,25 @@
+1. when you implement the search_array_bay, do not use virtual here:
+class searchable_array_bag : public array_bag, public searchable_bag 
+
+2. for searchable_tree_bag, the has(int) function can be based off the insert function.
+void tree_bag::insert(int val) {
+	node **n = &this->tree;
+	while (*n)
+	{
+		if (val < (*n)->value)
+			n = &(*n)->l;
+		else if (val >= (*n)->value)
+			n = &(*n)->r;
+	}
+	*n = new node((node){0, 0, val});
+}
+
+3. for set, make sure to check that a number doesn't exist in the set before inserting it.
+
+4. for a set, make sure this works: 
+	searchable_bag *a = new searchable_array_bag;
+	const searchable_array_bag tmp(static_cast<searchable_array_bag &>(*a));
+	tmp.print();
+	tmp.has(1);
+
+	
