@@ -1,5 +1,5 @@
-PROG 	= convert
-SRCS 	= main.cpp ScalarConverter.cpp
+PROG 	= serializer
+SRCS 	= main.cpp Serializer.cpp
 OBJS 	= ${SRCS:.cpp=.o}
 CXX 		= c++ 
 CXXFLAGS 	= -Wall -Wextra -Werror -g -std=c++98
