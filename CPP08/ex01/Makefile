@@ -1,5 +1,5 @@
 PROG 	= span
-SRCS 	= main.cpp
+SRCS 	= main.cpp Span.cpp
 OBJS 	= ${SRCS:.cpp=.o}
 CXX 		= c++ 
 CXXFLAGS 	= -Wall -Wextra -Werror -g -std=c++98
