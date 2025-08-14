@@ -2,10 +2,10 @@
 
 Span::Span(): _maxSize(0) {}
 Span::~Span() {}
-Span::Span(unsigned int n): _maxSize(n){
-    std::cout << "n size : " << n << std::endl;
+Span::Span(unsigned int n): _maxSize(n), _longestSpanVal(0) {
+    // std::cout << "n size : " << n << std::endl;
     this->vec.reserve(n);
-    std::cout << "this vector capacity : " << this->vec.capacity() << std::endl;
+    // std::cout << "this vector capacity : " << this->vec.capacity() << std::endl;
 }
 
 Span::Span(const Span &other): _maxSize(other._maxSize) {
@@ -23,38 +23,41 @@ void Span::addNumber(unsigned int num){
 }
 
 // template <typename T>
-// void Span::addMultipleNumbers(T &container){
+// void Span::addMultipleNumbers(T &container){ //container's size is aldy reserved from the constructor
 //     typename T::iterator it;
-//     unsigned int size = container.size();
-//     if(size <= this->_maxSize){
+//     unsigned int capacity = container.capacity();
 //         for(it = container.begin(); it!= container.end(); ++it){
-//             this->addNumber(*it);
+
+//             vec.push_back(rand() % 5000);
+//             // this->addNumber(*it);
 //             std::cout << "Added number: " << *it << std::endl;
 //         }
-//     }
-
 // }
 
-void Span:: shortestSpan(){ //if no numbers or only one num, throw exception
+unsigned int Span:: shortestSpan(){ //if no numbers or only one num, throw exception
+    std::set<unsigned int>newSet;
     std::set<unsigned int> setSpan(this->vec.begin(), this->vec.end()); //the set will now contain the sorted numbers
-    // std::set<unsigned int>::iterator  it = setSpan.begin();
-    //  for(unsigned int i = 0; i < vec.size(); i++){
-    //     std::cout << i << " : " << vec[i] << std::endl;
-    // }
+    this->_longestSpanVal = *(setSpan.rbegin()) - *(setSpan.begin());
 
     //print the set which is sorted
     for(std::set<unsigned int>::iterator  it = setSpan.begin(); it != setSpan.end() ;it++){
        std::set<unsigned int>::iterator nextIt = it; // copy current position
-    ++nextIt; // move to next element
+       std::cout << *it << " ";
+        ++nextIt; // move to next element
 
-    if (nextIt != setSpan.end()) { // make sure there's a next element
-        std::cout << "Current: " << *it << ", Next: " << *nextIt << std::endl;
-        std::cout << "Difference: " << (*nextIt - *it) << std::endl;
-        }
+    if (nextIt != setSpan.end()) // make sure there's a next element
+        newSet.insert(*nextIt - *it);
     }
-
+    std::cout << std::endl;
+    // std::cout << *(newSet.begin()) << std::endl;
+    return (*newSet.begin());
 }
 
-// unsigned int Span:: longestSpan(){
+unsigned int Span:: longestSpan(){
+    return this->_longestSpanVal;
+}
 
-// }
+std::vector<unsigned int> Span::getVec(){
+    return this->vec;
+
+}
