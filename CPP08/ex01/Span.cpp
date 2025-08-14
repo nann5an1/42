@@ -42,11 +42,17 @@ void Span:: shortestSpan(){ //if no numbers or only one num, throw exception
     //     std::cout << i << " : " << vec[i] << std::endl;
     // }
 
-    std::next(setSpan.begin());
     //print the set which is sorted
     for(std::set<unsigned int>::iterator  it = setSpan.begin(); it != setSpan.end() ;it++){
-        std::cout << *it << std::endl;
+       std::set<unsigned int>::iterator nextIt = it; // copy current position
+    ++nextIt; // move to next element
+
+    if (nextIt != setSpan.end()) { // make sure there's a next element
+        std::cout << "Current: " << *it << ", Next: " << *nextIt << std::endl;
+        std::cout << "Difference: " << (*nextIt - *it) << std::endl;
+        }
     }
+
 }
 
 // unsigned int Span:: longestSpan(){
