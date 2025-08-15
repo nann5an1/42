@@ -38,6 +38,7 @@ unsigned int Span:: shortestSpan(){ //if no numbers or only one num, throw excep
         ++nextIt; // move to next element
     if (nextIt != setSpan.end()) // make sure there's a next element
         newSet.insert(*nextIt - *it);
+        std::string var = "hello";
     }
     // std::cout << std::endl;
     return (*newSet.begin());
