@@ -3,7 +3,6 @@
 Span::Span(): _maxSize(0) {}
 Span::~Span() {}
 Span::Span(unsigned int n): _maxSize(n), _longestSpanVal(0) {
-    // std::cout << "n size : " << n << std::endl;
     this->vec.reserve(n);
     // std::cout << "this vector capacity : " << this->vec.capacity() << std::endl;
 }
@@ -18,46 +17,34 @@ Span &Span::operator=(const Span &other){
 }
 
 void Span::addNumber(unsigned int num){
+    if(vec.size() > _maxSize)
+        throw std::overflow_error("Span is already full");
     vec.push_back(num);
     // std::cout << "Span size: " << this->vec.size() << std::endl;
 }
 
-// template <typename T>
-// void Span::addMultipleNumbers(T &container){ //container's size is aldy reserved from the constructor
-//     typename T::iterator it;
-//     unsigned int capacity = container.capacity();
-//         for(it = container.begin(); it!= container.end(); ++it){
-
-//             vec.push_back(rand() % 5000);
-//             // this->addNumber(*it);
-//             std::cout << "Added number: " << *it << std::endl;
-//         }
-// }
-
 unsigned int Span:: shortestSpan(){ //if no numbers or only one num, throw exception
     std::set<unsigned int>newSet;
+    if(vec.size() < 2)
+        throw std::overflow_error("Span has less than 2 numbers");
     std::set<unsigned int> setSpan(this->vec.begin(), this->vec.end()); //the set will now contain the sorted numbers
+    // vec.clear();
     this->_longestSpanVal = *(setSpan.rbegin()) - *(setSpan.begin());
 
     //print the set which is sorted
     for(std::set<unsigned int>::iterator  it = setSpan.begin(); it != setSpan.end() ;it++){
        std::set<unsigned int>::iterator nextIt = it; // copy current position
-       std::cout << *it << " ";
+    //    std::cout << *it << " ";
         ++nextIt; // move to next element
-
     if (nextIt != setSpan.end()) // make sure there's a next element
         newSet.insert(*nextIt - *it);
     }
-    std::cout << std::endl;
-    // std::cout << *(newSet.begin()) << std::endl;
+    // std::cout << std::endl;
     return (*newSet.begin());
 }
 
 unsigned int Span:: longestSpan(){
+    if(vec.size() < 2)
+        throw std::overflow_error("Span has less than 2 numbers");
     return this->_longestSpanVal;
-}
-
-std::vector<unsigned int> Span::getVec(){
-    return this->vec;
-
 }
