@@ -1,0 +1,2 @@
+- handle file related errors
+- file could not open/ does not exist
