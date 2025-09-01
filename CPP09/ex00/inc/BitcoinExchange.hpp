@@ -16,4 +16,11 @@ class BitcoinExchange{
         // void run(std::string &filename);
 };
 
+class FormatException : public std::exception{
+    public:
+        const char* what() const throw(){
+            return ("FormatException: Wrong format in csv.");
+        }
+};
+
 #endif

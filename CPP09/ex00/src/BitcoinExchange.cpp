@@ -9,14 +9,16 @@ BitcoinExchange::BitcoinExchange(char *filename){
     // std::ofstream output("output.txt");
     if(file.fail())
         throw std::runtime_error("File does not exist");
-    std::getline(file, line);  //get the first line of the file
-    if(line.find("date | value") == std::string::npos)
-        throw std::runtime_error("Invalid file format");
+    std::getline(file, line);
+
+    int found = line.find("date | value");
+    if(found  < 0)
+        throw FormatException();
 
     while(std::getline(file, line)){ //read the whole file
-        if(line.find("|") != std::string::npos){
-            
-        }
+        std::cout << line.find("|") << std::endl;
+            // std::cout << found << std::endl;
+        
         std::cout << line << std::endl;
     }
 }
