@@ -6,13 +6,24 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <iomanip>
+#include <ctime>
+#include <limits.h>
+#include <stdlib.h>
+#include <map>
 
 class BitcoinExchange{
+    private:
+        int value_check(std::string token);
+        std::string identify_date(std::string token);
     public:
         BitcoinExchange();
         BitcoinExchange(char *filename);
         ~BitcoinExchange();
         BitcoinExchange(const BitcoinExchange& other);
+        // BitcoinExchange& operator=(const BitcoinExchange& other);
+
+
         // void run(std::string &filename);
 };
 

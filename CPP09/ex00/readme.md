@@ -4,7 +4,7 @@
 from the input file
 ----------------------
 - check if the file header is correct
-- read each line of the csv (read each token using stringstream as std::string)
+- read each line of the txt (read each token using stringstream as std::string)
 - identify if each of the column is there
 
 column 1
