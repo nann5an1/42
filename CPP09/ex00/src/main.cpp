@@ -4,7 +4,7 @@ int main(int ac, char** av){
     
     try{
         if(ac != 2)
-            throw std::runtime_error("Arguments must be 2 with file name");
+            throw std::runtime_error("Error: could not open file.");
         BitcoinExchange btc(av[1]); //take the file input
         
     }
