@@ -37,7 +37,12 @@ int BitcoinExchange::identify_date(std::string token){
     struct tm tm;
     char* result = strptime(token.c_str(), "%Y-%m-%d", &tm); // attempt to convert to the format
 
-    if(result != NULL && *result == '\0') return 1;
+    if(result != NULL && *result == '\0'){
+        if(tm.tm_mon == 1 && tm.tm_mday > 29 && (tm.tm_year % 4 == 0 && (tm.tm_year % 100 != 0  || tm.tm_year % 400 == 0))) return 0; //leap year but day is over 29
+        else if(tm.tm_mon == 1 && tm.tm_mday >= 29 && (tm.tm_year % 4 != 0 || (tm.tm_year % 100 == 0 && tm.tm_year % 400 != 0)
+)) return 0; //not a leap year but day is equal & over 29
+        return 1;
+    } 
     else return 0;
     return 1;
 }
