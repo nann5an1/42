@@ -1,5 +1,5 @@
-PROG 	= RPN
-SRCS 	= main.cpp RPN.cpp
+PROG 	= PmergeMe
+SRCS 	= main.cpp PmergeMe.cpp
 OBJS 	= ${SRCS:.cpp=.o}
 CXX 		= c++ 
 CXXFLAGS 	= -Wall -Wextra -Werror -g -std=c++98
