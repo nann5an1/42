@@ -110,31 +110,31 @@ void BitcoinExchange::read_file_input(std::fstream &input_file, std::string &inp
 
          while(ss >> token){
             switch (col_count){ //switch for each column
-            case 0:{
-                bool_date = identify_date(token);
-                date_token = token;
-                if(!bool_date)
-                    std::cout << "Error: bad input => " << token << std::endl;
-                break;  
-            }
-            case 1:{
-                if(token != "|")
-                    std::cout << "Error: bad format => " << input_line << std::endl;
-                 break;
-            }
-            case 2:{
-                value_ret = value_check(token);
-                if(bool_date){
-                    if(value_ret == -1)
-                        std::cout << "Error: not a positive number." << std::endl;
-                    else if(value_ret == -2)
-                        std::cout << "Error: too large a number." << std::endl;
-                    else if(bool_date){
-                        map_iteration(map_db, date_token, atoi(token.c_str()));
-                    }
+                case 0:{
+                    bool_date = identify_date(token);
+                    date_token = token;
+                    if(!bool_date)
+                        std::cout << "Error: bad input => " << token << std::endl;
+                    break;  
                 }
-                break;
-            } 
+                case 1:{
+                    if(token != "|")
+                        std::cout << "Error: bad format => " << input_line << std::endl;
+                    break;
+                }
+                case 2:{
+                    value_ret = value_check(token);
+                    if(bool_date){
+                        if(value_ret == -1)
+                            std::cout << "Error: not a positive number." << std::endl;
+                        else if(value_ret == -2)
+                            std::cout << "Error: too large a number." << std::endl;
+                        else if(bool_date){
+                            map_iteration(map_db, date_token, atoi(token.c_str()));
+                        }
+                    }
+                    break;
+                }
             }
             col_count++;
         }
