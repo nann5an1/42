@@ -52,6 +52,7 @@ int BitcoinExchange::value_check(std::string token){
     double value = strtod(token.c_str(), NULL);
     
     if(value > INT_MAX || value < INT_MIN) return -2;
+    else if (value < 0 || value > 1000) return 0;
     else if(value < 0) return -1;
 
     return 1;
@@ -129,13 +130,20 @@ void BitcoinExchange::read_file_input(std::fstream &input_file, std::string &inp
                             std::cout << "Error: not a positive number." << std::endl;
                         else if(value_ret == -2)
                             std::cout << "Error: too large a number." << std::endl;
+                        else if (value_ret == 0)
+                            std::cout << "Error: value not within range." << std::endl;
                         else if(bool_date){
                             map_iteration(map_db, date_token, atoi(token.c_str()));
                         }
                     }
                     break;
                 }
+                default:
+                    std::cout << "Error: bad format => " << input_line << std::endl;
+                    col_count = -1; //to break the getline while loop
+                    break;
             }
+            if (col_count == -1) break;
             col_count++;
         }
         col_count = 0;
