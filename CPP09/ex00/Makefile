@@ -1,5 +1,5 @@
 PROG 	= btc
-SRCS 	= ../src/main.cpp ../src/BitcoinExchange.cpp
+SRCS 	= src/main.cpp src/BitcoinExchange.cpp
 OBJS 	= ${SRCS:.cpp=.o}
 CXX 		= c++ 
 CXXFLAGS 	= -Wall -Wextra -Werror -g -std=c++98

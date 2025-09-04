@@ -17,10 +17,12 @@ void BitcoinExchange::run(char *filename){
     std::string line, input_line;
     std::fstream file, input_file;
     
-    file.open("../data.csv", std::ios::in);
-    if (!file.is_open())
+    file.open("data.csv", std::ios::in);
+    if (!file.is_open()){
         std::cerr << "Failed to open file\n";
-    
+        return ;
+    }
+
     //taking the csv file into the map
     map_input(file, line, map_db);
 
@@ -95,7 +97,6 @@ void BitcoinExchange::map_input(std::fstream &file, std::string &line, std::map<
 }
 
 void BitcoinExchange::read_file_input(std::fstream &input_file, std::string &input_line, std::map<std::string, double> map_db){
-    int col_count = 0;
     int bool_date = 0;
     int value_ret = 0;
     std::string token;
@@ -107,46 +108,26 @@ void BitcoinExchange::read_file_input(std::fstream &input_file, std::string &inp
     //read input file
     while(std::getline(input_file, input_line)){
         std::stringstream ss(input_line); //get each token in the line
-        std::string date_token;
+        std::string date_token, sep, value_str, extra;
 
-         while(ss >> token){
-            switch (col_count){ //switch for each column
-                case 0:{
-                    bool_date = identify_date(token);
-                    date_token = token;
-                    if(!bool_date)
-                        std::cout << "Error: bad input => " << token << std::endl;
-                    break;  
-                }
-                case 1:{
-                    if(token != "|")
-                        std::cout << "Error: bad format => " << input_line << std::endl;
-                    break;
-                }
-                case 2:{
-                    value_ret = value_check(token);
-                    if(bool_date){
-                        if(value_ret == -1)
-                            std::cout << "Error: not a positive number." << std::endl;
-                        else if(value_ret == -2)
-                            std::cout << "Error: too large a number." << std::endl;
-                        else if (value_ret == 0)
-                            std::cout << "Error: value not within range." << std::endl;
-                        else if(bool_date){
-                            map_iteration(map_db, date_token, atoi(token.c_str()));
-                        }
-                    }
-                    break;
-                }
-                default:
-                    std::cout << "Error: bad format => " << input_line << std::endl;
-                    col_count = -1; //to break the getline while loop
-                    break;
-            }
-            if (col_count == -1) break;
-            col_count++;
+        // if the first 3 tokens don't exist or there's more than 3 tokens it's invalid
+         if (!(ss >> date_token >> sep >> value_str) || (ss >> extra)) {
+            std::cout << "Error: bad input => " << input_line << std::endl;
+            continue;
         }
-        col_count = 0;
+
+        bool_date = identify_date(date_token);
+
+        if(!bool_date) std::cout << "Error: bad input => " << input_line << std::endl;
+        if(sep != "|") std::cout << "Error: bad input => " << input_line << std::endl;
+
+        value_ret = value_check(value_str);
+        if(bool_date){
+            if(value_ret == -1) std::cout << "Error: not a positive number." << std::endl;                 
+            else if(value_ret == -2) std::cout << "Error: too large a number." << std::endl;    
+            else if (value_ret == 0) std::cout << "Error: value not within range." << std::endl;
+            else if(bool_date) map_iteration(map_db, date_token, atoi(value_str.c_str()));
+        }
     }
 }
 
