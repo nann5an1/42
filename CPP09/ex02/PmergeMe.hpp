@@ -18,7 +18,9 @@ class PmergeMe{
     private:
         int _pair_count, final_flag; //final_flag indication just for output purposes
         std::vector<std::pair<int, int> > pairs, sorted_pairs;
-        std::vector<int> vec, input_vec, main_chaine, pending_chaine, original_pending, original_main, sorted_main_chaine;
+        std::vector<int> vec, input_vec,
+        main_chaine, pending_chaine, original_pending, 
+        original_main, sorted_main_chaine;
         std::deque<int> deq;
     public:
         PmergeMe();
@@ -30,6 +32,7 @@ class PmergeMe{
         void execute(int ac, char **av);
         std::vector<int> generate_sequence();
         void time_comparision_output(double duration_deq, double duration_vec);
+        int duplicate_check(std::vector<int> &input_vec);
 
     //print_container_template
     template <typename T>
@@ -60,31 +63,25 @@ class PmergeMe{
         std::cout << std::endl;
     }
 
-        //ford johnson applilcation on the main chain (recursive)
+    //ford johnson applilcation on the main chain (recursive)
     template <typename T>
     T ford_johnson(T& container) {
         if (container.size() <= 1)
             return container;
 
-        // Step 1: make pairs
+        //make pairs
         std::vector<std::pair<typename T::value_type, typename T::value_type> > local_pairs;
         ford_original_pairs(container, local_pairs);
 
-        // Step 2: split into main/pending
+        // split into main/pending
         T local_main;
         T local_pending;
         ford_separate_pairs(local_pairs, local_main, local_pending);
 
-        // Debug print
-        // std::cout << "Debug print <<" << std::endl;
-        // print_pair(local_pairs);
-        // print_container(local_main);
-        // print_container(local_pending);
-
-        // Step 3: recurse on main
+        // recurse on main chaine(no need on the pending)
         T sorted_main = ford_johnson(local_main);
 
-        // Step 4: insert pending into sorted_main
+        // insert pending into final sorted_main
         for (typename T::iterator it = local_pending.begin(); it != local_pending.end(); ++it) {
             typename T::iterator pos = std::lower_bound(sorted_main.begin(), sorted_main.end(), *it);
             sorted_main.insert(pos, *it);
@@ -107,17 +104,16 @@ class PmergeMe{
         }
     }
 
-        //getting original pairs before ford-johnson [15, 2], [12, 3], [4, 5]
+    //getting original pairs before ford-johnson [15, 2], [12, 3], [4, 5]
     template <typename T>
     void get_original_pairs(T& container){
         typename T::iterator it;
         T main_chaine;
         _pair_count = 0;
         
-        // std::vector<std::pair<int, int> > paired;
         std::vector<std::pair<int, int> >::iterator it_paired;
 
-        // Step 1: make into pairs, larger element first
+        //make into pairs, larger element first
         for(it = container.begin(); it != container.end(); ++it){
             if((it + 1) != container.end()){
                 if(*it < *(it + 1))
@@ -147,9 +143,9 @@ class PmergeMe{
                     std::swap(a, b);
 
                 paired.push_back(std::make_pair(a, b));
-                ++it; // skip the second
+                ++it;
             } else {
-                paired.push_back(std::make_pair(*it, -1)); // handle leftover
+                paired.push_back(std::make_pair(*it, -1));
                 break;
             }
         }
@@ -175,11 +171,7 @@ class PmergeMe{
 
     template <typename T>
     void jacobsthal(T& sorted_main) {
-    if (original_pending.empty()) {
-        // std::cout << "No more elements to insert. Final result:" << std::endl;
-        // print_container(sorted_main);
-        return; // base case
-    }
+    if (original_pending.empty()) return; // base case
 
     // std::cout << "Starting jacobsthal round with " << original_pending.size() << " pending elements" << std::endl;
     // print_container(original_pending);
@@ -194,9 +186,8 @@ class PmergeMe{
         int idx = jacobsthal_sequence[i];
         
         // Check bounds - jacobsthal indices are 1-based
-        if (idx >= 1 && idx <= (int)original_pending.size()) {
+        if (idx >= 1 && idx <= (int)original_pending.size()) 
             indices_to_insert.push_back(idx - 1); // Convert to 0-based index
-        }
     }
     
     // Sort indices in descending order to avoid index shifting issues when erasing
@@ -234,6 +225,35 @@ class PmergeMe{
         // print_container(container);
     }
 
+
+    template <typename T>
+    void sort_container(T& container){
+        //clear every vector before another container application
+        pairs.clear();
+        sorted_pairs.clear();
+        main_chaine.clear();
+        pending_chaine.clear();
+        original_pending.clear();
+        original_main.clear();
+        sorted_main_chaine.clear();
+
+        get_original_pairs(container);
+
+        //separate the pairs into two chaine (maine will be applied recursive for ford-johnson, pending will be left untouched)
+        separate_pairs(pairs);
+
+        //retain the orignal pending since pending will be changed later in the ford recursion
+        original_pending = pending_chaine;
+        original_main = main_chaine;
+
+        ///////////////ford johnson implementation/////////////////////
+        //apply recursive ford-johnson on the main chaine
+        sorted_main_chaine = ford_johnson(original_main);
+
+        ///////////////jacobsthal implementation//////////////////////
+        jacobsthal(sorted_main_chaine); 
+    }
+
 };
 
     
@@ -256,6 +276,13 @@ class PositiveNumberException: public std::exception{
     public:
         virtual const char* what() const throw(){
             return "Error: no negative number is allowed.";
+        }
+};
+
+class DuplicateNumberException: public std::exception{
+    public:
+        virtual const char* what() const throw(){
+            return "Error: Duplicate number included.";
         }
 };
 
