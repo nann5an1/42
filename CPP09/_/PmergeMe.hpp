@@ -39,15 +39,15 @@ class PmergeMe{
     void print_container(T& container){
         final_flag ? std::cout << "After: " : std::cout << "Before: ";
         
-        if(container.size() > 5){
-            for(size_t it = 0; it != container.size() - (container.size() - 5); it++)
-                std::cout << container[it] << " ";
-        }
-        else{
+        // if(container.size() > 5){
+        //     for(size_t it = 0; it != container.size() - (container.size() - 5); it++)
+        //         std::cout << container[it] << " ";
+        // }
+        // else{
             for(size_t it = 0; it != container.size(); it++)
                 std::cout << container[it] << " ";
-        }
-        std::cout << "[...]" << std::endl;
+        // }
+        // std::cout << "[...]" << std::endl;
     }
 
     template <typename T>
@@ -63,7 +63,64 @@ class PmergeMe{
         std::cout << std::endl;
     }
 
-    //ford johnson applilcation on the main chain (recursive)
+
+    // recursive Ford–Johnson working on pairs
+    // template <typename T>
+    // std::vector<std::pair<int,int> > ford_johnson_pairs(std::vector<std::pair<int,int> > &pairs) {
+    //     if (pairs.size() <= 1)
+    //         return pairs;
+
+    //     // extract main (large elements only)
+    //     T local_main;
+    //     for (size_t i = 0; i < pairs.size(); ++i)
+    //         local_main.push_back(pairs[i].first);
+
+    //     // recurse on the main (large values)
+    //     T sorted_main = ford_johnson(local_main);
+
+    //     // now rebuild the pair list in the sorted order
+    //     std::vector<std::pair<int,int> > reordered_pairs;
+    //     for (size_t i = 0; i < sorted_main.size(); ++i) {
+    //         int large = sorted_main[i];
+    //         // find the matching pair (large, small)
+    //         for (size_t j = 0; j < pairs.size(); ++j) {
+    //             if (pairs[j].first == large) {
+    //                 reordered_pairs.push_back(pairs[j]);
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return reordered_pairs;
+    // }
+
+// Recursive Ford–Johnson wrapper for normal containers
+// template <typename T>
+// T ford_johnson(T& container) {
+//     if (container.size() <= 1)
+//         return container;
+
+//     // Step 1. Make pairs
+//     std::vector<std::pair<int,int> > local_pairs;
+//     ford_original_pairs(container, local_pairs);
+
+//     // Step 2. Recurse with pairs carried along
+//     std::vector<std::pair<int,int> > sorted_pairs = ford_johnson_pairs<T>(local_pairs);
+
+//     // Step 3. Extract main/pending in the *new* order
+//     T main_chain;
+//     T pending_chain;
+//     ford_separate_pairs(sorted_pairs, main_chain, pending_chain);
+
+//     // Step 4. Insert pending into sorted main (Jacobsthal later)
+//     for (typename T::iterator it = pending_chain.begin(); it != pending_chain.end(); ++it) {
+//         typename T::iterator pos = std::lower_bound(main_chain.begin(), main_chain.end(), *it);
+//         main_chain.insert(pos, *it);
+//     }
+//     return main_chain;
+// }
+
+////////mine////////////
+    // //ford johnson applilcation on the main chain (recursive)
     template <typename T>
     T ford_johnson(T& container) {
         if (container.size() <= 1)
@@ -78,6 +135,14 @@ class PmergeMe{
         T local_pending;
         ford_separate_pairs(local_pairs, local_main, local_pending);
 
+        std::cout << "<< Local Main chain >>" << std::endl;
+        print_container(local_main);
+        std::cout << std::endl;
+
+        std::cout << "<< Local Pending chain >>" << std::endl;
+        print_container(local_pending);
+        std::cout << std::endl;
+
         // recurse on main chaine(no need on the pending)
         T sorted_main = ford_johnson(local_main);
 
@@ -86,7 +151,6 @@ class PmergeMe{
             typename T::iterator pos = std::lower_bound(sorted_main.begin(), sorted_main.end(), *it);
             sorted_main.insert(pos, *it);
         }
-
         return sorted_main;
     }
 
@@ -224,8 +288,61 @@ class PmergeMe{
         // std::cout << "Updated chain after inserting " << value_to_insert << ":" << std::endl;
         // print_container(container);
     }
+    // Inside your PmergeMe class
 
+// template <typename T>
+// void sort_container(T& container){
+//     //clear every vector before another container application
+//     pairs.clear();
+//     sorted_pairs.clear();
+//     main_chaine.clear();
+//     pending_chaine.clear();
+//     original_pending.clear();
+//     original_main.clear();
+//     sorted_main_chaine.clear();
 
+//     // Step 1: Build the original pairs
+//     get_original_pairs(container);
+
+//     // Step 2: Split into main/pending
+//     separate_pairs(pairs);
+
+//     // Step 3: Retain originals
+//     original_pending = pending_chaine;
+//     original_main = main_chaine;
+
+//     // Step 4: Apply recursive Ford-Johnson merge-sort on the main chain
+//     sorted_main_chaine = ford_johnson(original_main);
+
+//     // Step 5: Reorder pending elements to follow partner’s new position
+//     std::vector<int> reordered_pending;
+//     for (size_t i = 0; i < sorted_main_chaine.size(); ++i) {
+//         int main_val = sorted_main_chaine[i];
+
+//         // locate pair partner
+//         for (size_t j = 0; j < pairs.size(); ++j) {
+//             if (pairs[j].first == main_val && pairs[j].second != -1) {
+//                 reordered_pending.push_back(pairs[j].second);
+//                 break;
+//             }
+//         }
+//     }
+
+//     // Step 6: Add leftover unmatched (-1) if any
+//     for (size_t j = 0; j < pairs.size(); ++j) {
+//         if (pairs[j].second == -1) {
+//             reordered_pending.push_back(pairs[j].first);
+//         }
+//     }
+
+//     original_pending = reordered_pending;
+//     std::cout << "Reorderd pending >>" << std::endl;
+//     std::cout << std::endl;
+    // Step 7: Apply Jacobsthal insertion
+    // jacobsthal(sorted_main_chaine);
+// }
+
+/////////////mine////////////////
     template <typename T>
     void sort_container(T& container){
         //clear every vector before another container application
@@ -247,12 +364,15 @@ class PmergeMe{
         original_main = main_chaine;
 
         ///////////////ford johnson implementation/////////////////////
+
+        
+
         //apply recursive ford-johnson on the main chaine
         sorted_main_chaine = ford_johnson(original_main);
 
         ///////////////jacobsthal implementation//////////////////////
 
-        jacobsthal(sorted_main_chaine); 
+        // jacobsthal(sorted_main_chaine); 
     }
 
 };

@@ -39,15 +39,16 @@ class PmergeMe{
     void print_container(T& container){
         final_flag ? std::cout << "After: " : std::cout << "Before: ";
         
-        if(container.size() > 5){
-            for(size_t it = 0; it != container.size() - (container.size() - 5); it++)
-                std::cout << container[it] << " ";
-        }
-        else{
+        // if(container.size() > 5){
+        //     for(size_t it = 0; it != container.size() - (container.size() - 5); it++)
+        //         std::cout << container[it] << " ";
+        //     std::cout << "[...]" << std::endl;
+        // }
+        // else{
             for(size_t it = 0; it != container.size(); it++)
                 std::cout << container[it] << " ";
-        }
-        std::cout << "[...]" << std::endl;
+        // }
+        std::cout << std::endl;
     }
 
     template <typename T>
@@ -78,31 +79,63 @@ class PmergeMe{
         T local_pending;
         ford_separate_pairs(local_pairs, local_main, local_pending);
 
+        std::cout << ">> Local pending << " << std::endl;
+        print_container(local_pending);
+
         // recurse on main chaine(no need on the pending)
         T sorted_main = ford_johnson(local_main);
+
+       
+        std::cout << std::endl;
 
         // insert pending into final sorted_main
         for (typename T::iterator it = local_pending.begin(); it != local_pending.end(); ++it) {
             typename T::iterator pos = std::lower_bound(sorted_main.begin(), sorted_main.end(), *it);
             sorted_main.insert(pos, *it);
         }
-
+        std::cout << ">> Sorted main << " << std::endl;
+        print_container(sorted_main);
         return sorted_main;
     }
 
-    template <typename T>
-    void separate_pairs(T& container){
-        typename T::iterator it;
+     template <typename T>
+    void ford_original_pairs(const T& container, std::vector<std::pair<int,int> >& paired) {
+        typename T::const_iterator it;
 
-        for(it = container.begin(); it != container.end(); ++it){
-            if(it->second != -1)
-                main_chaine.push_back(it->first);
-            if(it->second == -1)
-                pending_chaine.push_back(it->first);
-            else
-                pending_chaine.push_back(it->second);
+        for (it = container.begin(); it != container.end(); ++it) {
+            if ((it + 1) != container.end()) {
+                int a = *it;
+                int b = *(it + 1);
+                if (a < b)
+                    std::swap(a, b);
+
+                paired.push_back(std::make_pair(a, b));
+                ++it;
+            } else {
+                paired.push_back(std::make_pair(*it, -1));
+                break;
+            }
         }
     }
+
+    template <typename T>
+    void ford_separate_pairs(
+        const std::vector<std::pair<int,int> >& paired,
+        T& main_chain,
+        T& pending_chain
+    ) {
+        typename std::vector<std::pair<int,int> >::const_iterator it;
+        for (it = paired.begin(); it != paired.end(); ++it) {
+            if(it->second != -1)
+                main_chain.push_back(it->first);
+            if(it->second == -1)
+                pending_chain.push_back(it->first);
+            else
+                pending_chain.push_back(it->second);
+        }
+    }
+
+   
 
     //getting original pairs before ford-johnson [15, 2], [12, 3], [4, 5]
     template <typename T>
@@ -130,42 +163,17 @@ class PmergeMe{
         }
     }
 
-    // make pairs from container → output into `paired`
-    template <typename T>
-    void ford_original_pairs(const T& container, std::vector<std::pair<int,int> >& paired) {
-        typename T::const_iterator it;
+     template <typename T>
+    void separate_pairs(T& container){
+        typename T::iterator it;
 
-        for (it = container.begin(); it != container.end(); ++it) {
-            if ((it + 1) != container.end()) {
-                int a = *it;
-                int b = *(it + 1);
-                if (a < b)
-                    std::swap(a, b);
-
-                paired.push_back(std::make_pair(a, b));
-                ++it;
-            } else {
-                paired.push_back(std::make_pair(*it, -1));
-                break;
-            }
-        }
-    }
-
-    // split pairs into main/pending
-    template <typename T>
-    void ford_separate_pairs(
-        const std::vector<std::pair<int,int> >& paired,
-        T& main_chain,
-        T& pending_chain
-    ) {
-        typename std::vector<std::pair<int,int> >::const_iterator it;
-        for (it = paired.begin(); it != paired.end(); ++it) {
+        for(it = container.begin(); it != container.end(); ++it){
             if(it->second != -1)
-                main_chain.push_back(it->first);
+                main_chaine.push_back(it->first);
             if(it->second == -1)
-                pending_chain.push_back(it->first);
+                pending_chaine.push_back(it->first);
             else
-                pending_chain.push_back(it->second);
+                pending_chaine.push_back(it->second);
         }
     }
 
@@ -207,23 +215,26 @@ class PmergeMe{
         }
     }
     
+    ////main pending print
+    
+
     // Recurse with remaining elements
-    jacobsthal(sorted_main);
+    // jacobsthal(sorted_main);
 }
 
-    template <typename T>
-    void binary_insertion_sort(T& container, int value_to_insert) {
-        // std::cout << "Inserting " << value_to_insert << " into sorted chain" << std::endl;
+    // template <typename T>
+    // void binary_insertion_sort(T& container, int value_to_insert) {
+    //     // std::cout << "Inserting " << value_to_insert << " into sorted chain" << std::endl;
         
-        // Binary search to find insertion point
-        typename T::iterator pos = std::lower_bound(container.begin(), container.end(), value_to_insert);
+    //     // Binary search to find insertion point
+    //     typename T::iterator pos = std::lower_bound(container.begin(), container.end(), value_to_insert);
         
-        // Insert at the found position
-        container.insert(pos, value_to_insert);
+    //     // Insert at the found position
+    //     container.insert(pos, value_to_insert);
         
-        // std::cout << "Updated chain after inserting " << value_to_insert << ":" << std::endl;
-        // print_container(container);
-    }
+    //     // std::cout << "Updated chain after inserting " << value_to_insert << ":" << std::endl;
+    //     // print_container(container);
+    // }
 
 
     template <typename T>
@@ -243,16 +254,28 @@ class PmergeMe{
         separate_pairs(pairs);
 
         //retain the orignal pending since pending will be changed later in the ford recursion
-        original_pending = pending_chaine;
-        original_main = main_chaine;
+        original_pending = pending_chaine; //original pending is the collection of smaller elements
+        original_main = main_chaine; //original main is the collection of larger elements
+
+        /////////////////debugged printing //////////////////////////
+        std::cout << std::endl;
+        std::cout << "Original larger elements: " << std::endl;
+        print_container(original_main);
+        std::cout << std::endl;
+        std::cout << "Original smaller elements: " << std::endl;
+        print_container(original_pending);
 
         ///////////////ford johnson implementation/////////////////////
-        //apply recursive ford-johnson on the main chaine
-        sorted_main_chaine = ford_johnson(original_main);
+        ford_johnson(main_chaine); //main_chaine is the bigger elements chain
 
         ///////////////jacobsthal implementation//////////////////////
 
-        jacobsthal(sorted_main_chaine); 
+        ////main pending print
+        std::cout << "<< Main original pending before jacob >>" << std::endl;
+        print_container(original_pending);
+        std::cout << std::endl;
+        
+        jacobsthal(main_chaine); //main_chaine is the bigger elements chain
     }
 
 };
