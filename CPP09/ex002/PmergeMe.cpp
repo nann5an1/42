@@ -33,7 +33,7 @@ void PmergeMe::digit_check(int ac, char **av){
 double get_time_microseconds() {
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    return (tv.tv_sec * 1000000.0 + tv.tv_usec) / 100000.0;
+    return (tv.tv_sec * 1000000.0 + tv.tv_usec) ;
 }
 
 void PmergeMe::execute(int ac, char **av){
