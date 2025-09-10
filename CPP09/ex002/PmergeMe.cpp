@@ -76,17 +76,18 @@ int calculation(int n){ //jacobsthal formula
     return numerator / 3;
 }
 
+//generate the index sequence of the Jacobsthal (1, 3, 2, 5, 4,....)
 std::vector<int> PmergeMe::generate_sequence() {
     std::vector<int> seq;
     int n = original_pending.size();
     if (n == 0) return seq;
 
-    int last = 1; // first index (partner of smallest always goes first)
+    int last = 1; // first index
     seq.push_back(1);
 
     for (int k = 3; ; ++k) {  // start at J(3)=3
         int j = calculation(k);
-        if (j > n) j = n;
+        if (j > n) j = n; //check if the jaconsthal value is greater than original pending size
 
         // insert from j down to last+1 (reverse order)
         for (int idx = j; idx > last; --idx)
@@ -95,33 +96,29 @@ std::vector<int> PmergeMe::generate_sequence() {
         last = j;
         if (j == n) break;
     }
-
     return seq;
 }
 
 
 template <typename T>
 void PmergeMe::jacobsthal(T& sorted_main) {
-    if (original_pending.empty()) return;
+    if (original_pending.empty())
+        return;
+
     std::vector<int> jacobsthal_sequence = generate_sequence();
-    std::vector<int> indices_to_insert;
-    for (int i = jacobsthal_sequence.size() - 1; i >= 0; --i) {
-        int idx = jacobsthal_sequence[i];
-        // std::cout << "idx: " << idx << std::endl;
-        if (idx >= 1 && idx <= (int)original_pending.size())
-            indices_to_insert.push_back(idx - 1);
+
+    // std::cout << "original_pending[0]: " << original_pending[0] << std::endl;
+    // std::cout << "value to insert" << original_pending[0] << std::endl;
+    binary_insertion_sort(sorted_main, original_pending[0]); 
+    for (size_t i = 0; i < jacobsthal_sequence.size(); ++i) {
+        int idx1 = jacobsthal_sequence[i];
+        // std::cout << "idx1: " << idx1 << std::endl;
+        // std::cout << "Value to insert: " << original_pending[idx1] << std::endl;
+        binary_insertion_sort(sorted_main, original_pending[idx1]);
     }
-    std::sort(indices_to_insert.rbegin(), indices_to_insert.rend());
-    for (size_t k = 0; k < indices_to_insert.size(); ++k) {
-        int idx = indices_to_insert[k];
-        if (idx >= 0 && idx < (int)original_pending.size()) {
-            int value_to_insert = original_pending[idx];
-            binary_insertion_sort(sorted_main, value_to_insert);
-            original_pending.erase(original_pending.begin() + idx);
-        }
-    }
-    jacobsthal(sorted_main);
+    original_pending.clear();
 }
+
 
 // explicit instantiations
 template void PmergeMe::jacobsthal<std::vector<int> >(std::vector<int>&);

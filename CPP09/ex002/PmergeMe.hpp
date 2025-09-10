@@ -16,7 +16,7 @@
 
 class PmergeMe {
     private:
-        int _pair_count, final_flag;
+        int final_flag;
         std::vector<std::pair<int, int> > pairs, sorted_pairs;
         std::vector<int> vec, input_vec,
         main_chaine, pending_chaine, original_pending, 
@@ -50,10 +50,9 @@ class PmergeMe {
                 std::cout << container[it] << " " ;
             std::cout << std::endl;
         }
-        
-        
     }
 
+    //debug print pairs
         template <typename T>
         void print_pair(T& container) {
             typename T::iterator it;
@@ -70,19 +69,18 @@ class PmergeMe {
         // ford–johnson recursive
         template <typename T>
         T ford_johnson(T& container) {
-            if (container.size() <= 1)
-                return container;
+            if (container.size() <= 1) return container;
 
             std::vector<std::pair<typename T::value_type, typename T::value_type> > local_pairs;
-            ford_original_pairs(container, local_pairs);
+            ford_original_pairs(container, local_pairs); //local pairs has the ordered pairs of the container
 
-            T local_main;
-            T local_pending;
-            ford_separate_pairs(local_pairs, local_main, local_pending);
+            T bigger_elements;
+            T smaller_elements;
+            ford_separate_pairs(local_pairs, bigger_elements, smaller_elements);
 
-            T sorted_main = ford_johnson(local_main);
+            T sorted_main = ford_johnson(bigger_elements);
 
-            for (typename T::iterator it = local_pending.begin(); it != local_pending.end(); ++it) {
+            for (typename T::iterator it = smaller_elements.begin(); it != smaller_elements.end(); ++it) {
                 typename T::iterator pos = std::lower_bound(sorted_main.begin(), sorted_main.end(), *it);
                 sorted_main.insert(pos, *it);
             }
@@ -106,7 +104,6 @@ class PmergeMe {
         template <typename T>
         void get_original_pairs(T& container){
             typename T::iterator it;
-            _pair_count = 0;
             for(it = container.begin(); it != container.end(); ++it){
                 if((it + 1) != container.end()){
                     if(*it < *(it + 1))
@@ -118,12 +115,11 @@ class PmergeMe {
                     pairs.push_back(std::make_pair(*it, -1));
                     break;
                 }
-                _pair_count++;
             }
         }
 
         template <typename T>
-        void ford_original_pairs(const T& container, std::vector<std::pair<int,int> >& paired) {
+        void ford_original_pairs(const T& container, std::vector<std::pair<int,int> >& paired) { //container is the original main chain, paired is the local pairs
             typename T::const_iterator it;
             for (it = container.begin(); it != container.end(); ++it) {
                 if ((it + 1) != container.end()) {
@@ -142,30 +138,31 @@ class PmergeMe {
 
         template <typename T>
         void ford_separate_pairs(
-            const std::vector<std::pair<int,int> >& paired,
-            T& main_chain,
-            T& pending_chain
+            const std::vector<std::pair<int,int> >& paired, //paired is the ordered pairs [10, 3], [14, 2]
+            T& bigger_elements,
+            T& smaller_elements
         ) {
             typename std::vector<std::pair<int,int> >::const_iterator it;
             for (it = paired.begin(); it != paired.end(); ++it) {
                 if(it->second != -1)
-                    main_chain.push_back(it->first);
+                    bigger_elements.push_back(it->first);
                 if(it->second == -1)
-                    pending_chain.push_back(it->first);
+                    smaller_elements.push_back(it->first);
                 else
-                    pending_chain.push_back(it->second);
+                    smaller_elements.push_back(it->second);
             }
         }
 
-        // jacobsthal helpers
-        template <typename T>
-        void jacobsthal(T& sorted_main);
-
+    
         template <typename T>
         void binary_insertion_sort(T& container, int value_to_insert) {
             typename T::iterator pos = std::lower_bound(container.begin(), container.end(), value_to_insert);
             container.insert(pos, value_to_insert);
         }
+
+        //declarations
+        template <typename T>
+        void jacobsthal(T& sorted_main);
 
         template <typename T>
         void sort_container(T& container);
