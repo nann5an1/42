@@ -16,7 +16,7 @@ void print_board(int width, int height, char **board){
             putchar(board[row][col++]);
         }
         putchar('\n');
-        row++;;
+        row++;
     }
 }
 
