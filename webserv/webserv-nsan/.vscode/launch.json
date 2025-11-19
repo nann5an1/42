@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/NannSu/Downloads/webserv/webserv/srcs",
-      "program": "c:/Users/NannSu/Downloads/webserv/webserv/srcs/build/Debug/outDebug",
+      "cwd": "c:/Users/NannSu/Downloads/webserv-nsan/webserv-nsan",
+      "program": "c:/Users/NannSu/Downloads/webserv-nsan/webserv-nsan/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
